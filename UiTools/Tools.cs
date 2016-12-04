@@ -6,7 +6,7 @@ using log4net;
 
 namespace WHL.UiTools
 {
-    class Tools
+    public class Tools
     {
         public static string ReadFile(string urlAddress, ILog log)
         {

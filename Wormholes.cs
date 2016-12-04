@@ -8,7 +8,7 @@ using log4net;
 
 namespace WHLocator
 {
-    class Wormhole
+    public class Wormhole
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -17,17 +17,26 @@ namespace WHLocator
         public string MaxJumpMass { get; set; }
     }
 
-    class Wormholes
+    public class Wormholes
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Wormholes));
 
         private readonly List<Wormhole> _list = new List<Wormhole>();
 
-        public Wormhole GetWormhole(string name)
+        public Wormhole GetWormhole(string id)
         {
-            Log.DebugFormat("[Wormholes.GetWormhole] name is {0}", name);
+            Log.DebugFormat("[Wormholes.GetWormhole] name is {0}", id);
 
-            return _list.FirstOrDefault(wormholeType => wormholeType.Id.Trim() == name.Trim());
+            foreach (var wormhole in _list)
+            {
+                if (wormhole.Id.Trim() == id.Trim())
+                {
+                    return wormhole;
+                }
+            }
+
+            return null;
+            //return _list.FirstOrDefault(wormholeType => wormholeType.Id.Trim() == id.Trim());
         }
 
         public Wormholes()

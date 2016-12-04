@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlControls = new System.Windows.Forms.Panel();
+            this.cmdPin = new System.Windows.Forms.Button();
+            this.cmdClose = new System.Windows.Forms.Button();
+            this.cmdMinimazeRestore = new System.Windows.Forms.Button();
             this.lblSolarSystemName = new System.Windows.Forms.Label();
             this.pnlAuthirization = new System.Windows.Forms.Panel();
             this.lblAuthirization = new System.Windows.Forms.Label();
@@ -40,7 +43,9 @@
             this.lblPilotsInformation = new System.Windows.Forms.Label();
             this.containerAuthirization = new System.Windows.Forms.Panel();
             this.lblCurrentPilotName = new System.Windows.Forms.Label();
+            this.crlPilotPortrait = new System.Windows.Forms.PictureBox();
             this.lblAuthorizationInfo = new System.Windows.Forms.Label();
+            this.btnLogInWithEveOnline = new System.Windows.Forms.PictureBox();
             this.RefreshTokenTimer = new System.Windows.Forms.Timer(this.components);
             this.lblPilotName = new System.Windows.Forms.Label();
             this.containerSolarSystemInformation = new System.Windows.Forms.Panel();
@@ -99,24 +104,21 @@
             this.panel11 = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
             this.containerWebBrowserPanel = new System.Windows.Forms.Panel();
+            this.txtUrl = new System.Windows.Forms.TextBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label21 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.lblVersionID = new System.Windows.Forms.Label();
             this.btnOpenBrowserAndStartUrl = new System.Windows.Forms.Button();
-            this.crlPilotPortrait = new System.Windows.Forms.PictureBox();
-            this.btnLogInWithEveOnline = new System.Windows.Forms.PictureBox();
-            this.cmdPin = new System.Windows.Forms.Button();
-            this.cmdClose = new System.Windows.Forms.Button();
-            this.cmdMinimazeRestore = new System.Windows.Forms.Button();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.label21 = new System.Windows.Forms.Label();
-            this.txtUrl = new System.Windows.Forms.TextBox();
             this.pnlControls.SuspendLayout();
             this.pnlAuthirization.SuspendLayout();
             this.pnlSolarSystemInformation.SuspendLayout();
             this.pnlPilotsInformation.SuspendLayout();
             this.containerAuthirization.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.crlPilotPortrait)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnLogInWithEveOnline)).BeginInit();
             this.containerSolarSystemInformation.SuspendLayout();
             this.cmdShowDotlanPanel.SuspendLayout();
             this.cmdShowEllathaPanel.SuspendLayout();
@@ -135,21 +137,59 @@
             this.panel9.SuspendLayout();
             this.panel11.SuspendLayout();
             this.containerWebBrowserPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.crlPilotPortrait)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnLogInWithEveOnline)).BeginInit();
             this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlControls
             // 
             this.pnlControls.BackColor = System.Drawing.Color.Transparent;
+            this.pnlControls.Controls.Add(this.btnOpenBrowserAndStartUrl);
             this.pnlControls.Controls.Add(this.cmdPin);
             this.pnlControls.Controls.Add(this.cmdClose);
             this.pnlControls.Controls.Add(this.cmdMinimazeRestore);
-            this.pnlControls.Location = new System.Drawing.Point(470, 2);
+            this.pnlControls.Location = new System.Drawing.Point(456, 4);
             this.pnlControls.Name = "pnlControls";
-            this.pnlControls.Size = new System.Drawing.Size(61, 22);
+            this.pnlControls.Size = new System.Drawing.Size(94, 22);
             this.pnlControls.TabIndex = 4;
+            // 
+            // cmdPin
+            // 
+            this.cmdPin.BackColor = System.Drawing.Color.Black;
+            this.cmdPin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmdPin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdPin.Image = global::WHL.Properties.Resources.pin;
+            this.cmdPin.Location = new System.Drawing.Point(4, 0);
+            this.cmdPin.Name = "cmdPin";
+            this.cmdPin.Size = new System.Drawing.Size(22, 22);
+            this.cmdPin.TabIndex = 3;
+            this.cmdPin.UseVisualStyleBackColor = false;
+            this.cmdPin.Click += new System.EventHandler(this.cmdPin_Click);
+            // 
+            // cmdClose
+            // 
+            this.cmdClose.BackColor = System.Drawing.Color.Black;
+            this.cmdClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmdClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdClose.Image = global::WHL.Properties.Resources.close;
+            this.cmdClose.Location = new System.Drawing.Point(70, 0);
+            this.cmdClose.Name = "cmdClose";
+            this.cmdClose.Size = new System.Drawing.Size(22, 22);
+            this.cmdClose.TabIndex = 0;
+            this.cmdClose.UseVisualStyleBackColor = false;
+            this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
+            // 
+            // cmdMinimazeRestore
+            // 
+            this.cmdMinimazeRestore.BackColor = System.Drawing.Color.Black;
+            this.cmdMinimazeRestore.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmdMinimazeRestore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdMinimazeRestore.Image = global::WHL.Properties.Resources.minimize;
+            this.cmdMinimazeRestore.Location = new System.Drawing.Point(48, 0);
+            this.cmdMinimazeRestore.Name = "cmdMinimazeRestore";
+            this.cmdMinimazeRestore.Size = new System.Drawing.Size(22, 22);
+            this.cmdMinimazeRestore.TabIndex = 2;
+            this.cmdMinimazeRestore.UseVisualStyleBackColor = false;
+            this.cmdMinimazeRestore.Click += new System.EventHandler(this.cmdMinimazeRestore_Click);
             // 
             // lblSolarSystemName
             // 
@@ -248,7 +288,7 @@
             // 
             // containerAuthirization
             // 
-            this.containerAuthirization.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.containerAuthirization.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.containerAuthirization.Controls.Add(this.lblCurrentPilotName);
             this.containerAuthirization.Controls.Add(this.crlPilotPortrait);
             this.containerAuthirization.Controls.Add(this.lblAuthorizationInfo);
@@ -270,6 +310,17 @@
             this.lblCurrentPilotName.Text = "!!!!";
             this.lblCurrentPilotName.Visible = false;
             // 
+            // crlPilotPortrait
+            // 
+            this.crlPilotPortrait.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.crlPilotPortrait.Location = new System.Drawing.Point(16, 17);
+            this.crlPilotPortrait.Name = "crlPilotPortrait";
+            this.crlPilotPortrait.Size = new System.Drawing.Size(64, 64);
+            this.crlPilotPortrait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.crlPilotPortrait.TabIndex = 8;
+            this.crlPilotPortrait.TabStop = false;
+            this.crlPilotPortrait.Visible = false;
+            // 
             // lblAuthorizationInfo
             // 
             this.lblAuthorizationInfo.BackColor = System.Drawing.Color.Transparent;
@@ -280,6 +331,18 @@
             this.lblAuthorizationInfo.Size = new System.Drawing.Size(394, 97);
             this.lblAuthorizationInfo.TabIndex = 6;
             this.lblAuthorizationInfo.Text = "J230456";
+            // 
+            // btnLogInWithEveOnline
+            // 
+            this.btnLogInWithEveOnline.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLogInWithEveOnline.Image = global::WHL.Properties.Resources.EVE_SSO_Login_Buttons_Large_Black;
+            this.btnLogInWithEveOnline.Location = new System.Drawing.Point(123, 152);
+            this.btnLogInWithEveOnline.Name = "btnLogInWithEveOnline";
+            this.btnLogInWithEveOnline.Size = new System.Drawing.Size(270, 45);
+            this.btnLogInWithEveOnline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.btnLogInWithEveOnline.TabIndex = 0;
+            this.btnLogInWithEveOnline.TabStop = false;
+            this.btnLogInWithEveOnline.Click += new System.EventHandler(this.btnLogInWithEveOnline_Click);
             // 
             // RefreshTokenTimer
             // 
@@ -294,7 +357,7 @@
             this.lblPilotName.ForeColor = System.Drawing.Color.LightGray;
             this.lblPilotName.Location = new System.Drawing.Point(126, 8);
             this.lblPilotName.Name = "lblPilotName";
-            this.lblPilotName.Size = new System.Drawing.Size(317, 18);
+            this.lblPilotName.Size = new System.Drawing.Size(210, 18);
             this.lblPilotName.TabIndex = 10;
             this.lblPilotName.Text = "Log in as ";
             this.lblPilotName.Visible = false;
@@ -302,7 +365,7 @@
             // 
             // containerSolarSystemInformation
             // 
-            this.containerSolarSystemInformation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.containerSolarSystemInformation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.containerSolarSystemInformation.Controls.Add(this.cmdShowDotlanPanel);
             this.containerSolarSystemInformation.Controls.Add(this.cmdShowEllathaPanel);
             this.containerSolarSystemInformation.Controls.Add(this.cmdShowSuperputePanel);
@@ -651,7 +714,7 @@
             // 
             // containerPilotInfo
             // 
-            this.containerPilotInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.containerPilotInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.containerPilotInfo.Controls.Add(this.label17);
             this.containerPilotInfo.Controls.Add(this.label16);
             this.containerPilotInfo.Controls.Add(this.label14);
@@ -872,7 +935,7 @@
             // 
             // containerBookmarksAndSignatures
             // 
-            this.containerBookmarksAndSignatures.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.containerBookmarksAndSignatures.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.containerBookmarksAndSignatures.Controls.Add(this.panel8);
             this.containerBookmarksAndSignatures.Controls.Add(this.panel9);
             this.containerBookmarksAndSignatures.Controls.Add(this.listCosmicSifnatures);
@@ -991,10 +1054,47 @@
             this.containerWebBrowserPanel.Controls.Add(this.panel5);
             this.containerWebBrowserPanel.Controls.Add(this.panel2);
             this.containerWebBrowserPanel.Controls.Add(this.panel1);
-            this.containerWebBrowserPanel.Location = new System.Drawing.Point(561, 38);
+            this.containerWebBrowserPanel.Location = new System.Drawing.Point(569, 38);
             this.containerWebBrowserPanel.Name = "containerWebBrowserPanel";
-            this.containerWebBrowserPanel.Size = new System.Drawing.Size(881, 553);
+            this.containerWebBrowserPanel.Size = new System.Drawing.Size(875, 553);
             this.containerWebBrowserPanel.TabIndex = 16;
+            // 
+            // txtUrl
+            // 
+            this.txtUrl.BackColor = System.Drawing.Color.DimGray;
+            this.txtUrl.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtUrl.Font = new System.Drawing.Font("Verdana", 12F);
+            this.txtUrl.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.txtUrl.Location = new System.Drawing.Point(106, 5);
+            this.txtUrl.Name = "txtUrl";
+            this.txtUrl.Size = new System.Drawing.Size(664, 20);
+            this.txtUrl.TabIndex = 14;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.Black;
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.label21);
+            this.panel5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panel5.Location = new System.Drawing.Point(776, 1);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(99, 26);
+            this.panel5.TabIndex = 13;
+            this.panel5.Click += new System.EventHandler(this.Event_ExecuteUrlInWhlBrowser);
+            // 
+            // label21
+            // 
+            this.label21.BackColor = System.Drawing.Color.Transparent;
+            this.label21.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label21.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.LightGray;
+            this.label21.Location = new System.Drawing.Point(8, 5);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(87, 18);
+            this.label21.TabIndex = 6;
+            this.label21.Text = "Run";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label21.Click += new System.EventHandler(this.Event_ExecuteUrlInWhlBrowser);
             // 
             // label18
             // 
@@ -1042,119 +1142,23 @@
             // 
             // btnOpenBrowserAndStartUrl
             // 
+            this.btnOpenBrowserAndStartUrl.BackColor = System.Drawing.Color.Black;
             this.btnOpenBrowserAndStartUrl.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnOpenBrowserAndStartUrl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenBrowserAndStartUrl.Image = global::WHL.Properties.Resources.url;
-            this.btnOpenBrowserAndStartUrl.Location = new System.Drawing.Point(98, 4);
+            this.btnOpenBrowserAndStartUrl.Location = new System.Drawing.Point(26, 0);
             this.btnOpenBrowserAndStartUrl.Name = "btnOpenBrowserAndStartUrl";
             this.btnOpenBrowserAndStartUrl.Size = new System.Drawing.Size(22, 22);
             this.btnOpenBrowserAndStartUrl.TabIndex = 46;
-            this.btnOpenBrowserAndStartUrl.UseVisualStyleBackColor = true;
+            this.btnOpenBrowserAndStartUrl.UseVisualStyleBackColor = false;
             this.btnOpenBrowserAndStartUrl.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // crlPilotPortrait
-            // 
-            this.crlPilotPortrait.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.crlPilotPortrait.Location = new System.Drawing.Point(16, 17);
-            this.crlPilotPortrait.Name = "crlPilotPortrait";
-            this.crlPilotPortrait.Size = new System.Drawing.Size(64, 64);
-            this.crlPilotPortrait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.crlPilotPortrait.TabIndex = 8;
-            this.crlPilotPortrait.TabStop = false;
-            this.crlPilotPortrait.Visible = false;
-            // 
-            // btnLogInWithEveOnline
-            // 
-            this.btnLogInWithEveOnline.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLogInWithEveOnline.Image = global::WHL.Properties.Resources.EVE_SSO_Login_Buttons_Large_Black;
-            this.btnLogInWithEveOnline.Location = new System.Drawing.Point(123, 152);
-            this.btnLogInWithEveOnline.Name = "btnLogInWithEveOnline";
-            this.btnLogInWithEveOnline.Size = new System.Drawing.Size(270, 45);
-            this.btnLogInWithEveOnline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.btnLogInWithEveOnline.TabIndex = 0;
-            this.btnLogInWithEveOnline.TabStop = false;
-            this.btnLogInWithEveOnline.Click += new System.EventHandler(this.btnLogInWithEveOnline_Click);
-            // 
-            // cmdPin
-            // 
-            this.cmdPin.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmdPin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdPin.Image = global::WHL.Properties.Resources.pin;
-            this.cmdPin.Location = new System.Drawing.Point(0, 0);
-            this.cmdPin.Name = "cmdPin";
-            this.cmdPin.Size = new System.Drawing.Size(22, 22);
-            this.cmdPin.TabIndex = 3;
-            this.cmdPin.UseVisualStyleBackColor = true;
-            this.cmdPin.Click += new System.EventHandler(this.cmdPin_Click);
-            // 
-            // cmdClose
-            // 
-            this.cmdClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmdClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdClose.Image = global::WHL.Properties.Resources.close;
-            this.cmdClose.Location = new System.Drawing.Point(39, 0);
-            this.cmdClose.Name = "cmdClose";
-            this.cmdClose.Size = new System.Drawing.Size(22, 22);
-            this.cmdClose.TabIndex = 0;
-            this.cmdClose.UseVisualStyleBackColor = true;
-            this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
-            // 
-            // cmdMinimazeRestore
-            // 
-            this.cmdMinimazeRestore.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmdMinimazeRestore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdMinimazeRestore.Image = global::WHL.Properties.Resources.minimize;
-            this.cmdMinimazeRestore.Location = new System.Drawing.Point(19, 0);
-            this.cmdMinimazeRestore.Name = "cmdMinimazeRestore";
-            this.cmdMinimazeRestore.Size = new System.Drawing.Size(22, 22);
-            this.cmdMinimazeRestore.TabIndex = 2;
-            this.cmdMinimazeRestore.UseVisualStyleBackColor = true;
-            this.cmdMinimazeRestore.Click += new System.EventHandler(this.cmdMinimazeRestore_Click);
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.Color.Black;
-            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.label21);
-            this.panel5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel5.Location = new System.Drawing.Point(776, 1);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(99, 26);
-            this.panel5.TabIndex = 13;
-            this.panel5.Click += new System.EventHandler(this.Event_ExecuteUrlInWhlBrowser);
-            // 
-            // label21
-            // 
-            this.label21.BackColor = System.Drawing.Color.Transparent;
-            this.label21.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label21.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.LightGray;
-            this.label21.Location = new System.Drawing.Point(8, 5);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(87, 18);
-            this.label21.TabIndex = 6;
-            this.label21.Text = "Run";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label21.Click += new System.EventHandler(this.Event_ExecuteUrlInWhlBrowser);
-            // 
-            // txtUrl
-            // 
-            this.txtUrl.BackColor = System.Drawing.Color.DimGray;
-            this.txtUrl.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtUrl.Font = new System.Drawing.Font("Verdana", 12F);
-            this.txtUrl.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.txtUrl.Location = new System.Drawing.Point(106, 5);
-            this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(664, 20);
-            this.txtUrl.TabIndex = 14;
             // 
             // WindowMonitoring
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.ClientSize = new System.Drawing.Size(1443, 1092);
-            this.Controls.Add(this.btnOpenBrowserAndStartUrl);
             this.Controls.Add(this.lblVersionID);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
@@ -1186,6 +1190,8 @@
             this.pnlPilotsInformation.ResumeLayout(false);
             this.containerAuthirization.ResumeLayout(false);
             this.containerAuthirization.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.crlPilotPortrait)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnLogInWithEveOnline)).EndInit();
             this.containerSolarSystemInformation.ResumeLayout(false);
             this.cmdShowDotlanPanel.ResumeLayout(false);
             this.cmdShowEllathaPanel.ResumeLayout(false);
@@ -1206,8 +1212,6 @@
             this.panel11.ResumeLayout(false);
             this.containerWebBrowserPanel.ResumeLayout(false);
             this.containerWebBrowserPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.crlPilotPortrait)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnLogInWithEveOnline)).EndInit();
             this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
 

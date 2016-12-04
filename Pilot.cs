@@ -103,7 +103,7 @@ namespace WHLocator
             
         }
 
-        private void GetAllWormholeInformation(string wormholeId)
+        public void GetAllWormholeInformation(string wormholeId)
         {
             Log.DebugFormat("[Pilot.GetAllWormholeInformation] starting for wormholeId = {0}", wormholeId);
 

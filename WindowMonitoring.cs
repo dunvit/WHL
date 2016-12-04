@@ -37,7 +37,7 @@ namespace WHLocator
         private bool _windowIsPinned = false;
         private bool _windowIsMinimaze = false;
 
-        private Size _sizeCompact = new Size(140, 29);
+        private Size _sizeCompact = new Size(160, 29);
 
         private Size _sizeOpen = new Size(564, 325);
 
@@ -92,6 +92,7 @@ namespace WHLocator
         }
 
         ToolTip toolTip1 = new ToolTip();
+        ToolTip toolTip2 = new ToolTip();
 
         private void CreateTooltipsForStatics()
         {
@@ -99,6 +100,11 @@ namespace WHLocator
             toolTip1.InitialDelay = 1000;
             toolTip1.ReshowDelay = 500;
             toolTip1.ShowAlways = true;
+
+            toolTip2.AutoPopDelay = 5000;
+            toolTip2.InitialDelay = 1000;
+            toolTip2.ReshowDelay = 500;
+            toolTip2.ShowAlways = true;
 
 
             var toolTipUrlButton = new ToolTip
@@ -172,19 +178,25 @@ namespace WHLocator
         {
             base.OnPaint(e);
 
-            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(100, Color.FromArgb(31,31,31))), 0, 0, Width, 28);
+            //e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(31,31,31)), 0, 0, Width, 28);
 
-            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(100, Color.FromArgb(19, 19, 20))), 0, 0, Width, 28);
+            e.Graphics.FillRectangle(new SolidBrush(Color.Black), 0, 0, Width, 28);
 
-            VsBorder.DrawBorderSmallWindow(e.Graphics, 0, 0, Width, 28);
+            //e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(19, 19, 20)), 0, 28, Width, Height);
 
-            VsBorder.DrawBorderSmallWindow(e.Graphics, 0, 26, Width, Height - 26);
+            e.Graphics.DrawRectangle(new Pen(Color.DarkGray, 2), 0, 0, Width, Height);
+
+            //VsBorder.DrawBorderSmallWindow(e.Graphics, 0, 0, Width, 28);
+
+            //VsBorder.DrawBorderSmallWindow(e.Graphics, 0, 26, Width, Height - 26);
 
         }
 
         private void Resize()
         {
             pnlControls.Location = new Point(Size.Width - pnlControls.Size.Width - 3, 0 + 3);
+
+            Refresh();
         }
 
         private void WindowMonitoring_DoubleClick(object sender, EventArgs e)
@@ -280,7 +292,10 @@ namespace WHLocator
 
         private void OpenSolarSystemPanel()
         {
-
+            if (_currentPilot == null)
+            {
+                return;
+            }
             pnlContainer.BringToFront();
             pnlAuthirization.BringToFront();
             pnlPilotsInformation.BringToFront();
@@ -337,23 +352,34 @@ namespace WHLocator
                         break;
                     case 2:
 
-                        wormholeI = _wormholes.GetWormhole(_currentPilot.Location.StaticSystems[0]);
-                        wormholeII = _wormholes.GetWormhole(_currentPilot.Location.StaticSystems[1]);
+                        try
+                        {
+                            wormholeI = _wormholes.GetWormhole(_currentPilot.Location.StaticSystems[0]);
+                            wormholeII = _wormholes.GetWormhole(_currentPilot.Location.StaticSystems[1]);
 
-                        txtSolarSystemStaticI.Text = _currentPilot.Location.StaticSystems[0];
-                        txtSolarSystemStaticI.Visible = true;
-                        txtSolarSystemStaticII.Text = _currentPilot.Location.StaticSystems[1];
-                        txtSolarSystemStaticII.Visible = true;
-                        txtSolarSystemStaticIData.Text = _wormholes.GetWormhole(_currentPilot.Location.StaticSystems[0]).Name;
-                        txtSolarSystemStaticI.ForeColor = Tools.GetColorBySolarSystem(_wormholes.GetWormhole(_currentPilot.Location.StaticSystems[0]).Name);
-                        txtSolarSystemStaticIData.Visible = true;
-                        txtSolarSystemStaticIIData.Text = _wormholes.GetWormhole(_currentPilot.Location.StaticSystems[1]).Name;
-                        txtSolarSystemStaticII.ForeColor = Tools.GetColorBySolarSystem(_wormholes.GetWormhole(_currentPilot.Location.StaticSystems[1]).Name);
-                        txtSolarSystemStaticIIData.Visible = true;
+                            txtSolarSystemStaticI.Text = _currentPilot.Location.StaticSystems[0];
+                            txtSolarSystemStaticI.Visible = true;
 
-                        // Set up the ToolTip text for the Button and Checkbox.
-                        toolTip1.SetToolTip(txtSolarSystemStaticI, "Max Stable Mass=" + wormholeI.MaxStableMass + " Max Jump Mass=" + wormholeI.MaxJumpMass);
-                        toolTip1.SetToolTip(txtSolarSystemStaticII, "Max Stable Mass=" + wormholeII.MaxStableMass + " Max Jump Mass=" + wormholeII.MaxJumpMass);
+                            txtSolarSystemStaticII.Text = _currentPilot.Location.StaticSystems[1];
+                            txtSolarSystemStaticII.Visible = true;
+
+                            txtSolarSystemStaticIData.Text = _wormholes.GetWormhole(_currentPilot.Location.StaticSystems[0]).Name;
+                            txtSolarSystemStaticIData.Visible = true;
+                            txtSolarSystemStaticI.ForeColor = Tools.GetColorBySolarSystem(_wormholes.GetWormhole(_currentPilot.Location.StaticSystems[0]).Name);
+                            
+                            txtSolarSystemStaticIIData.Text = _wormholes.GetWormhole(_currentPilot.Location.StaticSystems[1]).Name;
+                            txtSolarSystemStaticIIData.Visible = true;
+                            txtSolarSystemStaticII.ForeColor = Tools.GetColorBySolarSystem(_wormholes.GetWormhole(_currentPilot.Location.StaticSystems[1]).Name);
+                            
+                            toolTip1.SetToolTip(txtSolarSystemStaticI, "Max Stable Mass=" + wormholeI.MaxStableMass + " Max Jump Mass=" + wormholeI.MaxJumpMass);
+                            toolTip2.SetToolTip(txtSolarSystemStaticII, "Max Stable Mass=" + wormholeII.MaxStableMass + " Max Jump Mass=" + wormholeII.MaxJumpMass);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Error("Critical error/ Exception = " + ex);
+                        }
+
                         break;
                 }
             }
@@ -853,6 +879,10 @@ namespace WHLocator
             if (txtUrl.Text.StartsWith("http"))
             {
                 webBrowser1.Url = new Uri(txtUrl.Text);
+            }
+            else
+            {
+                webBrowser1.Url = new Uri("http://" + txtUrl.Text);
             }
         }
 
