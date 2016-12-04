@@ -137,6 +137,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Readme.md" />
     <None Include="WHL_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +147,7 @@
     <Content Include="log4net.xml" />
     <Content Include="Readme.html" />
     <Content Include="Versions\CurrentVersion.txt" />
+    <Content Include="Versions\History.txt" />
     <None Include="Resources\url.png" />
     <None Include="Resources\unpin.png" />
     <None Include="Resources\restore.png" />

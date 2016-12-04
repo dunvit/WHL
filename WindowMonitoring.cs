@@ -64,10 +64,7 @@ namespace WHLocator
         private void WindowMonitoring_Load(object sender, EventArgs e)
         {
 
-            lblVersionID.Text = System.Reflection.Assembly.GetExecutingAssembly()
-                                           .GetName()
-                                           .Version
-                                           .ToString();
+            lblVersionID.Text = @"1.21"; //System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             Log.DebugFormat("[WindowMonitoring] Version: {0}", lblVersionID.Text);
 
