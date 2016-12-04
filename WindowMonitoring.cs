@@ -825,8 +825,21 @@ namespace WHLocator
 
             if (txtInClip.StartsWith("http"))
             {
-                webBrowser1.Url = new Uri(txtInClip);
-                txtUrl.Text = txtInClip;
+                if (webBrowser1.Url != null)
+                {
+                    if (txtInClip != txtUrl.Text)
+                    {
+                        webBrowser1.Url = new Uri(txtInClip);
+                        txtUrl.Text = txtInClip;
+                    }
+                }
+                else
+                {
+                    webBrowser1.Url = new Uri(txtInClip);
+                    txtUrl.Text = txtInClip;
+                }
+
+                
             }
 
             
