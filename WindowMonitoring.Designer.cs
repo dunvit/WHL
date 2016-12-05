@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlControls = new System.Windows.Forms.Panel();
+            this.btnOpenBrowserAndStartUrl = new System.Windows.Forms.Button();
             this.cmdPin = new System.Windows.Forms.Button();
             this.cmdClose = new System.Windows.Forms.Button();
             this.cmdMinimazeRestore = new System.Windows.Forms.Button();
@@ -42,7 +43,7 @@
             this.pnlPilotsInformation = new System.Windows.Forms.Panel();
             this.lblPilotsInformation = new System.Windows.Forms.Label();
             this.containerAuthirization = new System.Windows.Forms.Panel();
-            this.lblCurrentPilotName = new System.Windows.Forms.Label();
+            this.cmbPilots = new System.Windows.Forms.ComboBox();
             this.crlPilotPortrait = new System.Windows.Forms.PictureBox();
             this.lblAuthorizationInfo = new System.Windows.Forms.Label();
             this.btnLogInWithEveOnline = new System.Windows.Forms.PictureBox();
@@ -111,7 +112,6 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.lblVersionID = new System.Windows.Forms.Label();
-            this.btnOpenBrowserAndStartUrl = new System.Windows.Forms.Button();
             this.pnlControls.SuspendLayout();
             this.pnlAuthirization.SuspendLayout();
             this.pnlSolarSystemInformation.SuspendLayout();
@@ -151,6 +151,19 @@
             this.pnlControls.Name = "pnlControls";
             this.pnlControls.Size = new System.Drawing.Size(94, 22);
             this.pnlControls.TabIndex = 4;
+            // 
+            // btnOpenBrowserAndStartUrl
+            // 
+            this.btnOpenBrowserAndStartUrl.BackColor = System.Drawing.Color.Black;
+            this.btnOpenBrowserAndStartUrl.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOpenBrowserAndStartUrl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenBrowserAndStartUrl.Image = global::WHL.Properties.Resources.url;
+            this.btnOpenBrowserAndStartUrl.Location = new System.Drawing.Point(26, 0);
+            this.btnOpenBrowserAndStartUrl.Name = "btnOpenBrowserAndStartUrl";
+            this.btnOpenBrowserAndStartUrl.Size = new System.Drawing.Size(22, 22);
+            this.btnOpenBrowserAndStartUrl.TabIndex = 46;
+            this.btnOpenBrowserAndStartUrl.UseVisualStyleBackColor = false;
+            this.btnOpenBrowserAndStartUrl.Click += new System.EventHandler(this.button1_Click);
             // 
             // cmdPin
             // 
@@ -210,7 +223,7 @@
             this.pnlAuthirization.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pnlAuthirization.Location = new System.Drawing.Point(10, 38);
             this.pnlAuthirization.Name = "pnlAuthirization";
-            this.pnlAuthirization.Size = new System.Drawing.Size(99, 26);
+            this.pnlAuthirization.Size = new System.Drawing.Size(92, 26);
             this.pnlAuthirization.TabIndex = 6;
             this.pnlAuthirization.Click += new System.EventHandler(this.pnlAuthirization_Click);
             this.pnlAuthirization.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlAuthirization_Paint);
@@ -221,9 +234,9 @@
             this.lblAuthirization.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblAuthirization.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAuthirization.ForeColor = System.Drawing.Color.LightGray;
-            this.lblAuthirization.Location = new System.Drawing.Point(8, 5);
+            this.lblAuthirization.Location = new System.Drawing.Point(5, 5);
             this.lblAuthirization.Name = "lblAuthirization";
-            this.lblAuthirization.Size = new System.Drawing.Size(87, 18);
+            this.lblAuthirization.Size = new System.Drawing.Size(86, 18);
             this.lblAuthirization.TabIndex = 6;
             this.lblAuthirization.Text = "Authorization";
             this.lblAuthirization.Click += new System.EventHandler(this.lblAuthirization_Click);
@@ -242,9 +255,9 @@
             this.pnlSolarSystemInformation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlSolarSystemInformation.Controls.Add(this.lblSolarSystemInformation);
             this.pnlSolarSystemInformation.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pnlSolarSystemInformation.Location = new System.Drawing.Point(108, 38);
+            this.pnlSolarSystemInformation.Location = new System.Drawing.Point(101, 38);
             this.pnlSolarSystemInformation.Name = "pnlSolarSystemInformation";
-            this.pnlSolarSystemInformation.Size = new System.Drawing.Size(168, 26);
+            this.pnlSolarSystemInformation.Size = new System.Drawing.Size(66, 26);
             this.pnlSolarSystemInformation.TabIndex = 7;
             this.pnlSolarSystemInformation.Click += new System.EventHandler(this.pnlSolarSystemInformation_Click);
             // 
@@ -256,9 +269,9 @@
             this.lblSolarSystemInformation.ForeColor = System.Drawing.Color.DimGray;
             this.lblSolarSystemInformation.Location = new System.Drawing.Point(6, 5);
             this.lblSolarSystemInformation.Name = "lblSolarSystemInformation";
-            this.lblSolarSystemInformation.Size = new System.Drawing.Size(161, 18);
+            this.lblSolarSystemInformation.Size = new System.Drawing.Size(55, 18);
             this.lblSolarSystemInformation.TabIndex = 6;
-            this.lblSolarSystemInformation.Text = "Solar System Information";
+            this.lblSolarSystemInformation.Text = "Location";
             this.lblSolarSystemInformation.Click += new System.EventHandler(this.lblSolarSystemInformation_Click);
             // 
             // pnlPilotsInformation
@@ -267,9 +280,9 @@
             this.pnlPilotsInformation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlPilotsInformation.Controls.Add(this.lblPilotsInformation);
             this.pnlPilotsInformation.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pnlPilotsInformation.Location = new System.Drawing.Point(275, 38);
+            this.pnlPilotsInformation.Location = new System.Drawing.Point(166, 38);
             this.pnlPilotsInformation.Name = "pnlPilotsInformation";
-            this.pnlPilotsInformation.Size = new System.Drawing.Size(124, 26);
+            this.pnlPilotsInformation.Size = new System.Drawing.Size(49, 26);
             this.pnlPilotsInformation.TabIndex = 8;
             this.pnlPilotsInformation.Click += new System.EventHandler(this.pnlPilotsInformation_Click);
             // 
@@ -279,17 +292,17 @@
             this.lblPilotsInformation.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblPilotsInformation.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPilotsInformation.ForeColor = System.Drawing.Color.LightGray;
-            this.lblPilotsInformation.Location = new System.Drawing.Point(6, 5);
+            this.lblPilotsInformation.Location = new System.Drawing.Point(4, 5);
             this.lblPilotsInformation.Name = "lblPilotsInformation";
-            this.lblPilotsInformation.Size = new System.Drawing.Size(117, 18);
+            this.lblPilotsInformation.Size = new System.Drawing.Size(42, 18);
             this.lblPilotsInformation.TabIndex = 6;
-            this.lblPilotsInformation.Text = "Pilots Information";
+            this.lblPilotsInformation.Text = "Pilots";
             this.lblPilotsInformation.Click += new System.EventHandler(this.lblPilotsInformation_Click);
             // 
             // containerAuthirization
             // 
             this.containerAuthirization.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.containerAuthirization.Controls.Add(this.lblCurrentPilotName);
+            this.containerAuthirization.Controls.Add(this.cmbPilots);
             this.containerAuthirization.Controls.Add(this.crlPilotPortrait);
             this.containerAuthirization.Controls.Add(this.lblAuthorizationInfo);
             this.containerAuthirization.Controls.Add(this.btnLogInWithEveOnline);
@@ -298,17 +311,20 @@
             this.containerAuthirization.Size = new System.Drawing.Size(525, 205);
             this.containerAuthirization.TabIndex = 9;
             // 
-            // lblCurrentPilotName
+            // cmbPilots
             // 
-            this.lblCurrentPilotName.BackColor = System.Drawing.Color.Transparent;
-            this.lblCurrentPilotName.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentPilotName.ForeColor = System.Drawing.Color.LightGray;
-            this.lblCurrentPilotName.Location = new System.Drawing.Point(92, 17);
-            this.lblCurrentPilotName.Name = "lblCurrentPilotName";
-            this.lblCurrentPilotName.Size = new System.Drawing.Size(214, 30);
-            this.lblCurrentPilotName.TabIndex = 9;
-            this.lblCurrentPilotName.Text = "!!!!";
-            this.lblCurrentPilotName.Visible = false;
+            this.cmbPilots.BackColor = System.Drawing.Color.Black;
+            this.cmbPilots.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPilots.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbPilots.Font = new System.Drawing.Font("Verdana", 8.25F);
+            this.cmbPilots.ForeColor = System.Drawing.Color.LightGray;
+            this.cmbPilots.FormattingEnabled = true;
+            this.cmbPilots.Location = new System.Drawing.Point(94, 17);
+            this.cmbPilots.Name = "cmbPilots";
+            this.cmbPilots.Size = new System.Drawing.Size(157, 21);
+            this.cmbPilots.TabIndex = 10;
+            this.cmbPilots.Visible = false;
+            this.cmbPilots.SelectedValueChanged += new System.EventHandler(this.cmbPilots_SelectedValueChanged);
             // 
             // crlPilotPortrait
             // 
@@ -914,7 +930,7 @@
             this.pnlBookmarksAndSignatures.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlBookmarksAndSignatures.Controls.Add(this.lblCoordinatesSignatures);
             this.pnlBookmarksAndSignatures.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pnlBookmarksAndSignatures.Location = new System.Drawing.Point(398, 38);
+            this.pnlBookmarksAndSignatures.Location = new System.Drawing.Point(214, 38);
             this.pnlBookmarksAndSignatures.Name = "pnlBookmarksAndSignatures";
             this.pnlBookmarksAndSignatures.Size = new System.Drawing.Size(76, 26);
             this.pnlBookmarksAndSignatures.TabIndex = 14;
@@ -926,11 +942,11 @@
             this.lblCoordinatesSignatures.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCoordinatesSignatures.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCoordinatesSignatures.ForeColor = System.Drawing.Color.LightGray;
-            this.lblCoordinatesSignatures.Location = new System.Drawing.Point(3, 5);
+            this.lblCoordinatesSignatures.Location = new System.Drawing.Point(0, 5);
             this.lblCoordinatesSignatures.Name = "lblCoordinatesSignatures";
-            this.lblCoordinatesSignatures.Size = new System.Drawing.Size(71, 18);
+            this.lblCoordinatesSignatures.Size = new System.Drawing.Size(75, 18);
             this.lblCoordinatesSignatures.TabIndex = 6;
-            this.lblCoordinatesSignatures.Text = "Signatures";
+            this.lblCoordinatesSignatures.Text = "Bookmarks";
             this.lblCoordinatesSignatures.Click += new System.EventHandler(this.OpenCoordinatesSignaturesPanel);
             // 
             // containerBookmarksAndSignatures
@@ -1140,19 +1156,6 @@
             this.lblVersionID.Text = "1.12";
             this.lblVersionID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btnOpenBrowserAndStartUrl
-            // 
-            this.btnOpenBrowserAndStartUrl.BackColor = System.Drawing.Color.Black;
-            this.btnOpenBrowserAndStartUrl.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnOpenBrowserAndStartUrl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenBrowserAndStartUrl.Image = global::WHL.Properties.Resources.url;
-            this.btnOpenBrowserAndStartUrl.Location = new System.Drawing.Point(26, 0);
-            this.btnOpenBrowserAndStartUrl.Name = "btnOpenBrowserAndStartUrl";
-            this.btnOpenBrowserAndStartUrl.Size = new System.Drawing.Size(22, 22);
-            this.btnOpenBrowserAndStartUrl.TabIndex = 46;
-            this.btnOpenBrowserAndStartUrl.UseVisualStyleBackColor = false;
-            this.btnOpenBrowserAndStartUrl.Click += new System.EventHandler(this.button1_Click);
-            // 
             // WindowMonitoring
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1237,7 +1240,6 @@
         private System.Windows.Forms.Timer RefreshTokenTimer;
         private System.Windows.Forms.Label lblPilotName;
         private System.Windows.Forms.PictureBox crlPilotPortrait;
-        private System.Windows.Forms.Label lblCurrentPilotName;
         private System.Windows.Forms.Panel containerSolarSystemInformation;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label4;
@@ -1302,6 +1304,7 @@
         private System.Windows.Forms.TextBox txtUrl;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.ComboBox cmbPilots;
 
 
 

@@ -11,9 +11,9 @@ namespace WHLocator.Infrastructure
 {
     class CrestApiListener
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(frmMain));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(CrestApiListener));
 
-        public void ListenLocalhost(frmMain.DelegateStartProcess StartPilotAuthorizeFlow)
+        public void ListenLocalhost(WindowMonitoring.DelegateStartProcess StartPilotAuthorizeFlow)
         {
             var web = new HttpListener();
 

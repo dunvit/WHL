@@ -84,16 +84,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmMain.Designer.cs">
-      <DependentUpon>frmMain.cs</DependentUpon>
-    </Compile>
+    <Compile Include="BLL\Pilotes.cs" />
     <Compile Include="Infrastructure\CcpXmlApi.cs" />
     <Compile Include="Infrastructure\CrestApiListener.cs" />
     <Compile Include="Infrastructure\CrestAuthorization.cs" />
-    <Compile Include="Infrastructure\NetAclChecker.cs" />
     <Compile Include="Pilot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,9 +102,6 @@
       <DependentUpon>WindowMonitoring.cs</DependentUpon>
     </Compile>
     <Compile Include="Wormholes.cs" />
-    <EmbeddedResource Include="frmMain.resx">
-      <DependentUpon>frmMain.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

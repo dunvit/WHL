@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using log4net;
+using WHL.BLL;
 using WHL.Properties;
 using WHL.UiTools;
 using WHLocator.Infrastructure;
@@ -30,9 +31,11 @@ namespace WHLocator
 
         private CcpXmlApi _ccpXmlApi = new CcpXmlApi();
 
-        private Pilot _currentPilot;
+        private Pilotes _pilotes = new Pilotes();
 
-        private static readonly ILog Log = LogManager.GetLogger(typeof(frmMain));
+        //private Pilot _currentPilot;
+
+        private static readonly ILog Log = LogManager.GetLogger(typeof(CrestApiListener));
 
         private bool _windowIsPinned = false;
         private bool _windowIsMinimaze = false;
@@ -64,7 +67,7 @@ namespace WHLocator
         private void WindowMonitoring_Load(object sender, EventArgs e)
         {
 
-            lblVersionID.Text = @"1.21"; //System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            lblVersionID.Text = @"1.22"; //System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             Log.DebugFormat("[WindowMonitoring] Version: {0}", lblVersionID.Text);
 
@@ -84,7 +87,7 @@ namespace WHLocator
                 MessageBox.Show("For use return tokens from EVE CREST we need run WHL as administrator");
             }
 
-            frmMain.DelegateStartProcess startProcessFunction = StartPilotAuthorizeFlow;
+            DelegateStartProcess startProcessFunction = StartPilotAuthorizeFlow;
 
             new Thread(() => new CrestApiListener().ListenLocalhost(startProcessFunction)) { IsBackground = true }.Start();
 
@@ -140,18 +143,37 @@ namespace WHLocator
         {
             Log.DebugFormat("[WindowMonitoring.PilotAuthorizeFlow] starting for token = {0}", code);
 
-            _currentPilot = new Pilot();
+            var _currentPilot = new Pilot();
 
             _currentPilot.Initialization(code);
 
+            
+
+            if (_pilotes.IsExist(_currentPilot.Id) == false)
+            {
+                _pilotes.Add(_currentPilot);
+
+                cmbPilots.Items.Add(_currentPilot.Name.Trim());
+                cmbPilots.Text = _currentPilot.Name.Trim();
+            }
+
+            cmbPilots.Visible = true;
+
+            _pilotes.Selected = _currentPilot;
+
+            DrawPilotPanel(_pilotes.Selected);
+        }
+
+        private void DrawPilotPanel(Pilot pilot)
+        {
             lblSolarSystemInformation.ForeColor = Color.LightGray;
             lblPilotsInformation.ForeColor = Color.LightGray;
             lblCoordinatesSignatures.ForeColor = Color.LightGray;
 
-            lblPilotName.Text = @"Log in as " + _currentPilot.Name;
+            lblPilotName.Text = @"Log in as " + pilot.Name;
             lblPilotName.Visible = true;
 
-            lblSolarSystemName.Text = _currentPilot.Location.Name;
+            lblSolarSystemName.Text = pilot.Location.Name;
         }
 
         public void BringApplicationToFront()
@@ -178,18 +200,9 @@ namespace WHLocator
         {
             base.OnPaint(e);
 
-            //e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(31,31,31)), 0, 0, Width, 28);
-
             e.Graphics.FillRectangle(new SolidBrush(Color.Black), 0, 0, Width, 28);
 
-            //e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(19, 19, 20)), 0, 28, Width, Height);
-
             e.Graphics.DrawRectangle(new Pen(Color.DarkGray, 2), 0, 0, Width, Height);
-
-            //VsBorder.DrawBorderSmallWindow(e.Graphics, 0, 0, Width, 28);
-
-            //VsBorder.DrawBorderSmallWindow(e.Graphics, 0, 26, Width, Height - 26);
-
         }
 
         private void Resize()
@@ -273,14 +286,12 @@ namespace WHLocator
             pnlSolarSystemInformation.BringToFront();
             pnlBookmarksAndSignatures.BringToFront();
 
-            if (_currentPilot != null)
+            if (_pilotes.Count() > 0)
             {
-                crlPilotPortrait.Image = _currentPilot.Portrait;
+                crlPilotPortrait.Image = _pilotes.Selected.Portrait;
                 crlPilotPortrait.Refresh();
-                lblCurrentPilotName.Text = "" + _currentPilot.Name;
 
                 crlPilotPortrait.Visible = true;
-                lblCurrentPilotName.Visible = true;
 
                 lblAuthorizationInfo.Text = TextAfterAuthorizationInfo + Environment.NewLine + Environment.NewLine + TextAuthorizationInfo;
             }
@@ -292,7 +303,7 @@ namespace WHLocator
 
         private void OpenSolarSystemPanel()
         {
-            if (_currentPilot == null)
+            if (_pilotes.Count() == 0)
             {
                 return;
             }
@@ -317,17 +328,17 @@ namespace WHLocator
                 Invoke(new Action(RefreshSolarSystemInformation));
             }
 
-            if (_currentPilot != null)
+            if (_pilotes.Count() > 0)
             {
-                txtSolarSystemName.Text = _currentPilot.Location.Name;
-                txtSolarSystemClass.Text = _currentPilot.Location.Class;
-                txtSolarSystemEffect.Text = _currentPilot.Location.Effect;
-                txtSolarSystemRegion.Text = _currentPilot.Location.Region;
-                txtSolarSystemConstellation.Text = _currentPilot.Location.Constellation;
+                txtSolarSystemName.Text = _pilotes.Selected.Location.Name;
+                txtSolarSystemClass.Text = _pilotes.Selected.Location.Class;
+                txtSolarSystemEffect.Text = _pilotes.Selected.Location.Effect;
+                txtSolarSystemRegion.Text = _pilotes.Selected.Location.Region;
+                txtSolarSystemConstellation.Text = _pilotes.Selected.Location.Constellation;
 
                 Wormhole wormholeI;
                 Wormhole wormholeII;
-                switch (_currentPilot.Location.StaticSystems.Count)
+                switch (_pilotes.Selected.Location.StaticSystems.Count)
                 {
                     case 0:
                         txtSolarSystemStaticI.Visible = false;
@@ -336,14 +347,14 @@ namespace WHLocator
                         txtSolarSystemStaticIIData.Visible = false;
                         break;
                     case 1:
-                        wormholeI = _wormholes.GetWormhole(_currentPilot.Location.StaticSystems[0]);
+                        wormholeI = _wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[0]);
 
                         txtSolarSystemStaticII.Visible = false;
                         txtSolarSystemStaticIIData.Visible = false;
-                        txtSolarSystemStaticI.Text = _currentPilot.Location.StaticSystems[0];
+                        txtSolarSystemStaticI.Text = _pilotes.Selected.Location.StaticSystems[0];
                         txtSolarSystemStaticI.Visible = true;
-                        txtSolarSystemStaticI.ForeColor = Tools.GetColorBySolarSystem(_wormholes.GetWormhole(_currentPilot.Location.StaticSystems[0]).Name);
-                        txtSolarSystemStaticIData.Text = _wormholes.GetWormhole(_currentPilot.Location.StaticSystems[0]).Name;
+                        txtSolarSystemStaticI.ForeColor = Tools.GetColorBySolarSystem(_wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[0]).Name);
+                        txtSolarSystemStaticIData.Text = _wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[0]).Name;
                         txtSolarSystemStaticIData.Visible = true;
 
                         // Set up the ToolTip text for the Button and Checkbox.
@@ -354,22 +365,22 @@ namespace WHLocator
 
                         try
                         {
-                            wormholeI = _wormholes.GetWormhole(_currentPilot.Location.StaticSystems[0]);
-                            wormholeII = _wormholes.GetWormhole(_currentPilot.Location.StaticSystems[1]);
+                            wormholeI = _wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[0]);
+                            wormholeII = _wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[1]);
 
-                            txtSolarSystemStaticI.Text = _currentPilot.Location.StaticSystems[0];
+                            txtSolarSystemStaticI.Text = _pilotes.Selected.Location.StaticSystems[0];
                             txtSolarSystemStaticI.Visible = true;
 
-                            txtSolarSystemStaticII.Text = _currentPilot.Location.StaticSystems[1];
+                            txtSolarSystemStaticII.Text = _pilotes.Selected.Location.StaticSystems[1];
                             txtSolarSystemStaticII.Visible = true;
 
-                            txtSolarSystemStaticIData.Text = _wormholes.GetWormhole(_currentPilot.Location.StaticSystems[0]).Name;
+                            txtSolarSystemStaticIData.Text = _wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[0]).Name;
                             txtSolarSystemStaticIData.Visible = true;
-                            txtSolarSystemStaticI.ForeColor = Tools.GetColorBySolarSystem(_wormholes.GetWormhole(_currentPilot.Location.StaticSystems[0]).Name);
-                            
-                            txtSolarSystemStaticIIData.Text = _wormholes.GetWormhole(_currentPilot.Location.StaticSystems[1]).Name;
+                            txtSolarSystemStaticI.ForeColor = Tools.GetColorBySolarSystem(_wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[0]).Name);
+
+                            txtSolarSystemStaticIIData.Text = _wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[1]).Name;
                             txtSolarSystemStaticIIData.Visible = true;
-                            txtSolarSystemStaticII.ForeColor = Tools.GetColorBySolarSystem(_wormholes.GetWormhole(_currentPilot.Location.StaticSystems[1]).Name);
+                            txtSolarSystemStaticII.ForeColor = Tools.GetColorBySolarSystem(_wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[1]).Name);
                             
                             toolTip1.SetToolTip(txtSolarSystemStaticI, "Max Stable Mass=" + wormholeI.MaxStableMass + " Max Jump Mass=" + wormholeI.MaxJumpMass);
                             toolTip2.SetToolTip(txtSolarSystemStaticII, "Max Stable Mass=" + wormholeII.MaxStableMass + " Max Jump Mass=" + wormholeII.MaxJumpMass);
@@ -462,22 +473,27 @@ namespace WHLocator
 
         private void RefreshTokenTimer_Tick(object sender, EventArgs e)
         {
-            if (_currentPilot != null)
+            if (_pilotes.Count() > 0)
             {
-                Task.Run(() =>
+                foreach (var pilot in _pilotes)
                 {
-                    var locationId = _currentPilot.Location.Id;
-
-                    Log.DebugFormat("[WindowMonitoring.RefreshTokenTimer_Tick] starting get location info for pilot = {0}", _currentPilot.Name);
-                    _currentPilot.RefreshInfo();
-
-                    lblSolarSystemName.Text = _currentPilot.Location.Name;
-
-                    if (locationId != _currentPilot.Location.Id)
+                    Task.Run(() =>
                     {
-                        RefreshSolarSystemInformation();
-                    }
-                });
+                        var locationId = pilot.Location.Id;
+
+                        Log.DebugFormat("[WindowMonitoring.RefreshTokenTimer_Tick] starting get location info for pilot = {0}", pilot.Name);
+                        pilot.RefreshInfo();
+
+                        
+
+                        if (locationId != pilot.Location.Id && pilot.Id == _pilotes.Selected.Id)
+                        {
+                            RefreshSolarSystemInformation();
+                        }
+                    });
+                }
+
+                lblSolarSystemName.Text = _pilotes.Selected.Location.Name;
             }
         }
 
@@ -488,9 +504,9 @@ namespace WHLocator
 
         private void ShowZkillboard()
         {
-            if (_currentPilot != null && _currentPilot.Location != null && _currentPilot.Location.Id > 0)
+            if (_pilotes.Selected != null && _pilotes.Selected.Location != null && _pilotes.Selected.Location.Id > 0)
             {
-                webBrowser1.Url = new Uri("https://zkillboard.com/system/" + _currentPilot.Location.Id + "/");
+                webBrowser1.Url = new Uri("https://zkillboard.com/system/" + _pilotes.Selected.Location.Id + "/");
                 webBrowser1.Visible = true;
                 OpenWebBrowserPanel();
                 Resize();
@@ -509,9 +525,9 @@ namespace WHLocator
 
         private void ShowSuperpute()
         {
-            if (_currentPilot != null && _currentPilot.Location != null && _currentPilot.Location.Id > 0)
+            if (_pilotes.Selected != null && _pilotes.Selected.Location != null && _pilotes.Selected.Location.Id > 0)
             {
-                webBrowser1.Url = new Uri("http://superpute.com/system/" + _currentPilot.Location.Name + "");
+                webBrowser1.Url = new Uri("http://superpute.com/system/" + _pilotes.Selected.Location.Name + "");
                 webBrowser1.Visible = true;
                 OpenWebBrowserPanel();
                 Resize();
@@ -530,16 +546,16 @@ namespace WHLocator
 
         private void ShowEllatha()
         {
-            if (_currentPilot != null && _currentPilot.Location != null && _currentPilot.Location.Id > 0)
+            if (_pilotes.Selected != null && _pilotes.Selected.Location != null && _pilotes.Selected.Location.Id > 0)
             {
 
-                if (_currentPilot.Location.Name.Contains("J") == false)
+                if (_pilotes.Selected.Location.Name.Contains("J") == false)
                 {
                     MessageBox.Show("Ellatha only for W-Space systems");
                     return;
                 }
 
-                webBrowser1.Url = new Uri("http://www.ellatha.com/eve/WormholeSystemview.asp?key=" + _currentPilot.Location.Name.Replace("J", "") + "");
+                webBrowser1.Url = new Uri("http://www.ellatha.com/eve/WormholeSystemview.asp?key=" + _pilotes.Selected.Location.Name.Replace("J", "") + "");
                 webBrowser1.Visible = true;
                 OpenWebBrowserPanel();
                 Resize();
@@ -553,10 +569,10 @@ namespace WHLocator
 
         private void ShowDotlan()
         {
-            if (_currentPilot != null && _currentPilot.Location != null && _currentPilot.Location.Id > 0)
+            if (_pilotes.Selected != null && _pilotes.Selected.Location != null && _pilotes.Selected.Location.Id > 0)
             {
 
-                webBrowser1.Url = new Uri("http://evemaps.dotlan.net/system/" + _currentPilot.Location.Name + "");
+                webBrowser1.Url = new Uri("http://evemaps.dotlan.net/system/" + _pilotes.Selected.Location.Name + "");
                 webBrowser1.Visible = true;
                 OpenWebBrowserPanel();
                 Resize();
@@ -884,6 +900,13 @@ namespace WHLocator
             {
                 webBrowser1.Url = new Uri("http://" + txtUrl.Text);
             }
+        }
+
+        private void cmbPilots_SelectedValueChanged(object sender, EventArgs e)
+        {
+            _pilotes.SetSelected(cmbPilots.Text);
+
+            OpenAuthorizationPanel();
         }
 
         
