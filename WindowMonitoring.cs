@@ -12,71 +12,71 @@ using System.Windows.Forms;
 using log4net;
 using WHL.BLL;
 using WHL.Properties;
+using WHL.Ui;
 using WHL.UiTools;
-using WHLocator.Infrastructure;
-using WHLocator.UiTools;
 
-namespace WHLocator
+namespace WHL
 {
     public partial class WindowMonitoring : Form
     {
         //TODO: webBrowser1.Url = new Uri("http://www.ellatha.com/eve/wormholelist.asp");
 
-        public delegate void DelegateStartProcess(string value);
+        private const string TextAuthorizationInfo =
+            "To login you will need to press the button and go to the  CCP SSO (single sign-on) site. All your private data will remain on the CCP's website.";
 
-        private const string TextAuthorizationInfo = "To login you will need to press the button and go to the  CCP SSO (single sign-on) site. All your private data will remain on the CCP's website.";
-        private const string TextAfterAuthorizationInfo = "You have successfully logged into the system and the WHL (WormHoleLocator) can now keep track of your current position. You can log in again with another character.";
+        private const string TextAfterAuthorizationInfo =
+            "You have successfully logged into the system and the WHL (WormHoleLocator) can now keep track of your current position. You can log in again with another character.";
+
         #region private variables
-        private Wormholes _wormholes = new Wormholes();
-
-        private CcpXmlApi _ccpXmlApi = new CcpXmlApi();
-
-        private Pilotes _pilotes = new Pilotes();
-
-        //private Pilot _currentPilot;
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(CrestApiListener));
 
-        private bool _windowIsPinned = false;
-        private bool _windowIsMinimaze = false;
-
-        private Size _sizeCompact = new Size(160, 29);
-
-        private Size _sizeOpen = new Size(564, 325);
-
-        private Size _sizeWithZkillboard = new Size(896, 591);
+        private bool _windowIsPinned;
+        private bool _windowIsMinimaze;
 
         #endregion
 
+        public Tabs ContainerTabs { get; set; }
+
         #region WinAPI
+
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
+
         [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
+
         #endregion
 
         public WindowMonitoring()
         {
             InitializeComponent();
 
-            
+            ContainerTabs = new Tabs();
+
+            Size = ContainerTabs.Active().Size;
         }
+
+
 
         private void WindowMonitoring_Load(object sender, EventArgs e)
         {
+            lblVersionID.Text = @"1.23";
 
-            lblVersionID.Text = @"1.22"; //System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            pnlContainerSignatures.Location = new Point(-1000,-1000);
+
+            this.ControlBox = false;
+            this.Text = String.Empty;
 
             Log.DebugFormat("[WindowMonitoring] Version: {0}", lblVersionID.Text);
 
             lblAuthorizationInfo.Text = TextAuthorizationInfo;
 
-            OpenAuthorizationPanel();
-
-            Size = _sizeOpen;
-            Resize();
+            Size = ContainerTabs.Active().Size;
+            ResizeWindow();
             CreateTooltipsForStatics();
 
             System.Security.Principal.WindowsIdentity identity = System.Security.Principal.WindowsIdentity.GetCurrent();
@@ -91,11 +91,70 @@ namespace WHLocator
 
             new Thread(() => new CrestApiListener().ListenLocalhost(startProcessFunction)) { IsBackground = true }.Start();
 
-            
+            SetStyle(ControlStyles.ResizeRedraw, true);
+
+            HideAllContainers();
+
+            OpenAuthorizationPanel();
         }
 
-        ToolTip toolTip1 = new ToolTip();
-        ToolTip toolTip2 = new ToolTip();
+        protected override void WndProc(ref Message m)
+        {
+            if (ContainerTabs.Active().Name != "WebBrowser")
+            {
+                base.WndProc(ref m);
+                return;
+            }
+
+            const UInt32 WM_NCHITTEST = 0x0084;
+            const UInt32 WM_MOUSEMOVE = 0x0200;
+
+            const UInt32 HTLEFT = 10;
+            const UInt32 HTRIGHT = 11;
+            const UInt32 HTBOTTOMRIGHT = 17;
+            const UInt32 HTBOTTOM = 15;
+            const UInt32 HTBOTTOMLEFT = 16;
+            const UInt32 HTTOP = 12;
+            const UInt32 HTTOPLEFT = 13;
+            const UInt32 HTTOPRIGHT = 14;
+
+            const int RESIZE_HANDLE_SIZE = 10;
+            bool handled = false;
+            if (m.Msg == WM_NCHITTEST || m.Msg == WM_MOUSEMOVE)
+            {
+                Size formSize = this.Size;
+                Point screenPoint = new Point(m.LParam.ToInt32());
+                Point clientPoint = this.PointToClient(screenPoint);
+
+                Dictionary<UInt32, Rectangle> boxes = new Dictionary<UInt32, Rectangle>() {
+                    {HTBOTTOMLEFT, new Rectangle(0, formSize.Height - RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE)},
+                    {HTBOTTOM, new Rectangle(RESIZE_HANDLE_SIZE, formSize.Height - RESIZE_HANDLE_SIZE, formSize.Width - 2*RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE)},
+                    {HTBOTTOMRIGHT, new Rectangle(formSize.Width - RESIZE_HANDLE_SIZE, formSize.Height - RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE)},
+                    {HTRIGHT, new Rectangle(formSize.Width - RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE, formSize.Height - 2*RESIZE_HANDLE_SIZE)},
+                    {HTTOPRIGHT, new Rectangle(formSize.Width - RESIZE_HANDLE_SIZE, 0, RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE) },
+                    {HTTOP, new Rectangle(RESIZE_HANDLE_SIZE, 0, formSize.Width - 2*RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE) },
+                    {HTTOPLEFT, new Rectangle(0, 0, RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE) },
+                    {HTLEFT, new Rectangle(0, RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE, formSize.Height - 2*RESIZE_HANDLE_SIZE) }
+                };
+
+                foreach (KeyValuePair<UInt32, Rectangle> hitBox in boxes)
+                {
+                    if (hitBox.Value.Contains(clientPoint))
+                    {
+                        m.Result = (IntPtr)hitBox.Key;
+                        handled = true;
+                        break;
+                    }
+                }
+
+            }
+
+            if (!handled)
+                base.WndProc(ref m);
+        }
+
+        private ToolTip toolTip1 = new ToolTip();
+        private ToolTip toolTip2 = new ToolTip();
 
         private void CreateTooltipsForStatics()
         {
@@ -136,6 +195,8 @@ namespace WHLocator
 
             BringApplicationToFront();
 
+            RefreshSolarSystemInformation();
+
             OpenAuthorizationPanel();
         }
 
@@ -143,15 +204,15 @@ namespace WHLocator
         {
             Log.DebugFormat("[WindowMonitoring.PilotAuthorizeFlow] starting for token = {0}", code);
 
-            var _currentPilot = new Pilot();
+            var _currentPilot = new PilotEntity();
 
             _currentPilot.Initialization(code);
 
-            
 
-            if (_pilotes.IsExist(_currentPilot.Id) == false)
+
+            if (Global.Pilots.IsExist(_currentPilot.Id) == false)
             {
-                _pilotes.Add(_currentPilot);
+                Global.Pilots.Add(_currentPilot);
 
                 cmbPilots.Items.Add(_currentPilot.Name.Trim());
                 cmbPilots.Text = _currentPilot.Name.Trim();
@@ -159,21 +220,25 @@ namespace WHLocator
 
             cmbPilots.Visible = true;
 
-            _pilotes.Selected = _currentPilot;
+            Global.Pilots.Selected = _currentPilot;
 
-            DrawPilotPanel(_pilotes.Selected);
+            DrawPilotPanel(Global.Pilots.Selected);
         }
 
-        private void DrawPilotPanel(Pilot pilot)
+        private void DrawPilotPanel(PilotEntity pilot)
         {
-            lblSolarSystemInformation.ForeColor = Color.LightGray;
+            if (pilot.Location.System != "unknown")
+            {
+                lblSolarSystemInformation.ForeColor = Color.LightGray;
+                lblSignaturesInformation.ForeColor = Color.LightGray;
+            }
             lblPilotsInformation.ForeColor = Color.LightGray;
             lblCoordinatesSignatures.ForeColor = Color.LightGray;
 
             lblPilotName.Text = @"Log in as " + pilot.Name;
             lblPilotName.Visible = true;
 
-            lblSolarSystemName.Text = pilot.Location.Name;
+            lblSolarSystemName.Text = pilot.Location.System;
         }
 
         public void BringApplicationToFront()
@@ -205,18 +270,6 @@ namespace WHLocator
             e.Graphics.DrawRectangle(new Pen(Color.DarkGray, 2), 0, 0, Width, Height);
         }
 
-        private void Resize()
-        {
-            pnlControls.Location = new Point(Size.Width - pnlControls.Size.Width - 3, 0 + 3);
-
-            Refresh();
-        }
-
-        private void WindowMonitoring_DoubleClick(object sender, EventArgs e)
-        {
-            Size = _sizeOpen;
-            Resize();
-        }
 
         private void cmdClose_Click(object sender, EventArgs e)
         {
@@ -247,7 +300,7 @@ namespace WHLocator
                 cmdMinimazeRestore.Image = Resources.minimize;
                 lblSolarSystemName.Visible = true;
                 lblPilotName.Visible = true;
-                Size = _sizeOpen;
+                Size = ContainerTabs.Active().Size;
             }
             else
             {
@@ -255,172 +308,21 @@ namespace WHLocator
                 cmdMinimazeRestore.Image = Resources.restore;
                 lblSolarSystemName.Visible = true;
                 lblPilotName.Visible = false;
-                Size = _sizeCompact;
+                Size = ContainerTabs.Active().CompactSize;
             }
 
-            Resize();
-        }
-
-        private void lblSolarSystemName_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
+            ResizeButtonsPanelLocation();
         }
 
         private void WindowMonitoring_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
+            //if (e.Button == MouseButtons.Left)
+            //{
+            //    ReleaseCapture();
+            //    SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            //}
         }
 
-        private void OpenAuthorizationPanel()
-        {
-            pnlContainer.BringToFront();
-            pnlPilotsInformation.BringToFront();
-            pnlSolarSystemInformation.BringToFront();
-            pnlBookmarksAndSignatures.BringToFront();
-
-            if (_pilotes.Count() > 0)
-            {
-                crlPilotPortrait.Image = _pilotes.Selected.Portrait;
-                crlPilotPortrait.Refresh();
-
-                crlPilotPortrait.Visible = true;
-
-                lblAuthorizationInfo.Text = TextAfterAuthorizationInfo + Environment.NewLine + Environment.NewLine + TextAuthorizationInfo;
-            }
-
-            containerAuthirization.BackColor = Color.Black;
-            containerAuthirization.Location = new Point(pnlContainer.Location.X + 6, pnlContainer.Location.Y + 6);
-            containerAuthirization.BringToFront();
-        }
-
-        private void OpenSolarSystemPanel()
-        {
-            if (_pilotes.Count() == 0)
-            {
-                return;
-            }
-            pnlContainer.BringToFront();
-            pnlAuthirization.BringToFront();
-            pnlPilotsInformation.BringToFront();
-            pnlBookmarksAndSignatures.BringToFront();
-
-            RefreshSolarSystemInformation();
-            
-
-            containerSolarSystemInformation.BackColor = Color.Black;
-            containerSolarSystemInformation.Location = new Point(pnlContainer.Location.X + 6, pnlContainer.Location.Y + 6);
-            containerSolarSystemInformation.BringToFront();
-
-        }
-
-        private void RefreshSolarSystemInformation()
-        {
-            if (InvokeRequired)
-            {
-                Invoke(new Action(RefreshSolarSystemInformation));
-            }
-
-            if (_pilotes.Count() > 0)
-            {
-                txtSolarSystemName.Text = _pilotes.Selected.Location.Name;
-                txtSolarSystemClass.Text = _pilotes.Selected.Location.Class;
-                txtSolarSystemEffect.Text = _pilotes.Selected.Location.Effect;
-                txtSolarSystemRegion.Text = _pilotes.Selected.Location.Region;
-                txtSolarSystemConstellation.Text = _pilotes.Selected.Location.Constellation;
-
-                Wormhole wormholeI;
-                Wormhole wormholeII;
-                switch (_pilotes.Selected.Location.StaticSystems.Count)
-                {
-                    case 0:
-                        txtSolarSystemStaticI.Visible = false;
-                        txtSolarSystemStaticII.Visible = false;
-                        txtSolarSystemStaticIData.Visible = false;
-                        txtSolarSystemStaticIIData.Visible = false;
-                        break;
-                    case 1:
-                        wormholeI = _wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[0]);
-
-                        txtSolarSystemStaticII.Visible = false;
-                        txtSolarSystemStaticIIData.Visible = false;
-                        txtSolarSystemStaticI.Text = _pilotes.Selected.Location.StaticSystems[0];
-                        txtSolarSystemStaticI.Visible = true;
-                        txtSolarSystemStaticI.ForeColor = Tools.GetColorBySolarSystem(_wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[0]).Name);
-                        txtSolarSystemStaticIData.Text = _wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[0]).Name;
-                        txtSolarSystemStaticIData.Visible = true;
-
-                        // Set up the ToolTip text for the Button and Checkbox.
-                        toolTip1.SetToolTip(txtSolarSystemStaticI, "Max Stable Mass=" + wormholeI.MaxStableMass + "\r\nMax Jump  Mass=" + wormholeI.MaxJumpMass);
-
-                        break;
-                    case 2:
-
-                        try
-                        {
-                            wormholeI = _wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[0]);
-                            wormholeII = _wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[1]);
-
-                            txtSolarSystemStaticI.Text = _pilotes.Selected.Location.StaticSystems[0];
-                            txtSolarSystemStaticI.Visible = true;
-
-                            txtSolarSystemStaticII.Text = _pilotes.Selected.Location.StaticSystems[1];
-                            txtSolarSystemStaticII.Visible = true;
-
-                            txtSolarSystemStaticIData.Text = _wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[0]).Name;
-                            txtSolarSystemStaticIData.Visible = true;
-                            txtSolarSystemStaticI.ForeColor = Tools.GetColorBySolarSystem(_wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[0]).Name);
-
-                            txtSolarSystemStaticIIData.Text = _wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[1]).Name;
-                            txtSolarSystemStaticIIData.Visible = true;
-                            txtSolarSystemStaticII.ForeColor = Tools.GetColorBySolarSystem(_wormholes.GetWormhole(_pilotes.Selected.Location.StaticSystems[1]).Name);
-                            
-                            toolTip1.SetToolTip(txtSolarSystemStaticI, "Max Stable Mass=" + wormholeI.MaxStableMass + " Max Jump Mass=" + wormholeI.MaxJumpMass);
-                            toolTip2.SetToolTip(txtSolarSystemStaticII, "Max Stable Mass=" + wormholeII.MaxStableMass + " Max Jump Mass=" + wormholeII.MaxJumpMass);
-
-                        }
-                        catch (Exception ex)
-                        {
-                            Log.Error("Critical error/ Exception = " + ex);
-                        }
-
-                        break;
-                }
-            }
-        }
-
-        private void OpenPilotInformationPanel()
-        {
-            pnlContainer.BringToFront();
-            pnlAuthirization.BringToFront();
-            pnlSolarSystemInformation.BringToFront();
-            pnlBookmarksAndSignatures.BringToFront();
-
-            containerPilotInfo.BackColor = Color.Black;
-            containerPilotInfo.Location = new Point(pnlContainer.Location.X + 6, pnlContainer.Location.Y + 6);
-            containerPilotInfo.BringToFront();
-        }
-
-
-
-        private void OpenCoordinatesSignaturesPanel(object sender, EventArgs e)
-        {
-            pnlContainer.BringToFront();
-            pnlAuthirization.BringToFront();
-            pnlSolarSystemInformation.BringToFront();
-            pnlPilotsInformation.BringToFront();
-
-            containerBookmarksAndSignatures.BackColor = Color.Black;
-            containerBookmarksAndSignatures.Location = new Point(pnlContainer.Location.X + 6, pnlContainer.Location.Y + 6);
-            containerBookmarksAndSignatures.BringToFront();
-        }
 
         #region Panel actions GUI functions
 
@@ -465,7 +367,8 @@ namespace WHLocator
         private void btnLogInWithEveOnline_Click(object sender, EventArgs e)
         {
             var data = WebUtility.UrlEncode(@"http://localhost:8080/WormholeLocator");
-            Process.Start("https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=" + data + "&client_id=8f1e2ac9d4aa467c88b12674926dc5e6&scope=characterLocationRead&state=75c68f04aec80589a157fd13");
+            Process.Start("https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=" + data +
+                          "&client_id=8f1e2ac9d4aa467c88b12674926dc5e6&scope=characterLocationRead&state=75c68f04aec80589a157fd13");
 
         }
 
@@ -473,27 +376,30 @@ namespace WHLocator
 
         private void RefreshTokenTimer_Tick(object sender, EventArgs e)
         {
-            if (_pilotes.Count() > 0)
+            if (Global.Pilots.Count() > 0)
             {
-                foreach (var pilot in _pilotes)
+                foreach (var pilot in Global.Pilots)
                 {
                     Task.Run(() =>
                     {
-                        var locationId = pilot.Location.Id;
+                        var locationId = pilot.Location.System;
 
                         Log.DebugFormat("[WindowMonitoring.RefreshTokenTimer_Tick] starting get location info for pilot = {0}", pilot.Name);
                         pilot.RefreshInfo();
 
-                        
-
-                        if (locationId != pilot.Location.Id && pilot.Id == _pilotes.Selected.Id)
+                        if (locationId != pilot.Location.System && pilot.Id == Global.Pilots.Selected.Id)
                         {
-                            RefreshSolarSystemInformation();
+                                
                         }
                     });
                 }
 
-                lblSolarSystemName.Text = _pilotes.Selected.Location.Name;
+                if (txtSolarSystemName.Text != Global.Pilots.Selected.Location.System)
+                {
+                    RefreshSolarSystemInformation();
+                }
+
+                lblSolarSystemName.Text = Global.Pilots.Selected.Location.System;
             }
         }
 
@@ -504,12 +410,9 @@ namespace WHLocator
 
         private void ShowZkillboard()
         {
-            if (_pilotes.Selected != null && _pilotes.Selected.Location != null && _pilotes.Selected.Location.Id > 0)
+            if (Global.Pilots.Selected != null && Global.Pilots.Selected.Location != null && Global.Pilots.Selected.Location.System != "unknown")
             {
-                webBrowser1.Url = new Uri("https://zkillboard.com/system/" + _pilotes.Selected.Location.Id + "/");
-                webBrowser1.Visible = true;
-                OpenWebBrowserPanel();
-                Resize();
+                BrowserUrlExecute("https://zkillboard.com/system/" + Global.Pilots.Selected.Location.Id.Replace("J","") + "/");
             }
         }
 
@@ -525,85 +428,11 @@ namespace WHLocator
 
         private void ShowSuperpute()
         {
-            if (_pilotes.Selected != null && _pilotes.Selected.Location != null && _pilotes.Selected.Location.Id > 0)
+            if (Global.Pilots.Selected != null && Global.Pilots.Selected.Location != null && Global.Pilots.Selected.Location.System != "unknown")
             {
-                webBrowser1.Url = new Uri("http://superpute.com/system/" + _pilotes.Selected.Location.Name + "");
-                webBrowser1.Visible = true;
-                OpenWebBrowserPanel();
-                Resize();
+                BrowserUrlExecute("http://superpute.com/system/" + Global.Pilots.Selected.Location.System + "");
             }
         }
-
-        private void cmdShowSuperputePanel_Click(object sender, EventArgs e)
-        {
-            ShowSuperpute();
-        }
-
-        private void cmdShowEllathaPanel_Click(object sender, EventArgs e)
-        {
-            ShowEllatha();
-        }
-
-        private void ShowEllatha()
-        {
-            if (_pilotes.Selected != null && _pilotes.Selected.Location != null && _pilotes.Selected.Location.Id > 0)
-            {
-
-                if (_pilotes.Selected.Location.Name.Contains("J") == false)
-                {
-                    MessageBox.Show("Ellatha only for W-Space systems");
-                    return;
-                }
-
-                webBrowser1.Url = new Uri("http://www.ellatha.com/eve/WormholeSystemview.asp?key=" + _pilotes.Selected.Location.Name.Replace("J", "") + "");
-                webBrowser1.Visible = true;
-                OpenWebBrowserPanel();
-                Resize();
-            }
-        }
-
-        private void cmdShowDotlanPanel_Click(object sender, EventArgs e)
-        {
-            ShowDotlan();
-        }
-
-        private void ShowDotlan()
-        {
-            if (_pilotes.Selected != null && _pilotes.Selected.Location != null && _pilotes.Selected.Location.Id > 0)
-            {
-
-                webBrowser1.Url = new Uri("http://evemaps.dotlan.net/system/" + _pilotes.Selected.Location.Name + "");
-                webBrowser1.Visible = true;
-                OpenWebBrowserPanel();
-                Resize();
-            }
-        }
-
-        private void OpenWebBrowserPanel()
-        {
-            containerWebBrowserPanel.Location = new Point(7,37);
-            containerWebBrowserPanel.BringToFront();
-            panel1.BringToFront();
-            Size = _sizeWithZkillboard;
-            containerWebBrowserPanel.Visible = true;
-        }
-
-        private void panel2_Click(object sender, EventArgs e)
-        {
-            containerWebBrowserPanel.Visible = false;
-            Size = _sizeOpen;
-            Resize();
-        }
-
-        private void lblPilotName_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
-        }
-
 
         private void listBox1_KeyUp(object sender, KeyEventArgs e)
         {
@@ -634,46 +463,6 @@ namespace WHLocator
         {
             txtSelectedPilotName.Text = listBox1.Text;
             
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtSelectedPilotName.Text))
-            {
-                return;
-            }
-
-            var characterId = _ccpXmlApi.GetPilotIdByName(txtSelectedPilotName.Text.Trim());
-
-            webBrowser1.Url = new Uri("https://zkillboard.com/character/" + characterId + "/");
-
-            if (crlPilotsHistory.Items.Contains(txtSelectedPilotName.Text.Trim()) == false)
-            {
-                crlPilotsHistory.Items.Add(txtSelectedPilotName.Text.Trim());
-            }
-
-            OpenWebBrowserPanel();
-
-            Resize();
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtSelectedPilotName.Text))
-            {
-                return;
-            }
-
-            webBrowser1.Url = new Uri("http://eve-hunt.net/hunt/" + txtSelectedPilotName.Text + "/");
-
-            if (crlPilotsHistory.Items.Contains(txtSelectedPilotName.Text.Trim()) == false)
-            {
-                crlPilotsHistory.Items.Add(txtSelectedPilotName.Text.Trim());
-            }
-
-            OpenWebBrowserPanel();
-
-            Resize();
         }
 
         private void label9_Click(object sender, EventArgs e)
@@ -858,62 +647,152 @@ namespace WHLocator
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var txtInClip = Clipboard.GetText();
-
-            if (txtInClip.StartsWith("http"))
-            {
-                if (webBrowser1.Url != null)
-                {
-                    if (txtInClip != txtUrl.Text)
-                    {
-                        webBrowser1.Url = new Uri(txtInClip);
-                        txtUrl.Text = txtInClip;
-                    }
-                }
-                else
-                {
-                    webBrowser1.Url = new Uri(txtInClip);
-                    txtUrl.Text = txtInClip;
-                }
-
-                
-            }
-
-            
-            webBrowser1.Visible = true;
-            OpenWebBrowserPanel();
-            Resize();
-
-            txtUrl.Focus();
-
-        }
-
-        private void Event_ExecuteUrlInWhlBrowser(object sender, EventArgs e)
-        {
-            if (txtUrl.Text.StartsWith("http"))
-            {
-                webBrowser1.Url = new Uri(txtUrl.Text);
-            }
-            else
-            {
-                webBrowser1.Url = new Uri("http://" + txtUrl.Text);
-            }
-        }
-
         private void cmbPilots_SelectedValueChanged(object sender, EventArgs e)
         {
-            _pilotes.SetSelected(cmbPilots.Text);
+            Global.Pilots.Activate(cmbPilots.Text);
 
             OpenAuthorizationPanel();
         }
 
-        
+        private void Event_WindowResizeEnd(object sender, EventArgs e)
+        {
+            if (_windowIsMinimaze) return;
 
+            if (ContainerTabs.Active().Name == "WebBrowser")
+            {
+                ResizeWebBrowser();
+            }
+            else
+            {
+                ResizeWindow();
+            }
 
+            ResizeButtonsPanelLocation();
+        }
 
+        private void Event_OpenSignaturesPanel(object sender, EventArgs e)
+        {
+            OpenSignaturesPanel();
+        }
 
+        private void Event_PasteSignatures(object sender, EventArgs e)
+        {
+            listSignaturesInCurrentSolarSystem.Items.Clear();
+
+            var txtInClip = Clipboard.GetText();
+
+            if (string.IsNullOrEmpty(txtInClip))
+            {
+                return;
+            }
+
+            try
+            {
+                var parts = txtInClip.Split('\n');
+
+                foreach (var signature in parts)
+                {
+                    var code = signature.Split('\t')[0];
+
+                    listSignaturesInCurrentSolarSystem.Items.Add(code);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("[WindowMonitoring.Event_PasteSignatures] Critical error = " + ex);
+            }
+
+            listSignaturesInCurrentSolarSystem.Refresh();
+
+        }
+
+        private void Event_WindowDoubleClick(object sender, EventArgs e)
+        {
+            if (_windowIsMinimaze)
+            {
+                _windowIsMinimaze = false;
+                cmdMinimazeRestore.Image = Resources.minimize;
+                lblSolarSystemName.Visible = true;
+                lblPilotName.Visible = true;
+                Size = new Size(ContainerTabs.Active().Size.Width, ContainerTabs.Active().Size.Height);
+            }
+            else
+            {
+                _windowIsMinimaze = true;
+                cmdMinimazeRestore.Image = Resources.restore;
+                lblSolarSystemName.Visible = true;
+                lblPilotName.Visible = false;
+                Size = new Size( ContainerTabs.Active().CompactSize.Width, ContainerTabs.Active().CompactSize.Height);
+            }
+
+            ResizeButtonsPanelLocation();
+        }
+
+        private void Event_WindowResizeBegin(object sender, EventArgs e)
+        {
+            string a = "";
+        }
+
+        private void Event_WindowMouseMove(object sender, MouseEventArgs e)
+        {
+            
+        }
+
+        private void WindowMonitoring_Resize(object sender, EventArgs e)
+        {
+            ResizeButtonsPanelLocation();
+        }
+
+        private void Event_TitleBarDoubleClick(object sender, EventArgs e)
+        {
+            if (_windowIsMinimaze)
+            {
+                _windowIsMinimaze = false;
+                cmdMinimazeRestore.Image = Resources.minimize;
+                lblSolarSystemName.Visible = true;
+                lblPilotName.Visible = true;
+                Size = ContainerTabs.Active().Size;
+            }
+            else
+            {
+                _windowIsMinimaze = true;
+                cmdMinimazeRestore.Image = Resources.restore;
+                lblSolarSystemName.Visible = true;
+                lblPilotName.Visible = false;
+                Size = ContainerTabs.Active().CompactSize;
+            }
+
+            ResizeButtonsPanelLocation();
+        }
+
+        private void Event_TitleBarMouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && e.Clicks == 1)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
+        private void Event_PanelDrawBorder(object sender, PaintEventArgs e)
+        {
+            //ControlPaint.DrawBorder(e.Graphics, this.panel1.ClientRectangle, Color.OrangeRed, ButtonBorderStyle.Solid);
+        }
+
+        private void Event_WebBrowserEnterUrl(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (txtUrl.Text.StartsWith("http"))
+                {
+                    BrowserUrlExecute(txtUrl.Text);
+                }
+                else
+                {
+                    BrowserUrlExecute("http://" + txtUrl.Text);
+                }
+            }
+        }
 
 
     }

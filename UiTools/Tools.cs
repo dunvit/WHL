@@ -3,11 +3,14 @@ using System.IO;
 using System.Net;
 using System.Text;
 using log4net;
+using WHL.Ui;
 
 namespace WHL.UiTools
 {
-    public class Tools
+    public static class Tools
     {
+        
+
         public static string ReadFile(string urlAddress, ILog log)
         {
             var request = (HttpWebRequest)WebRequest.Create(urlAddress);
@@ -33,23 +36,23 @@ namespace WHL.UiTools
 
         public static Color GetColorBySolarSystem(string solarSystemName)
         {
-            if (solarSystemName.Contains("hi-sec system")) return Color.LimeGreen;
+            if (solarSystemName.Contains("Highsec")) return Color.LimeGreen;
 
-            if (solarSystemName.Contains("low-sec system")) return Color.Chocolate;
+            if (solarSystemName.Contains("Lowsec")) return Color.Chocolate;
 
-            if (solarSystemName.Contains("deadly w-space system")) return Color.DarkRed;
+            if (solarSystemName.Contains("Nullsec")) return Color.Red;
 
-            if (solarSystemName.Contains("Class 2")) return Color.DeepSkyBlue;
+            if (solarSystemName.Contains("C6")) return Color.DarkRed;
 
-            if (solarSystemName.Contains("Class 3")) return Color.DeepSkyBlue;
+            if (solarSystemName.Contains("C2")) return Color.DeepSkyBlue;
 
-            if (solarSystemName.Contains("Class 1")) return Color.DeepSkyBlue;
+            if (solarSystemName.Contains("C3")) return Color.DeepSkyBlue;
 
-            if (solarSystemName.Contains("Class 4")) return Color.OrangeRed;
+            if (solarSystemName.Contains("C1")) return Color.DeepSkyBlue;
 
-            if (solarSystemName.Contains("Class 1")) return Color.DeepSkyBlue;
+            if (solarSystemName.Contains("C4")) return Color.OrangeRed;
 
-            if (solarSystemName.Contains("Class 5")) return Color.Crimson;
+            if (solarSystemName.Contains("C5")) return Color.Crimson;
 
             return Color.Bisque;
         }

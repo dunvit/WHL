@@ -7,13 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using log4net;
 
-namespace WHLocator.Infrastructure
+namespace WHL
 {
+    public delegate void DelegateStartProcess(string value);
+
     class CrestApiListener
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(CrestApiListener));
 
-        public void ListenLocalhost(WindowMonitoring.DelegateStartProcess StartPilotAuthorizeFlow)
+        public void ListenLocalhost(DelegateStartProcess StartPilotAuthorizeFlow)
         {
             var web = new HttpListener();
 

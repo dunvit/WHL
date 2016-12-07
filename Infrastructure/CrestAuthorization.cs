@@ -6,7 +6,7 @@ using System.Text;
 using log4net;
 using Newtonsoft.Json.Linq;
 
-namespace WHLocator.Infrastructure
+namespace WHL
 {
     public class CrestAuthorization
     {
@@ -88,24 +88,24 @@ namespace WHLocator.Infrastructure
 
             var url = "https://login.eveonline.com/oauth/token";
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
-
-            var encoded = Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(CLIENT_ID + ":" + CLIENT_SECRET));
-            httpWebRequest.Headers.Add("Authorization", "Basic " + encoded);
-            httpWebRequest.Host = "login.eveonline.com";
-
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-                string json = "{\"grant_type\":\"refresh_token\",\"refresh_token\":\"" + RefreshToken + "\"}";
-
-                streamWriter.Write(json);
-                streamWriter.Flush();
-            }
-
             try
             {
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Method = "POST";
+
+                var encoded = Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(CLIENT_ID + ":" + CLIENT_SECRET));
+                httpWebRequest.Headers.Add("Authorization", "Basic " + encoded);
+                httpWebRequest.Host = "login.eveonline.com";
+
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+                    string json = "{\"grant_type\":\"refresh_token\",\"refresh_token\":\"" + RefreshToken + "\"}";
+
+                    streamWriter.Write(json);
+                    streamWriter.Flush();
+                }
+
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {

@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using log4net;
 
-namespace WHLocator.Infrastructure
+namespace WHL
 {
-    class CcpXmlApi
+    public class CcpXmlApi
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(CrestAuthorization));
 

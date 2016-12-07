@@ -6,24 +6,24 @@ using System.Text.RegularExpressions;
 using CsvHelper;
 using log4net;
 
-namespace WHLocator
+namespace WHL.BLL
 {
-    public class Wormhole
+    //public class WormholeEntity
+    //{
+    //    public string Id { get; set; }
+    //    public string Name { get; set; }
+    //    public string Life { get; set; }
+    //    public string MaxStableMass { get; set; }
+    //    public string MaxJumpMass { get; set; }
+    //}
+
+    public class WormholesEntity
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Life { get; set; }
-        public string MaxStableMass { get; set; }
-        public string MaxJumpMass { get; set; }
-    }
+        private static readonly ILog Log = LogManager.GetLogger(typeof(WormholesEntity));
 
-    public class Wormholes
-    {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(Wormholes));
+        private readonly List<WormholeEntity> _list = new List<WormholeEntity>();
 
-        private readonly List<Wormhole> _list = new List<Wormhole>();
-
-        public Wormhole GetWormhole(string id)
+        public WormholeEntity GetWormhole(string id)
         {
             Log.DebugFormat("[Wormholes.GetWormhole] name is {0}", id);
 
@@ -39,16 +39,16 @@ namespace WHLocator
             //return _list.FirstOrDefault(wormholeType => wormholeType.Id.Trim() == id.Trim());
         }
 
-        public Wormholes()
+        public WormholesEntity()
         {
             using (var sr = new StreamReader(@"Data/WormholesList.csv"))
             {
                 var reader = new CsvReader(sr);
 
                 //CSVReader will now read the whole file into an enumerable
-                var records = reader.GetRecords<Wormhole>();
+                var records = reader.GetRecords<WormholeEntity>();
 
-                foreach (Wormhole record in records)
+                foreach (WormholeEntity record in records)
                 {
                     Log.DebugFormat("[Wormholes.Wormholes] Read csv row. {0} {1}, {2}", record.Id, record.Name, record.Life);
 
@@ -63,13 +63,13 @@ namespace WHLocator
 
         private void GetAdditionalInfo()
         {
-            var list = new List<Wormhole>();
+            var list = new List<WormholeEntity>();
 
             foreach (var wormholeType in _list)
             {
                 var data = WHL.UiTools.Tools.ReadFile("http://www.ellatha.com/eve/wormholelistview.asp?key=Wormhole+" + wormholeType.Id, Log);
 
-                var wormhole = new Wormhole
+                var wormhole = new WormholeEntity
                 {
                     Id = wormholeType.Id,
                     Name = wormholeType.Name,

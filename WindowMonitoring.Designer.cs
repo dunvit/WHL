@@ -1,4 +1,4 @@
-﻿namespace WHLocator
+﻿namespace WHL
 {
     partial class WindowMonitoring
     {
@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pnlControls = new System.Windows.Forms.Panel();
             this.btnOpenBrowserAndStartUrl = new System.Windows.Forms.Button();
             this.cmdPin = new System.Windows.Forms.Button();
             this.cmdClose = new System.Windows.Forms.Button();
@@ -76,8 +75,7 @@
             this.lnlSystemText = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.loadingGif = new System.Windows.Forms.PictureBox();
             this.containerPilotInfo = new System.Windows.Forms.Panel();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -112,7 +110,21 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.lblVersionID = new System.Windows.Forms.Label();
-            this.pnlControls.SuspendLayout();
+            this.label22 = new System.Windows.Forms.Label();
+            this.pnlContainerWebBrowser = new System.Windows.Forms.Panel();
+            this.pnlContainerSignatures = new System.Windows.Forms.Panel();
+            this.lblSignaturesInformation = new System.Windows.Forms.Label();
+            this.containerSignatures = new System.Windows.Forms.Panel();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.label26 = new System.Windows.Forms.Label();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.label27 = new System.Windows.Forms.Label();
+            this.listSignaturesInCurrentSolarSystem = new System.Windows.Forms.ListBox();
+            this.listBox3 = new System.Windows.Forms.ListBox();
+            this.TitleBar = new System.Windows.Forms.Panel();
+            this.VersionBar = new System.Windows.Forms.Panel();
             this.pnlAuthirization.SuspendLayout();
             this.pnlSolarSystemInformation.SuspendLayout();
             this.pnlPilotsInformation.SuspendLayout();
@@ -125,7 +137,7 @@
             this.cmdShowSuperputePanel.SuspendLayout();
             this.cmdShowZkillboardPanel.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.loadingGif)).BeginInit();
             this.containerPilotInfo.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -138,40 +150,37 @@
             this.panel11.SuspendLayout();
             this.containerWebBrowserPanel.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.pnlContainerWebBrowser.SuspendLayout();
+            this.pnlContainerSignatures.SuspendLayout();
+            this.containerSignatures.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panel12.SuspendLayout();
+            this.TitleBar.SuspendLayout();
+            this.VersionBar.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnlControls
-            // 
-            this.pnlControls.BackColor = System.Drawing.Color.Transparent;
-            this.pnlControls.Controls.Add(this.btnOpenBrowserAndStartUrl);
-            this.pnlControls.Controls.Add(this.cmdPin);
-            this.pnlControls.Controls.Add(this.cmdClose);
-            this.pnlControls.Controls.Add(this.cmdMinimazeRestore);
-            this.pnlControls.Location = new System.Drawing.Point(456, 4);
-            this.pnlControls.Name = "pnlControls";
-            this.pnlControls.Size = new System.Drawing.Size(94, 22);
-            this.pnlControls.TabIndex = 4;
             // 
             // btnOpenBrowserAndStartUrl
             // 
+            this.btnOpenBrowserAndStartUrl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenBrowserAndStartUrl.BackColor = System.Drawing.Color.Black;
             this.btnOpenBrowserAndStartUrl.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnOpenBrowserAndStartUrl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenBrowserAndStartUrl.Image = global::WHL.Properties.Resources.url;
-            this.btnOpenBrowserAndStartUrl.Location = new System.Drawing.Point(26, 0);
+            this.btnOpenBrowserAndStartUrl.Location = new System.Drawing.Point(727, 1);
             this.btnOpenBrowserAndStartUrl.Name = "btnOpenBrowserAndStartUrl";
             this.btnOpenBrowserAndStartUrl.Size = new System.Drawing.Size(22, 22);
             this.btnOpenBrowserAndStartUrl.TabIndex = 46;
             this.btnOpenBrowserAndStartUrl.UseVisualStyleBackColor = false;
-            this.btnOpenBrowserAndStartUrl.Click += new System.EventHandler(this.button1_Click);
+            this.btnOpenBrowserAndStartUrl.Click += new System.EventHandler(this.Event_OpenBrowserContainer);
             // 
             // cmdPin
             // 
+            this.cmdPin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdPin.BackColor = System.Drawing.Color.Black;
             this.cmdPin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cmdPin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdPin.Image = global::WHL.Properties.Resources.pin;
-            this.cmdPin.Location = new System.Drawing.Point(4, 0);
+            this.cmdPin.Location = new System.Drawing.Point(703, 1);
             this.cmdPin.Name = "cmdPin";
             this.cmdPin.Size = new System.Drawing.Size(22, 22);
             this.cmdPin.TabIndex = 3;
@@ -180,11 +189,12 @@
             // 
             // cmdClose
             // 
+            this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdClose.BackColor = System.Drawing.Color.Black;
             this.cmdClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cmdClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdClose.Image = global::WHL.Properties.Resources.close;
-            this.cmdClose.Location = new System.Drawing.Point(70, 0);
+            this.cmdClose.Location = new System.Drawing.Point(772, 1);
             this.cmdClose.Name = "cmdClose";
             this.cmdClose.Size = new System.Drawing.Size(22, 22);
             this.cmdClose.TabIndex = 0;
@@ -193,11 +203,12 @@
             // 
             // cmdMinimazeRestore
             // 
+            this.cmdMinimazeRestore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdMinimazeRestore.BackColor = System.Drawing.Color.Black;
             this.cmdMinimazeRestore.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cmdMinimazeRestore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdMinimazeRestore.Image = global::WHL.Properties.Resources.minimize;
-            this.cmdMinimazeRestore.Location = new System.Drawing.Point(48, 0);
+            this.cmdMinimazeRestore.Location = new System.Drawing.Point(750, 1);
             this.cmdMinimazeRestore.Name = "cmdMinimazeRestore";
             this.cmdMinimazeRestore.Size = new System.Drawing.Size(22, 22);
             this.cmdMinimazeRestore.TabIndex = 2;
@@ -209,11 +220,12 @@
             this.lblSolarSystemName.BackColor = System.Drawing.Color.Transparent;
             this.lblSolarSystemName.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSolarSystemName.ForeColor = System.Drawing.Color.LightGray;
-            this.lblSolarSystemName.Location = new System.Drawing.Point(4, 8);
+            this.lblSolarSystemName.Location = new System.Drawing.Point(5, 5);
             this.lblSolarSystemName.Name = "lblSolarSystemName";
             this.lblSolarSystemName.Size = new System.Drawing.Size(69, 18);
             this.lblSolarSystemName.TabIndex = 5;
-            this.lblSolarSystemName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblSolarSystemName_MouseDown);
+            this.lblSolarSystemName.DoubleClick += new System.EventHandler(this.Event_TitleBarDoubleClick);
+            this.lblSolarSystemName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Event_TitleBarMouseDown);
             // 
             // pnlAuthirization
             // 
@@ -248,6 +260,7 @@
             this.pnlContainer.Name = "pnlContainer";
             this.pnlContainer.Size = new System.Drawing.Size(542, 224);
             this.pnlContainer.TabIndex = 8;
+            this.pnlContainer.Paint += new System.Windows.Forms.PaintEventHandler(this.Event_PanelDrawBorder);
             // 
             // pnlSolarSystemInformation
             // 
@@ -306,7 +319,7 @@
             this.containerAuthirization.Controls.Add(this.crlPilotPortrait);
             this.containerAuthirization.Controls.Add(this.lblAuthorizationInfo);
             this.containerAuthirization.Controls.Add(this.btnLogInWithEveOnline);
-            this.containerAuthirization.Location = new System.Drawing.Point(7, 852);
+            this.containerAuthirization.Location = new System.Drawing.Point(605, 696);
             this.containerAuthirization.Name = "containerAuthirization";
             this.containerAuthirization.Size = new System.Drawing.Size(525, 205);
             this.containerAuthirization.TabIndex = 9;
@@ -371,13 +384,13 @@
             this.lblPilotName.BackColor = System.Drawing.Color.Transparent;
             this.lblPilotName.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPilotName.ForeColor = System.Drawing.Color.LightGray;
-            this.lblPilotName.Location = new System.Drawing.Point(126, 8);
+            this.lblPilotName.Location = new System.Drawing.Point(79, 5);
             this.lblPilotName.Name = "lblPilotName";
             this.lblPilotName.Size = new System.Drawing.Size(210, 18);
             this.lblPilotName.TabIndex = 10;
-            this.lblPilotName.Text = "Log in as ";
             this.lblPilotName.Visible = false;
-            this.lblPilotName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblPilotName_MouseDown);
+            this.lblPilotName.DoubleClick += new System.EventHandler(this.Event_TitleBarDoubleClick);
+            this.lblPilotName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Event_TitleBarMouseDown);
             // 
             // containerSolarSystemInformation
             // 
@@ -402,7 +415,7 @@
             this.containerSolarSystemInformation.Controls.Add(this.label6);
             this.containerSolarSystemInformation.Controls.Add(this.label5);
             this.containerSolarSystemInformation.Controls.Add(this.lnlSystemText);
-            this.containerSolarSystemInformation.Location = new System.Drawing.Point(6, 596);
+            this.containerSolarSystemInformation.Location = new System.Drawing.Point(606, 485);
             this.containerSolarSystemInformation.Name = "containerSolarSystemInformation";
             this.containerSolarSystemInformation.Size = new System.Drawing.Size(525, 205);
             this.containerSolarSystemInformation.TabIndex = 10;
@@ -688,6 +701,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Black;
             this.panel1.Controls.Add(this.webBrowser1);
+            this.panel1.Controls.Add(this.loadingGif);
             this.panel1.Location = new System.Drawing.Point(3, 28);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(872, 519);
@@ -695,38 +709,23 @@
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(12, 14);
+            this.webBrowser1.Location = new System.Drawing.Point(0, 2);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(849, 493);
+            this.webBrowser1.Size = new System.Drawing.Size(265, 94);
             this.webBrowser1.TabIndex = 16;
+            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.Event_WebBrowserCompleteLoadinf);
             // 
-            // label2
+            // loadingGif
             // 
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.LightGray;
-            this.label2.Location = new System.Drawing.Point(8, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 18);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Hide";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label2.Click += new System.EventHandler(this.panel2_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.Black;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(99, 26);
-            this.panel2.TabIndex = 12;
-            this.panel2.Click += new System.EventHandler(this.panel2_Click);
+            this.loadingGif.Image = global::WHL.Properties.Resources.tumblr_n8iuseEKSr1tg7xcdo1_500;
+            this.loadingGif.Location = new System.Drawing.Point(183, 67);
+            this.loadingGif.Name = "loadingGif";
+            this.loadingGif.Size = new System.Drawing.Size(500, 281);
+            this.loadingGif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.loadingGif.TabIndex = 17;
+            this.loadingGif.TabStop = false;
             // 
             // containerPilotInfo
             // 
@@ -741,7 +740,7 @@
             this.containerPilotInfo.Controls.Add(this.listBox1);
             this.containerPilotInfo.Controls.Add(this.panel6);
             this.containerPilotInfo.Controls.Add(this.panel7);
-            this.containerPilotInfo.Location = new System.Drawing.Point(548, 852);
+            this.containerPilotInfo.Location = new System.Drawing.Point(605, 274);
             this.containerPilotInfo.Name = "containerPilotInfo";
             this.containerPilotInfo.Size = new System.Drawing.Size(525, 205);
             this.containerPilotInfo.TabIndex = 13;
@@ -957,7 +956,7 @@
             this.containerBookmarksAndSignatures.Controls.Add(this.listCosmicSifnatures);
             this.containerBookmarksAndSignatures.Controls.Add(this.listLocationBookmarks);
             this.containerBookmarksAndSignatures.Controls.Add(this.panel11);
-            this.containerBookmarksAndSignatures.Location = new System.Drawing.Point(548, 596);
+            this.containerBookmarksAndSignatures.Location = new System.Drawing.Point(605, 63);
             this.containerBookmarksAndSignatures.Name = "containerBookmarksAndSignatures";
             this.containerBookmarksAndSignatures.Size = new System.Drawing.Size(525, 205);
             this.containerBookmarksAndSignatures.TabIndex = 15;
@@ -1066,11 +1065,11 @@
             // 
             // containerWebBrowserPanel
             // 
+            this.containerWebBrowserPanel.BackColor = System.Drawing.Color.Black;
             this.containerWebBrowserPanel.Controls.Add(this.txtUrl);
             this.containerWebBrowserPanel.Controls.Add(this.panel5);
-            this.containerWebBrowserPanel.Controls.Add(this.panel2);
             this.containerWebBrowserPanel.Controls.Add(this.panel1);
-            this.containerWebBrowserPanel.Location = new System.Drawing.Point(569, 38);
+            this.containerWebBrowserPanel.Location = new System.Drawing.Point(54, 929);
             this.containerWebBrowserPanel.Name = "containerWebBrowserPanel";
             this.containerWebBrowserPanel.Size = new System.Drawing.Size(875, 553);
             this.containerWebBrowserPanel.TabIndex = 16;
@@ -1079,12 +1078,13 @@
             // 
             this.txtUrl.BackColor = System.Drawing.Color.DimGray;
             this.txtUrl.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtUrl.Font = new System.Drawing.Font("Verdana", 12F);
+            this.txtUrl.Font = new System.Drawing.Font("Verdana", 14F);
             this.txtUrl.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.txtUrl.Location = new System.Drawing.Point(106, 5);
+            this.txtUrl.Location = new System.Drawing.Point(106, 3);
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(664, 20);
+            this.txtUrl.Size = new System.Drawing.Size(585, 23);
             this.txtUrl.TabIndex = 14;
+            this.txtUrl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Event_WebBrowserEnterUrl);
             // 
             // panel5
             // 
@@ -1092,7 +1092,7 @@
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.label21);
             this.panel5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel5.Location = new System.Drawing.Point(776, 1);
+            this.panel5.Location = new System.Drawing.Point(3, 1);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(99, 26);
             this.panel5.TabIndex = 13;
@@ -1114,9 +1114,10 @@
             // 
             // label18
             // 
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label18.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.DarkGray;
-            this.label18.Location = new System.Drawing.Point(287, 290);
+            this.label18.Location = new System.Drawing.Point(277, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(100, 23);
             this.label18.TabIndex = 42;
@@ -1125,9 +1126,10 @@
             // 
             // label19
             // 
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label19.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.Color.DarkOrange;
-            this.label19.Location = new System.Drawing.Point(393, 290);
+            this.label19.Location = new System.Drawing.Point(383, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(157, 23);
             this.label19.TabIndex = 43;
@@ -1138,7 +1140,7 @@
             // 
             this.label20.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.DarkGray;
-            this.label20.Location = new System.Drawing.Point(14, 290);
+            this.label20.Location = new System.Drawing.Point(3, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(95, 23);
             this.label20.TabIndex = 44;
@@ -1149,23 +1151,215 @@
             // 
             this.lblVersionID.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersionID.ForeColor = System.Drawing.Color.Olive;
-            this.lblVersionID.Location = new System.Drawing.Point(105, 290);
+            this.lblVersionID.Location = new System.Drawing.Point(94, 0);
             this.lblVersionID.Name = "lblVersionID";
-            this.lblVersionID.Size = new System.Drawing.Size(189, 23);
+            this.lblVersionID.Size = new System.Drawing.Size(158, 23);
             this.lblVersionID.TabIndex = 45;
             this.lblVersionID.Text = "1.12";
             this.lblVersionID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label22
+            // 
+            this.label22.BackColor = System.Drawing.Color.Transparent;
+            this.label22.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label22.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.Color.LightGray;
+            this.label22.Location = new System.Drawing.Point(0, 5);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(84, 18);
+            this.label22.TabIndex = 6;
+            this.label22.Text = "Web Browser";
+            this.label22.Click += new System.EventHandler(this.Event_OpenBrowserContainer);
+            // 
+            // pnlContainerWebBrowser
+            // 
+            this.pnlContainerWebBrowser.BackColor = System.Drawing.Color.Black;
+            this.pnlContainerWebBrowser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlContainerWebBrowser.Controls.Add(this.label22);
+            this.pnlContainerWebBrowser.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pnlContainerWebBrowser.Location = new System.Drawing.Point(289, 38);
+            this.pnlContainerWebBrowser.Name = "pnlContainerWebBrowser";
+            this.pnlContainerWebBrowser.Size = new System.Drawing.Size(84, 26);
+            this.pnlContainerWebBrowser.TabIndex = 15;
+            this.pnlContainerWebBrowser.Click += new System.EventHandler(this.Event_OpenBrowserContainer);
+            // 
+            // pnlContainerSignatures
+            // 
+            this.pnlContainerSignatures.BackColor = System.Drawing.Color.Black;
+            this.pnlContainerSignatures.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlContainerSignatures.Controls.Add(this.lblSignaturesInformation);
+            this.pnlContainerSignatures.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pnlContainerSignatures.Location = new System.Drawing.Point(806, 2);
+            this.pnlContainerSignatures.Name = "pnlContainerSignatures";
+            this.pnlContainerSignatures.Size = new System.Drawing.Size(84, 26);
+            this.pnlContainerSignatures.TabIndex = 16;
+            this.pnlContainerSignatures.Click += new System.EventHandler(this.Event_OpenSignaturesPanel);
+            // 
+            // lblSignaturesInformation
+            // 
+            this.lblSignaturesInformation.BackColor = System.Drawing.Color.Transparent;
+            this.lblSignaturesInformation.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblSignaturesInformation.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSignaturesInformation.ForeColor = System.Drawing.Color.DimGray;
+            this.lblSignaturesInformation.Location = new System.Drawing.Point(7, 5);
+            this.lblSignaturesInformation.Name = "lblSignaturesInformation";
+            this.lblSignaturesInformation.Size = new System.Drawing.Size(69, 18);
+            this.lblSignaturesInformation.TabIndex = 6;
+            this.lblSignaturesInformation.Text = "Signatures";
+            this.lblSignaturesInformation.Click += new System.EventHandler(this.Event_OpenSignaturesPanel);
+            // 
+            // containerSignatures
+            // 
+            this.containerSignatures.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.containerSignatures.Controls.Add(this.label23);
+            this.containerSignatures.Controls.Add(this.label24);
+            this.containerSignatures.Controls.Add(this.panel10);
+            this.containerSignatures.Controls.Add(this.panel12);
+            this.containerSignatures.Controls.Add(this.listSignaturesInCurrentSolarSystem);
+            this.containerSignatures.Controls.Add(this.listBox3);
+            this.containerSignatures.Location = new System.Drawing.Point(19, 506);
+            this.containerSignatures.Name = "containerSignatures";
+            this.containerSignatures.Size = new System.Drawing.Size(525, 205);
+            this.containerSignatures.TabIndex = 46;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.BackColor = System.Drawing.Color.Transparent;
+            this.label23.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.DarkGray;
+            this.label23.Location = new System.Drawing.Point(192, 13);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(95, 13);
+            this.label23.TabIndex = 53;
+            this.label23.Text = "Signatures now";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.BackColor = System.Drawing.Color.Transparent;
+            this.label24.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.DarkGray;
+            this.label24.Location = new System.Drawing.Point(11, 13);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(119, 13);
+            this.label24.TabIndex = 52;
+            this.label24.Text = "Signatures last visit";
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.Black;
+            this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel10.Controls.Add(this.label26);
+            this.panel10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panel10.Location = new System.Drawing.Point(199, 176);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(140, 26);
+            this.panel10.TabIndex = 51;
+            this.panel10.Click += new System.EventHandler(this.Event_PasteSignatures);
+            // 
+            // label26
+            // 
+            this.label26.BackColor = System.Drawing.Color.Transparent;
+            this.label26.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label26.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.ForeColor = System.Drawing.Color.LightGray;
+            this.label26.Location = new System.Drawing.Point(4, 4);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(132, 18);
+            this.label26.TabIndex = 6;
+            this.label26.Text = "Copy from clipboard";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label26.Click += new System.EventHandler(this.Event_PasteSignatures);
+            // 
+            // panel12
+            // 
+            this.panel12.BackColor = System.Drawing.Color.Black;
+            this.panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel12.Controls.Add(this.label27);
+            this.panel12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panel12.Location = new System.Drawing.Point(383, 29);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(124, 26);
+            this.panel12.TabIndex = 50;
+            // 
+            // label27
+            // 
+            this.label27.BackColor = System.Drawing.Color.Transparent;
+            this.label27.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label27.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.ForeColor = System.Drawing.Color.LightGray;
+            this.label27.Location = new System.Drawing.Point(4, 4);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(117, 18);
+            this.label27.TabIndex = 6;
+            this.label27.Text = "Clear signatures";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // listSignaturesInCurrentSolarSystem
+            // 
+            this.listSignaturesInCurrentSolarSystem.BackColor = System.Drawing.Color.Black;
+            this.listSignaturesInCurrentSolarSystem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listSignaturesInCurrentSolarSystem.Font = new System.Drawing.Font("Verdana", 8.25F);
+            this.listSignaturesInCurrentSolarSystem.ForeColor = System.Drawing.Color.LightGray;
+            this.listSignaturesInCurrentSolarSystem.FormattingEnabled = true;
+            this.listSignaturesInCurrentSolarSystem.Location = new System.Drawing.Point(195, 29);
+            this.listSignaturesInCurrentSolarSystem.Name = "listSignaturesInCurrentSolarSystem";
+            this.listSignaturesInCurrentSolarSystem.Size = new System.Drawing.Size(153, 145);
+            this.listSignaturesInCurrentSolarSystem.TabIndex = 49;
+            // 
+            // listBox3
+            // 
+            this.listBox3.BackColor = System.Drawing.Color.Black;
+            this.listBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listBox3.Font = new System.Drawing.Font("Verdana", 8.25F);
+            this.listBox3.ForeColor = System.Drawing.Color.LightGray;
+            this.listBox3.FormattingEnabled = true;
+            this.listBox3.Location = new System.Drawing.Point(14, 29);
+            this.listBox3.Name = "listBox3";
+            this.listBox3.Size = new System.Drawing.Size(153, 145);
+            this.listBox3.TabIndex = 47;
+            // 
+            // TitleBar
+            // 
+            this.TitleBar.BackColor = System.Drawing.Color.Black;
+            this.TitleBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TitleBar.Controls.Add(this.cmdPin);
+            this.TitleBar.Controls.Add(this.btnOpenBrowserAndStartUrl);
+            this.TitleBar.Controls.Add(this.cmdClose);
+            this.TitleBar.Controls.Add(this.cmdMinimazeRestore);
+            this.TitleBar.Controls.Add(this.lblSolarSystemName);
+            this.TitleBar.Controls.Add(this.lblPilotName);
+            this.TitleBar.Location = new System.Drawing.Point(0, 0);
+            this.TitleBar.Name = "TitleBar";
+            this.TitleBar.Size = new System.Drawing.Size(800, 28);
+            this.TitleBar.TabIndex = 47;
+            this.TitleBar.DoubleClick += new System.EventHandler(this.Event_TitleBarDoubleClick);
+            this.TitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Event_TitleBarMouseDown);
+            // 
+            // VersionBar
+            // 
+            this.VersionBar.BackColor = System.Drawing.Color.Transparent;
+            this.VersionBar.Controls.Add(this.label18);
+            this.VersionBar.Controls.Add(this.label19);
+            this.VersionBar.Controls.Add(this.label20);
+            this.VersionBar.Controls.Add(this.lblVersionID);
+            this.VersionBar.Location = new System.Drawing.Point(10, 326);
+            this.VersionBar.Name = "VersionBar";
+            this.VersionBar.Size = new System.Drawing.Size(540, 28);
+            this.VersionBar.TabIndex = 48;
             // 
             // WindowMonitoring
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.ClientSize = new System.Drawing.Size(1443, 1092);
-            this.Controls.Add(this.lblVersionID);
-            this.Controls.Add(this.label20);
-            this.Controls.Add(this.label19);
-            this.Controls.Add(this.label18);
+            this.ClientSize = new System.Drawing.Size(1443, 1053);
+            this.Controls.Add(this.TitleBar);
+            this.Controls.Add(this.VersionBar);
+            this.Controls.Add(this.containerSignatures);
+            this.Controls.Add(this.pnlContainerSignatures);
+            this.Controls.Add(this.pnlContainerWebBrowser);
             this.Controls.Add(this.containerWebBrowserPanel);
             this.Controls.Add(this.containerBookmarksAndSignatures);
             this.Controls.Add(this.pnlBookmarksAndSignatures);
@@ -1176,18 +1370,18 @@
             this.Controls.Add(this.pnlSolarSystemInformation);
             this.Controls.Add(this.pnlContainer);
             this.Controls.Add(this.pnlAuthirization);
-            this.Controls.Add(this.lblSolarSystemName);
-            this.Controls.Add(this.pnlControls);
-            this.Controls.Add(this.lblPilotName);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "WindowMonitoring";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WHL";
             this.Load += new System.EventHandler(this.WindowMonitoring_Load);
-            this.DoubleClick += new System.EventHandler(this.WindowMonitoring_DoubleClick);
+            this.ResizeBegin += new System.EventHandler(this.Event_WindowResizeBegin);
+            this.ResizeEnd += new System.EventHandler(this.Event_WindowResizeEnd);
+            this.DoubleClick += new System.EventHandler(this.Event_WindowDoubleClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.WindowMonitoring_MouseDown);
-            this.pnlControls.ResumeLayout(false);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Event_WindowMouseMove);
+            this.Resize += new System.EventHandler(this.WindowMonitoring_Resize);
             this.pnlAuthirization.ResumeLayout(false);
             this.pnlSolarSystemInformation.ResumeLayout(false);
             this.pnlPilotsInformation.ResumeLayout(false);
@@ -1201,7 +1395,8 @@
             this.cmdShowSuperputePanel.ResumeLayout(false);
             this.cmdShowZkillboardPanel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.loadingGif)).EndInit();
             this.containerPilotInfo.ResumeLayout(false);
             this.containerPilotInfo.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -1216,6 +1411,14 @@
             this.containerWebBrowserPanel.ResumeLayout(false);
             this.containerWebBrowserPanel.PerformLayout();
             this.panel5.ResumeLayout(false);
+            this.pnlContainerWebBrowser.ResumeLayout(false);
+            this.pnlContainerSignatures.ResumeLayout(false);
+            this.containerSignatures.ResumeLayout(false);
+            this.containerSignatures.PerformLayout();
+            this.panel10.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            this.TitleBar.ResumeLayout(false);
+            this.VersionBar.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1225,21 +1428,20 @@
         private System.Windows.Forms.Button cmdClose;
         private System.Windows.Forms.Button cmdMinimazeRestore;
         private System.Windows.Forms.Button cmdPin;
-        private System.Windows.Forms.Panel pnlControls;
         private System.Windows.Forms.Label lblSolarSystemName;
         private System.Windows.Forms.Panel pnlAuthirization;
-        private System.Windows.Forms.Panel pnlContainer;
+        public System.Windows.Forms.Panel pnlContainer;
         private System.Windows.Forms.Label lblAuthirization;
-        private System.Windows.Forms.Panel pnlSolarSystemInformation;
+        public System.Windows.Forms.Panel pnlSolarSystemInformation;
         private System.Windows.Forms.Label lblSolarSystemInformation;
-        private System.Windows.Forms.Panel pnlPilotsInformation;
+        public System.Windows.Forms.Panel pnlPilotsInformation;
         private System.Windows.Forms.Label lblPilotsInformation;
-        private System.Windows.Forms.Panel containerAuthirization;
+        public System.Windows.Forms.Panel containerAuthirization;
         private System.Windows.Forms.PictureBox btnLogInWithEveOnline;
-        private System.Windows.Forms.Label lblAuthorizationInfo;
+        public System.Windows.Forms.Label lblAuthorizationInfo;
         private System.Windows.Forms.Timer RefreshTokenTimer;
         private System.Windows.Forms.Label lblPilotName;
-        private System.Windows.Forms.PictureBox crlPilotPortrait;
+        public System.Windows.Forms.PictureBox crlPilotPortrait;
         private System.Windows.Forms.Panel containerSolarSystemInformation;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label4;
@@ -1266,9 +1468,7 @@
         private System.Windows.Forms.Panel cmdShowDotlanPanel;
         private System.Windows.Forms.Label cmdShowDotlanLabel;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel panel2;
+        public System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.Panel containerPilotInfo;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label label10;
@@ -1281,7 +1481,7 @@
         private System.Windows.Forms.ListBox crlPilotsHistory;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Panel pnlBookmarksAndSignatures;
+        public System.Windows.Forms.Panel pnlBookmarksAndSignatures;
         private System.Windows.Forms.Label lblCoordinatesSignatures;
         private System.Windows.Forms.Panel containerBookmarksAndSignatures;
         private System.Windows.Forms.Panel panel8;
@@ -1301,10 +1501,26 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label lblVersionID;
         private System.Windows.Forms.Button btnOpenBrowserAndStartUrl;
-        private System.Windows.Forms.TextBox txtUrl;
+        public System.Windows.Forms.TextBox txtUrl;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ComboBox cmbPilots;
+        private System.Windows.Forms.Label label22;
+        public System.Windows.Forms.Panel pnlContainerWebBrowser;
+        public System.Windows.Forms.Panel pnlContainerSignatures;
+        private System.Windows.Forms.Label lblSignaturesInformation;
+        private System.Windows.Forms.Panel containerSignatures;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.ListBox listSignaturesInCurrentSolarSystem;
+        private System.Windows.Forms.ListBox listBox3;
+        private System.Windows.Forms.PictureBox loadingGif;
+        private System.Windows.Forms.Panel TitleBar;
+        private System.Windows.Forms.Panel VersionBar;
 
 
 
