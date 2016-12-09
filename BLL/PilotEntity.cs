@@ -69,8 +69,10 @@ namespace WHL.BLL
 
                 if (Global.Space.SolarSystems.ContainsKey(locationInfo.SelectToken("solarSystem.name").Value.ToString()))
                 {
-                    Location = Global.Space.SolarSystems[locationInfo.SelectToken("solarSystem.name").Value.ToString()];
+                    var location = (StarSystemEntity)Global.Space.SolarSystems[locationInfo.SelectToken("solarSystem.name").Value.ToString()];
 
+                    Location = location.Clone() as StarSystemEntity;
+                   
                     Location.Id = locationInfo.SelectToken("solarSystem.id").Value.ToString();
                 }
                 else
@@ -97,6 +99,7 @@ namespace WHL.BLL
             
         }
 
+        private bool isBusy = false;
 
         public void RefreshInfo()
         {
@@ -105,7 +108,7 @@ namespace WHL.BLL
             var span = DateTime.Now - LastTokenUpdate;
             var ms = (int)span.TotalMilliseconds;
 
-            if (ms > CrestData.ExpiresIn + 200)
+            if (ms > CrestData.ExpiresIn * 1000 - 20000)
             {
                 CrestData.Refresh();
 
@@ -114,7 +117,16 @@ namespace WHL.BLL
                 Log.DebugFormat("[Pilot.RefreshInfo] set LastTokenUpdate for Id = {0}", Id);
             }
 
-            LoadLocationInfo();
+            if (isBusy == false)
+            {
+                isBusy = true;
+
+                LoadLocationInfo();
+
+                isBusy = false;
+            }
+
+
         }
 
         

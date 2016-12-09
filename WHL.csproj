@@ -86,6 +86,9 @@
   <ItemGroup>
     <Compile Include="BLL\PilotsEntity.cs" />
     <Compile Include="BLL\SpaceEntity.cs" />
+    <Compile Include="Browser\Address.cs" />
+    <Compile Include="Browser\BrowserEntity.cs" />
+    <Compile Include="Browser\History.cs" />
     <Compile Include="Ui\Logic\BrowserCommands.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -176,6 +179,10 @@
     <Content Include="log4net.xml" />
     <Content Include="Readme.html" />
     <None Include="Resources\tumblr_n8iuseEKSr1tg7xcdo1_500.gif" />
+    <None Include="Resources\browser_execute.png" />
+    <None Include="Resources\browser_refresh.png" />
+    <None Include="Resources\browser_forward.png" />
+    <None Include="Resources\browser_back.png" />
     <Content Include="Versions\CurrentVersion.txt" />
     <Content Include="Versions\History.txt" />
     <None Include="Resources\url.png" />

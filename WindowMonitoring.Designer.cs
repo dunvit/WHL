@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btnOpenBrowserAndStartUrl = new System.Windows.Forms.Button();
-            this.cmdPin = new System.Windows.Forms.Button();
-            this.cmdClose = new System.Windows.Forms.Button();
-            this.cmdMinimazeRestore = new System.Windows.Forms.Button();
             this.lblSolarSystemName = new System.Windows.Forms.Label();
             this.pnlAuthirization = new System.Windows.Forms.Panel();
             this.lblAuthirization = new System.Windows.Forms.Label();
@@ -103,6 +99,12 @@
             this.panel11 = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
             this.containerWebBrowserPanel = new System.Windows.Forms.Panel();
+            this.BrowserCommandExecute = new System.Windows.Forms.Button();
+            this.BrowserCommandRefresh = new System.Windows.Forms.Button();
+            this.BrowserCommandForward = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.BrowserCommandBack = new System.Windows.Forms.Button();
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label21 = new System.Windows.Forms.Label();
@@ -124,6 +126,10 @@
             this.listSignaturesInCurrentSolarSystem = new System.Windows.Forms.ListBox();
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.TitleBar = new System.Windows.Forms.Panel();
+            this.cmdPin = new System.Windows.Forms.Button();
+            this.btnOpenBrowserAndStartUrl = new System.Windows.Forms.Button();
+            this.cmdClose = new System.Windows.Forms.Button();
+            this.cmdMinimazeRestore = new System.Windows.Forms.Button();
             this.VersionBar = new System.Windows.Forms.Panel();
             this.pnlAuthirization.SuspendLayout();
             this.pnlSolarSystemInformation.SuspendLayout();
@@ -158,62 +164,6 @@
             this.TitleBar.SuspendLayout();
             this.VersionBar.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnOpenBrowserAndStartUrl
-            // 
-            this.btnOpenBrowserAndStartUrl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenBrowserAndStartUrl.BackColor = System.Drawing.Color.Black;
-            this.btnOpenBrowserAndStartUrl.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnOpenBrowserAndStartUrl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenBrowserAndStartUrl.Image = global::WHL.Properties.Resources.url;
-            this.btnOpenBrowserAndStartUrl.Location = new System.Drawing.Point(727, 1);
-            this.btnOpenBrowserAndStartUrl.Name = "btnOpenBrowserAndStartUrl";
-            this.btnOpenBrowserAndStartUrl.Size = new System.Drawing.Size(22, 22);
-            this.btnOpenBrowserAndStartUrl.TabIndex = 46;
-            this.btnOpenBrowserAndStartUrl.UseVisualStyleBackColor = false;
-            this.btnOpenBrowserAndStartUrl.Click += new System.EventHandler(this.Event_OpenBrowserContainer);
-            // 
-            // cmdPin
-            // 
-            this.cmdPin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdPin.BackColor = System.Drawing.Color.Black;
-            this.cmdPin.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmdPin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdPin.Image = global::WHL.Properties.Resources.pin;
-            this.cmdPin.Location = new System.Drawing.Point(703, 1);
-            this.cmdPin.Name = "cmdPin";
-            this.cmdPin.Size = new System.Drawing.Size(22, 22);
-            this.cmdPin.TabIndex = 3;
-            this.cmdPin.UseVisualStyleBackColor = false;
-            this.cmdPin.Click += new System.EventHandler(this.cmdPin_Click);
-            // 
-            // cmdClose
-            // 
-            this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdClose.BackColor = System.Drawing.Color.Black;
-            this.cmdClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmdClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdClose.Image = global::WHL.Properties.Resources.close;
-            this.cmdClose.Location = new System.Drawing.Point(772, 1);
-            this.cmdClose.Name = "cmdClose";
-            this.cmdClose.Size = new System.Drawing.Size(22, 22);
-            this.cmdClose.TabIndex = 0;
-            this.cmdClose.UseVisualStyleBackColor = false;
-            this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
-            // 
-            // cmdMinimazeRestore
-            // 
-            this.cmdMinimazeRestore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdMinimazeRestore.BackColor = System.Drawing.Color.Black;
-            this.cmdMinimazeRestore.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmdMinimazeRestore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmdMinimazeRestore.Image = global::WHL.Properties.Resources.minimize;
-            this.cmdMinimazeRestore.Location = new System.Drawing.Point(750, 1);
-            this.cmdMinimazeRestore.Name = "cmdMinimazeRestore";
-            this.cmdMinimazeRestore.Size = new System.Drawing.Size(22, 22);
-            this.cmdMinimazeRestore.TabIndex = 2;
-            this.cmdMinimazeRestore.UseVisualStyleBackColor = false;
-            this.cmdMinimazeRestore.Click += new System.EventHandler(this.cmdMinimazeRestore_Click);
             // 
             // lblSolarSystemName
             // 
@@ -1066,13 +1016,96 @@
             // containerWebBrowserPanel
             // 
             this.containerWebBrowserPanel.BackColor = System.Drawing.Color.Black;
+            this.containerWebBrowserPanel.Controls.Add(this.BrowserCommandExecute);
+            this.containerWebBrowserPanel.Controls.Add(this.BrowserCommandRefresh);
+            this.containerWebBrowserPanel.Controls.Add(this.BrowserCommandForward);
+            this.containerWebBrowserPanel.Controls.Add(this.button3);
+            this.containerWebBrowserPanel.Controls.Add(this.button2);
+            this.containerWebBrowserPanel.Controls.Add(this.BrowserCommandBack);
             this.containerWebBrowserPanel.Controls.Add(this.txtUrl);
-            this.containerWebBrowserPanel.Controls.Add(this.panel5);
             this.containerWebBrowserPanel.Controls.Add(this.panel1);
             this.containerWebBrowserPanel.Location = new System.Drawing.Point(54, 929);
             this.containerWebBrowserPanel.Name = "containerWebBrowserPanel";
             this.containerWebBrowserPanel.Size = new System.Drawing.Size(875, 553);
             this.containerWebBrowserPanel.TabIndex = 16;
+            // 
+            // BrowserCommandExecute
+            // 
+            this.BrowserCommandExecute.BackColor = System.Drawing.Color.Black;
+            this.BrowserCommandExecute.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BrowserCommandExecute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BrowserCommandExecute.Image = global::WHL.Properties.Resources.browser_execute;
+            this.BrowserCommandExecute.Location = new System.Drawing.Point(79, 4);
+            this.BrowserCommandExecute.Name = "BrowserCommandExecute";
+            this.BrowserCommandExecute.Size = new System.Drawing.Size(22, 22);
+            this.BrowserCommandExecute.TabIndex = 50;
+            this.BrowserCommandExecute.UseVisualStyleBackColor = false;
+            this.BrowserCommandExecute.Click += new System.EventHandler(this.Event_ExecuteUrlInWhlBrowser);
+            // 
+            // BrowserCommandRefresh
+            // 
+            this.BrowserCommandRefresh.BackColor = System.Drawing.Color.Black;
+            this.BrowserCommandRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BrowserCommandRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BrowserCommandRefresh.Image = global::WHL.Properties.Resources.browser_refresh;
+            this.BrowserCommandRefresh.Location = new System.Drawing.Point(45, 4);
+            this.BrowserCommandRefresh.Name = "BrowserCommandRefresh";
+            this.BrowserCommandRefresh.Size = new System.Drawing.Size(22, 22);
+            this.BrowserCommandRefresh.TabIndex = 50;
+            this.BrowserCommandRefresh.UseVisualStyleBackColor = false;
+            this.BrowserCommandRefresh.Click += new System.EventHandler(this.BrowserEvent_Refresh);
+            // 
+            // BrowserCommandForward
+            // 
+            this.BrowserCommandForward.BackColor = System.Drawing.Color.Black;
+            this.BrowserCommandForward.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BrowserCommandForward.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BrowserCommandForward.Image = global::WHL.Properties.Resources.browser_forward;
+            this.BrowserCommandForward.Location = new System.Drawing.Point(24, 4);
+            this.BrowserCommandForward.Name = "BrowserCommandForward";
+            this.BrowserCommandForward.Size = new System.Drawing.Size(22, 22);
+            this.BrowserCommandForward.TabIndex = 50;
+            this.BrowserCommandForward.UseVisualStyleBackColor = false;
+            this.BrowserCommandForward.Click += new System.EventHandler(this.BrowserEvent_Next);
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.BackColor = System.Drawing.Color.Black;
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Image = global::WHL.Properties.Resources.close;
+            this.button3.Location = new System.Drawing.Point(434, 273);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(22, 22);
+            this.button3.TabIndex = 51;
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.BackColor = System.Drawing.Color.Black;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Image = global::WHL.Properties.Resources.close;
+            this.button2.Location = new System.Drawing.Point(426, 265);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(22, 22);
+            this.button2.TabIndex = 50;
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // BrowserCommandBack
+            // 
+            this.BrowserCommandBack.BackColor = System.Drawing.Color.Black;
+            this.BrowserCommandBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BrowserCommandBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BrowserCommandBack.Image = global::WHL.Properties.Resources.browser_back;
+            this.BrowserCommandBack.Location = new System.Drawing.Point(3, 4);
+            this.BrowserCommandBack.Name = "BrowserCommandBack";
+            this.BrowserCommandBack.Size = new System.Drawing.Size(22, 22);
+            this.BrowserCommandBack.TabIndex = 49;
+            this.BrowserCommandBack.UseVisualStyleBackColor = false;
+            this.BrowserCommandBack.Click += new System.EventHandler(this.BrowserEvent_Back);
             // 
             // txtUrl
             // 
@@ -1092,7 +1125,7 @@
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.label21);
             this.panel5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.panel5.Location = new System.Drawing.Point(3, 1);
+            this.panel5.Location = new System.Drawing.Point(445, 751);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(99, 26);
             this.panel5.TabIndex = 13;
@@ -1337,6 +1370,62 @@
             this.TitleBar.DoubleClick += new System.EventHandler(this.Event_TitleBarDoubleClick);
             this.TitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Event_TitleBarMouseDown);
             // 
+            // cmdPin
+            // 
+            this.cmdPin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdPin.BackColor = System.Drawing.Color.Black;
+            this.cmdPin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmdPin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdPin.Image = global::WHL.Properties.Resources.pin;
+            this.cmdPin.Location = new System.Drawing.Point(703, 1);
+            this.cmdPin.Name = "cmdPin";
+            this.cmdPin.Size = new System.Drawing.Size(22, 22);
+            this.cmdPin.TabIndex = 3;
+            this.cmdPin.UseVisualStyleBackColor = false;
+            this.cmdPin.Click += new System.EventHandler(this.cmdPin_Click);
+            // 
+            // btnOpenBrowserAndStartUrl
+            // 
+            this.btnOpenBrowserAndStartUrl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenBrowserAndStartUrl.BackColor = System.Drawing.Color.Black;
+            this.btnOpenBrowserAndStartUrl.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOpenBrowserAndStartUrl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenBrowserAndStartUrl.Image = global::WHL.Properties.Resources.url;
+            this.btnOpenBrowserAndStartUrl.Location = new System.Drawing.Point(727, 1);
+            this.btnOpenBrowserAndStartUrl.Name = "btnOpenBrowserAndStartUrl";
+            this.btnOpenBrowserAndStartUrl.Size = new System.Drawing.Size(22, 22);
+            this.btnOpenBrowserAndStartUrl.TabIndex = 46;
+            this.btnOpenBrowserAndStartUrl.UseVisualStyleBackColor = false;
+            this.btnOpenBrowserAndStartUrl.Click += new System.EventHandler(this.Event_OpenBrowserContainer);
+            // 
+            // cmdClose
+            // 
+            this.cmdClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdClose.BackColor = System.Drawing.Color.Black;
+            this.cmdClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmdClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdClose.Image = global::WHL.Properties.Resources.close;
+            this.cmdClose.Location = new System.Drawing.Point(772, 1);
+            this.cmdClose.Name = "cmdClose";
+            this.cmdClose.Size = new System.Drawing.Size(22, 22);
+            this.cmdClose.TabIndex = 0;
+            this.cmdClose.UseVisualStyleBackColor = false;
+            this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
+            // 
+            // cmdMinimazeRestore
+            // 
+            this.cmdMinimazeRestore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdMinimazeRestore.BackColor = System.Drawing.Color.Black;
+            this.cmdMinimazeRestore.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmdMinimazeRestore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdMinimazeRestore.Image = global::WHL.Properties.Resources.minimize;
+            this.cmdMinimazeRestore.Location = new System.Drawing.Point(750, 1);
+            this.cmdMinimazeRestore.Name = "cmdMinimazeRestore";
+            this.cmdMinimazeRestore.Size = new System.Drawing.Size(22, 22);
+            this.cmdMinimazeRestore.TabIndex = 2;
+            this.cmdMinimazeRestore.UseVisualStyleBackColor = false;
+            this.cmdMinimazeRestore.Click += new System.EventHandler(this.cmdMinimazeRestore_Click);
+            // 
             // VersionBar
             // 
             this.VersionBar.BackColor = System.Drawing.Color.Transparent;
@@ -1356,6 +1445,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.ClientSize = new System.Drawing.Size(1443, 1053);
             this.Controls.Add(this.TitleBar);
+            this.Controls.Add(this.panel5);
             this.Controls.Add(this.VersionBar);
             this.Controls.Add(this.containerSignatures);
             this.Controls.Add(this.pnlContainerSignatures);
@@ -1521,6 +1611,12 @@
         private System.Windows.Forms.PictureBox loadingGif;
         private System.Windows.Forms.Panel TitleBar;
         private System.Windows.Forms.Panel VersionBar;
+        private System.Windows.Forms.Button BrowserCommandExecute;
+        private System.Windows.Forms.Button BrowserCommandRefresh;
+        private System.Windows.Forms.Button BrowserCommandForward;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button BrowserCommandBack;
 
 
 

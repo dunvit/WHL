@@ -64,7 +64,7 @@ namespace WHL
 
         private void WindowMonitoring_Load(object sender, EventArgs e)
         {
-            lblVersionID.Text = @"1.23";
+            lblVersionID.Text = @"1.23.1";
 
             pnlContainerSignatures.Location = new Point(-1000,-1000);
 
@@ -793,6 +793,40 @@ namespace WHL
                 }
             }
         }
+
+        private void BrowserEvent_Refresh(object sender, EventArgs e)
+        {
+            if (txtUrl.Text.StartsWith("http"))
+            {
+                BrowserUrlRefresh(txtUrl.Text);
+            }
+            else
+            {
+                BrowserUrlRefresh("http://" + txtUrl.Text);
+            }
+
+
+        }
+
+        private void BrowserEvent_Back(object sender, EventArgs e)
+        {
+            var url = Global.Browser.History.Previous();
+
+            if (string.IsNullOrEmpty(url)) return;
+
+            BrowserUrlExecute(url);
+        }
+
+        private void BrowserEvent_Next(object sender, EventArgs e)
+        {
+            var url = Global.Browser.History.Next();
+
+            if (string.IsNullOrEmpty(url)) return;
+
+            BrowserUrlExecute(url);
+        }
+
+
 
 
     }
