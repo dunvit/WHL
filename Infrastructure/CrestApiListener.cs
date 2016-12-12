@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using log4net;
 
@@ -22,8 +19,6 @@ namespace WHL
             const string url = "http://localhost";
             const string port = "8080";
             var prefix = string.Format("{0}:{1}/", url, port);
-
-            //NetAclChecker.AddAddress(prefix);
 
             web.Prefixes.Add(prefix);
 

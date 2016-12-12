@@ -63,6 +63,16 @@ namespace WHL.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap book_with_bookmark {
+            get {
+                object obj = ResourceManager.GetObject("book-with-bookmark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap browser_back {
             get {
                 object obj = ResourceManager.GetObject("browser_back", resourceCulture);
@@ -126,6 +136,16 @@ namespace WHL.Properties {
         internal static System.Drawing.Bitmap minimize {
             get {
                 object obj = ResourceManager.GetObject("minimize", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap new_document_button {
+            get {
+                object obj = ResourceManager.GetObject("new-document-button", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

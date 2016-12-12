@@ -87,29 +87,8 @@
     <Compile Include="BLL\PilotsEntity.cs" />
     <Compile Include="BLL\SpaceEntity.cs" />
     <Compile Include="Browser\Address.cs" />
-    <Compile Include="Browser\BrowserEntity.cs" />
     <Compile Include="Browser\History.cs" />
-    <Compile Include="Ui\Logic\BrowserCommands.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ui\Tabs\ContainerTabSignatures.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ui\Tabs\ContainerTabAuthorization.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ui\Tabs\ContainerTabCoordinatesSignatures.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ui\Tabs\ContainerTabPilotInformation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ui\Tabs\ContainerTabSolarSystem.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ui\Tabs\ContainerTabWebBrowser.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Infrastructure\EsiAuthorization.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Infrastructure\CcpXmlApi.cs" />
     <Compile Include="Infrastructure\CrestApiListener.cs" />
@@ -122,8 +101,41 @@
     <Compile Include="UiTools\Tools.cs" />
     <Compile Include="UiTools\VsBorder.cs" />
     <Compile Include="Ui\Tabs.cs" />
-    <Compile Include="Ui\Logic\ResizeWindow.cs">
-      <SubType>Form</SubType>
+    <Compile Include="WhlControls\whlAuthorization.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WhlControls\whlAuthorization.Designer.cs">
+      <DependentUpon>whlAuthorization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WhlControls\whlBookmarks.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WhlControls\whlBookmarks.Designer.cs">
+      <DependentUpon>whlBookmarks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WhlControls\whlBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WhlControls\whlBrowser.Designer.cs">
+      <DependentUpon>whlBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WhlControls\whlButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WhlControls\whlButton.Designer.cs">
+      <DependentUpon>whlButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WhlControls\whlPilotInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WhlControls\whlPilotInfo.Designer.cs">
+      <DependentUpon>whlPilotInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WhlControls\whlSolarSystem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WhlControls\whlSolarSystem.Designer.cs">
+      <DependentUpon>whlSolarSystem.cs</DependentUpon>
     </Compile>
     <Compile Include="WindowAbout.cs">
       <SubType>Form</SubType>
@@ -147,6 +159,24 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="WhlControls\whlAuthorization.resx">
+      <DependentUpon>whlAuthorization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WhlControls\whlBookmarks.resx">
+      <DependentUpon>whlBookmarks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WhlControls\whlBrowser.resx">
+      <DependentUpon>whlBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WhlControls\whlButton.resx">
+      <DependentUpon>whlButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WhlControls\whlPilotInfo.resx">
+      <DependentUpon>whlPilotInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WhlControls\whlSolarSystem.resx">
+      <DependentUpon>whlSolarSystem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WindowAbout.resx">
       <DependentUpon>WindowAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -183,6 +213,8 @@
     <None Include="Resources\browser_refresh.png" />
     <None Include="Resources\browser_forward.png" />
     <None Include="Resources\browser_back.png" />
+    <None Include="Resources\new-document-button.png" />
+    <None Include="Resources\book-with-bookmark.png" />
     <Content Include="Versions\CurrentVersion.txt" />
     <Content Include="Versions\History.txt" />
     <None Include="Resources\url.png" />

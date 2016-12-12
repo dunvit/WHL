@@ -66,8 +66,5 @@ namespace WHL.Ui
         public bool IsMinimized { get; set; }
 
         public bool IsActive { get; set; }
-
-
-
     }
 }

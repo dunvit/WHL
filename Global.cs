@@ -1,5 +1,5 @@
 ﻿using WHL.BLL;
-using WHL.Browser;
+using WHL.WhlControls;
 
 namespace WHL
 {
@@ -11,6 +11,6 @@ namespace WHL
 
         public static SpaceEntity Space = new SpaceEntity();
 
-        public static BrowserEntity Browser = new BrowserEntity();
+        public static whlBrowser Browser;
     }
 }

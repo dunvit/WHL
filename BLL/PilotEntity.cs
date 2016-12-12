@@ -36,6 +36,7 @@ namespace WHL.BLL
             LoadCharacterInfo();
 
             LastTokenUpdate = DateTime.Now;
+
         }
 
         private void LoadCharacterInfo()
@@ -92,7 +93,7 @@ namespace WHL.BLL
             }
             catch (Exception ex)
             {
-                Log.ErrorFormat("[Pilot.LoadLocationInfo] pilot Id = {0} not login in game.", Id);
+                Log.ErrorFormat("[Pilot.LoadLocationInfo] pilot Id = {0} not login in game. Exception {1}", Id, ex);
 
                 Location.System = "unknown";
             }
