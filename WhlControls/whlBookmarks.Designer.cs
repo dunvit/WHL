@@ -33,6 +33,7 @@
             this.cmdPasteCosmicSifnatures = new WHL.whlButton();
             this.cmdPasteLocationBookmarks = new WHL.whlButton();
             this.cmdClear = new WHL.whlButton();
+            this.cmdClearLists = new WHL.whlButton();
             this.SuspendLayout();
             // 
             // listCosmicSifnatures
@@ -95,8 +96,21 @@
             this.cmdClear.Name = "cmdClear";
             this.cmdClear.Size = new System.Drawing.Size(114, 26);
             this.cmdClear.TabIndex = 57;
-            this.cmdClear.Value = "Clear";
+            this.cmdClear.Value = "Analyze";
             this.cmdClear.Click += new System.EventHandler(this.cmdClear_Click);
+            // 
+            // cmdClearLists
+            // 
+            this.cmdClearLists.BackColor = System.Drawing.Color.Black;
+            this.cmdClearLists.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdClearLists.IsActive = true;
+            this.cmdClearLists.IsTabControlButton = false;
+            this.cmdClearLists.Location = new System.Drawing.Point(214, 183);
+            this.cmdClearLists.Name = "cmdClearLists";
+            this.cmdClearLists.Size = new System.Drawing.Size(114, 26);
+            this.cmdClearLists.TabIndex = 60;
+            this.cmdClearLists.Value = "Clear";
+            this.cmdClearLists.Click += new System.EventHandler(this.Event_ClearLists);
             // 
             // whlBookmarks
             // 
@@ -104,6 +118,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.cmdClearLists);
             this.Controls.Add(this.cmdPasteCosmicSifnatures);
             this.Controls.Add(this.cmdPasteLocationBookmarks);
             this.Controls.Add(this.cmdClear);
@@ -122,5 +137,6 @@
         private whlButton cmdClear;
         private whlButton cmdPasteLocationBookmarks;
         private whlButton cmdPasteCosmicSifnatures;
+        private whlButton cmdClearLists;
     }
 }

@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WHL</RootNamespace>
-    <AssemblyName>WHL</AssemblyName>
+    <AssemblyName>EvaJima</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -22,7 +22,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -33,7 +33,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\EvaJima\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -87,6 +87,7 @@
     <Compile Include="BLL\PilotsEntity.cs" />
     <Compile Include="BLL\SpaceEntity.cs" />
     <Compile Include="Browser\Address.cs" />
+    <Compile Include="Browser\Bookmarks.cs" />
     <Compile Include="Browser\History.cs" />
     <Compile Include="Infrastructure\EsiAuthorization.cs" />
     <Compile Include="Global.cs" />
@@ -215,6 +216,8 @@
     <None Include="Resources\browser_back.png" />
     <None Include="Resources\new-document-button.png" />
     <None Include="Resources\book-with-bookmark.png" />
+    <None Include="Resources\not_bookmark.png" />
+    <None Include="Resources\bookmark.png" />
     <Content Include="Versions\CurrentVersion.txt" />
     <Content Include="Versions\History.txt" />
     <None Include="Resources\url.png" />

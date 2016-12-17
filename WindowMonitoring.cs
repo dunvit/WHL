@@ -336,8 +336,8 @@ namespace WHL
 
             if (_windowIsMinimaze == false)
             {
-                VersionBar.Width = Width - 8;
-                VersionBar.Location = new Point(10, Height - 38);
+                VersionBar.Width = Width;
+                VersionBar.Location = new Point(0, Height - 32);
             }
 
             pnlContainer.Visible = false;

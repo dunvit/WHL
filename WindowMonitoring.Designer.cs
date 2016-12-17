@@ -43,11 +43,12 @@
             this.cmdClose = new System.Windows.Forms.Button();
             this.cmdMinimazeRestore = new System.Windows.Forms.Button();
             this.VersionBar = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmdOpenWebBrowser = new WHL.whlButton();
             this.cmdAuthirizationPanel = new WHL.whlButton();
             this.cmdLocation = new WHL.whlButton();
             this.cmdShowContainerBookmarks = new WHL.whlButton();
             this.cmdShowContainerPilots = new WHL.whlButton();
-            this.cmdOpenWebBrowser = new WHL.whlButton();
             this.TitleBar.SuspendLayout();
             this.VersionBar.SuspendLayout();
             this.SuspendLayout();
@@ -117,22 +118,23 @@
             // 
             // label20
             // 
+            this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.DarkGray;
-            this.label20.Location = new System.Drawing.Point(3, 0);
+            this.label20.Location = new System.Drawing.Point(82, 4);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(95, 23);
+            this.label20.Size = new System.Drawing.Size(60, 16);
             this.label20.TabIndex = 44;
-            this.label20.Text = "WHL version ";
+            this.label20.Text = "version ";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblVersionID
             // 
             this.lblVersionID.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersionID.ForeColor = System.Drawing.Color.Olive;
-            this.lblVersionID.Location = new System.Drawing.Point(94, 0);
+            this.lblVersionID.Location = new System.Drawing.Point(137, 1);
             this.lblVersionID.Name = "lblVersionID";
-            this.lblVersionID.Size = new System.Drawing.Size(158, 23);
+            this.lblVersionID.Size = new System.Drawing.Size(77, 23);
             this.lblVersionID.TabIndex = 45;
             this.lblVersionID.Text = "1.12";
             this.lblVersionID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -213,14 +215,41 @@
             // VersionBar
             // 
             this.VersionBar.BackColor = System.Drawing.Color.Transparent;
+            this.VersionBar.Controls.Add(this.label1);
             this.VersionBar.Controls.Add(this.label18);
             this.VersionBar.Controls.Add(this.label19);
             this.VersionBar.Controls.Add(this.label20);
             this.VersionBar.Controls.Add(this.lblVersionID);
-            this.VersionBar.Location = new System.Drawing.Point(10, 326);
+            this.VersionBar.Location = new System.Drawing.Point(10, 330);
             this.VersionBar.Name = "VersionBar";
             this.VersionBar.Size = new System.Drawing.Size(540, 28);
             this.VersionBar.TabIndex = 48;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.DarkOrange;
+            this.label1.Location = new System.Drawing.Point(8, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 17);
+            this.label1.TabIndex = 46;
+            this.label1.Text = "EvaJima";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmdOpenWebBrowser
+            // 
+            this.cmdOpenWebBrowser.BackColor = System.Drawing.Color.Black;
+            this.cmdOpenWebBrowser.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdOpenWebBrowser.IsActive = true;
+            this.cmdOpenWebBrowser.IsTabControlButton = false;
+            this.cmdOpenWebBrowser.Location = new System.Drawing.Point(305, 38);
+            this.cmdOpenWebBrowser.Name = "cmdOpenWebBrowser";
+            this.cmdOpenWebBrowser.Size = new System.Drawing.Size(108, 26);
+            this.cmdOpenWebBrowser.TabIndex = 54;
+            this.cmdOpenWebBrowser.Value = "Web Browser";
+            this.cmdOpenWebBrowser.Click += new System.EventHandler(this.Event_OpenBrowserContainer);
             // 
             // cmdAuthirizationPanel
             // 
@@ -274,19 +303,6 @@
             this.cmdShowContainerPilots.Value = "Pilots";
             this.cmdShowContainerPilots.Click += new System.EventHandler(this.Event_ShowContainerPilots);
             // 
-            // cmdOpenWebBrowser
-            // 
-            this.cmdOpenWebBrowser.BackColor = System.Drawing.Color.Black;
-            this.cmdOpenWebBrowser.ForeColor = System.Drawing.Color.LightGray;
-            this.cmdOpenWebBrowser.IsActive = true;
-            this.cmdOpenWebBrowser.IsTabControlButton = false;
-            this.cmdOpenWebBrowser.Location = new System.Drawing.Point(305, 38);
-            this.cmdOpenWebBrowser.Name = "cmdOpenWebBrowser";
-            this.cmdOpenWebBrowser.Size = new System.Drawing.Size(108, 26);
-            this.cmdOpenWebBrowser.TabIndex = 54;
-            this.cmdOpenWebBrowser.Value = "Web Browser";
-            this.cmdOpenWebBrowser.Click += new System.EventHandler(this.Event_OpenBrowserContainer);
-            // 
             // WindowMonitoring
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -315,6 +331,7 @@
             this.Resize += new System.EventHandler(this.WindowMonitoring_Resize);
             this.TitleBar.ResumeLayout(false);
             this.VersionBar.ResumeLayout(false);
+            this.VersionBar.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -341,6 +358,7 @@
         private whlButton cmdLocation;
         private whlButton cmdAuthirizationPanel;
         private whlButton cmdOpenWebBrowser;
+        private System.Windows.Forms.Label label1;
 
 
 

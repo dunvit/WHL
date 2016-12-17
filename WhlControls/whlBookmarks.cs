@@ -164,5 +164,11 @@ namespace WHL.WhlControls
             }
 
         }
+
+        private void Event_ClearLists(object sender, EventArgs e)
+        {
+            listLocationBookmarks.Items.Clear();
+            listCosmicSifnatures.Items.Clear();
+        }
     }
 }

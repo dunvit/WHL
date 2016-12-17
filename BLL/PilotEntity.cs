@@ -18,7 +18,7 @@ namespace WHL.BLL
 
         public CrestAuthorization CrestData { get; set; }
 
-        private DateTime LastTokenUpdate;
+        private DateTime _lastTokenUpdate;
 
         public void Initialization(string token)
         {
@@ -35,7 +35,7 @@ namespace WHL.BLL
 
             LoadCharacterInfo();
 
-            LastTokenUpdate = DateTime.Now;
+            _lastTokenUpdate = DateTime.Now;
 
         }
 
@@ -73,8 +73,11 @@ namespace WHL.BLL
                     var location = (StarSystemEntity)Global.Space.SolarSystems[locationInfo.SelectToken("solarSystem.name").Value.ToString()];
 
                     Location = location.Clone() as StarSystemEntity;
-                   
-                    Location.Id = locationInfo.SelectToken("solarSystem.id").Value.ToString();
+
+                    if (Location != null)
+                    {
+                        Location.Id = locationInfo.SelectToken("solarSystem.id").Value.ToString();
+                    }
                 }
                 else
                 {
@@ -95,39 +98,41 @@ namespace WHL.BLL
             {
                 Log.ErrorFormat("[Pilot.LoadLocationInfo] pilot Id = {0} not login in game. Exception {1}", Id, ex);
 
-                Location.System = "unknown";
+                if (Location != null)
+                {
+                    Location.System = "unknown";
+                }
             }
-            
         }
 
-        private bool isBusy = false;
+        private bool _isBusy;
 
         public void RefreshInfo()
         {
             Log.DebugFormat("[Pilot.RefreshInfo] starting for Id = {0}", Id);
 
-            var span = DateTime.Now - LastTokenUpdate;
+            var span = DateTime.Now - _lastTokenUpdate;
             var ms = (int)span.TotalMilliseconds;
 
             if (ms > CrestData.ExpiresIn * 1000 - 20000)
             {
                 CrestData.Refresh();
 
-                LastTokenUpdate = DateTime.Now;
+                _lastTokenUpdate = DateTime.Now;
 
                 Log.DebugFormat("[Pilot.RefreshInfo] set LastTokenUpdate for Id = {0}", Id);
             }
 
-            if (isBusy == false)
+            if (_isBusy)
             {
-                isBusy = true;
-
-                LoadLocationInfo();
-
-                isBusy = false;
+                return;
             }
 
+            _isBusy = true;
 
+            LoadLocationInfo();
+
+            _isBusy = false;
         }
 
         

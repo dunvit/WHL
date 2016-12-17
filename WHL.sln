@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WHL", "WHL.csproj", "{1F776F49-2874-4EE2-83C1-EDC558D3B5F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvaJima", "EvaJima.csproj", "{1F776F49-2874-4EE2-83C1-EDC558D3B5F2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhlUnitTests", "..\WhlUnitTests\WhlUnitTests.csproj", "{18A1A255-9C9C-4658-8E6D-89DEF51CAEC2}"
 EndProject

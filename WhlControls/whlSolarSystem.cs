@@ -33,7 +33,7 @@ namespace WHL.WhlControls
 
             txtSolarSystemName.Text = Global.Pilots.Selected.Location.System;
             txtSolarSystemClass.Text = Global.Pilots.Selected.Location.Class;
-            txtSolarSystemEffect.Text = Global.Pilots.Selected.Location.Effect;
+            txtSolarSystemEffect.Text = Global.Pilots.Selected.Location.Effect.Trim();
             txtSolarSystemRegion.Text = Global.Pilots.Selected.Location.Region.Replace(" Unknown (", "").Replace(")", "");
             txtSolarSystemConstellation.Text = Global.Pilots.Selected.Location.Constelation.Replace(" Unknown (", "").Replace(")", "");
 

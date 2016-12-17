@@ -133,8 +133,14 @@
   <data name="tumblr_n8iuseEKSr1tg7xcdo1_500" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tumblr_n8iuseEKSr1tg7xcdo1_500.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="not_bookmark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\not_bookmark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="unpin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\unpin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="book-with-bookmark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\book-with-bookmark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="browser_execute" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\browser_execute.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -157,7 +163,7 @@
   <data name="new-document-button" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\new-document-button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="book-with-bookmark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\book-with-bookmark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bookmark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bookmark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

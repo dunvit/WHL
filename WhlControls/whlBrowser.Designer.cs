@@ -30,6 +30,7 @@
         {
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.txtUrl = new System.Windows.Forms.TextBox();
+            this.cmdBookmark = new System.Windows.Forms.Button();
             this.cmdBlank = new System.Windows.Forms.Button();
             this.cmdFavorits = new System.Windows.Forms.Button();
             this.loadingGif = new System.Windows.Forms.PictureBox();
@@ -57,44 +58,55 @@
             this.txtUrl.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtUrl.Font = new System.Drawing.Font("Verdana", 14F);
             this.txtUrl.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.txtUrl.Location = new System.Drawing.Point(115, 11);
+            this.txtUrl.Location = new System.Drawing.Point(187, 11);
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(719, 23);
+            this.txtUrl.Size = new System.Drawing.Size(701, 23);
             this.txtUrl.TabIndex = 52;
             this.txtUrl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUrl_KeyDown);
             // 
+            // cmdBookmark
+            // 
+            this.cmdBookmark.BackColor = System.Drawing.Color.Black;
+            this.cmdBookmark.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmdBookmark.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmdBookmark.Image = global::WHL.Properties.Resources.not_bookmark;
+            this.cmdBookmark.Location = new System.Drawing.Point(103, 12);
+            this.cmdBookmark.Name = "cmdBookmark";
+            this.cmdBookmark.Size = new System.Drawing.Size(22, 22);
+            this.cmdBookmark.TabIndex = 59;
+            this.cmdBookmark.UseVisualStyleBackColor = false;
+            this.cmdBookmark.Click += new System.EventHandler(this.Event_ClickBookmarkButton);
+            // 
             // cmdBlank
             // 
-            this.cmdBlank.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBlank.BackColor = System.Drawing.Color.Black;
             this.cmdBlank.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cmdBlank.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdBlank.Image = global::WHL.Properties.Resources.new_document_button;
-            this.cmdBlank.Location = new System.Drawing.Point(866, 11);
+            this.cmdBlank.Location = new System.Drawing.Point(127, 12);
             this.cmdBlank.Name = "cmdBlank";
             this.cmdBlank.Size = new System.Drawing.Size(22, 22);
             this.cmdBlank.TabIndex = 58;
             this.cmdBlank.UseVisualStyleBackColor = false;
-            this.cmdBlank.Click += new System.EventHandler(this.cmdBlank_Click_1);
+            this.cmdBlank.Click += new System.EventHandler(this.Event_NavigateToBlank);
             // 
             // cmdFavorits
             // 
-            this.cmdFavorits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdFavorits.BackColor = System.Drawing.Color.Black;
             this.cmdFavorits.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cmdFavorits.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdFavorits.Image = global::WHL.Properties.Resources.book_with_bookmark;
-            this.cmdFavorits.Location = new System.Drawing.Point(843, 11);
+            this.cmdFavorits.Location = new System.Drawing.Point(79, 12);
             this.cmdFavorits.Name = "cmdFavorits";
             this.cmdFavorits.Size = new System.Drawing.Size(22, 22);
             this.cmdFavorits.TabIndex = 57;
             this.cmdFavorits.UseVisualStyleBackColor = false;
-            this.cmdFavorits.Click += new System.EventHandler(this.cmdBlank_Click);
+            this.cmdFavorits.Click += new System.EventHandler(this.cmdFavorits_Click);
             // 
             // loadingGif
             // 
             this.loadingGif.Image = global::WHL.Properties.Resources.tumblr_n8iuseEKSr1tg7xcdo1_500;
-            this.loadingGif.Location = new System.Drawing.Point(173, 184);
+            this.loadingGif.Location = new System.Drawing.Point(-466, 604);
             this.loadingGif.Name = "loadingGif";
             this.loadingGif.Size = new System.Drawing.Size(500, 281);
             this.loadingGif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -108,7 +120,7 @@
             this.BrowserCommandExecute.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BrowserCommandExecute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BrowserCommandExecute.Image = global::WHL.Properties.Resources.browser_execute;
-            this.BrowserCommandExecute.Location = new System.Drawing.Point(88, 12);
+            this.BrowserCommandExecute.Location = new System.Drawing.Point(158, 12);
             this.BrowserCommandExecute.Name = "BrowserCommandExecute";
             this.BrowserCommandExecute.Size = new System.Drawing.Size(22, 22);
             this.BrowserCommandExecute.TabIndex = 54;
@@ -160,6 +172,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.cmdBookmark);
             this.Controls.Add(this.cmdBlank);
             this.Controls.Add(this.cmdFavorits);
             this.Controls.Add(this.loadingGif);
@@ -188,5 +201,6 @@
         public System.Windows.Forms.TextBox txtUrl;
         private System.Windows.Forms.Button cmdFavorits;
         private System.Windows.Forms.Button cmdBlank;
+        private System.Windows.Forms.Button cmdBookmark;
     }
 }

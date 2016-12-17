@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -14,55 +13,71 @@ namespace WHL.Browser
         public readonly Dictionary<int, Address>  List = new Dictionary<int, Address>();
         private static readonly ILog Log = LogManager.GetLogger(typeof(History));
 
-        private int currentIndex = 0;
+        public int CurrentIndex { get; set; }
 
         public History()
         {
-            try
-            {
-                if (!File.Exists("Data/browserhistory.csv")) return;
+            //try
+            //{
+            //    if (!File.Exists("Data/browserhistory.csv")) return;
 
-                using (var sr = new StreamReader(@"Data/browserhistory.csv"))
-                {
-                    var records = new CsvReader(sr).GetRecords<Address>();
+            //    using (var sr = new StreamReader(@"Data/browserhistory.csv"))
+            //    {
+            //        var records = new CsvReader(sr).GetRecords<Address>();
 
-                    foreach (var record in records)
-                    {
-                        List.Add(record.Id, record);
+            //        foreach (var record in records)
+            //        {
+            //            List.Add(record.Id, record);
 
-                        currentIndex = record.Id;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error("[Browser.History.History] Critical error in load history. Exception = " + ex);
-            }
+            //            CurrentIndex = record.Id;
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Log.Error("[Browser.History.History] Critical error in load history. Exception = " + ex);
+            //}
         }
 
         public void Add(string url)
         {
             if (url == "http://") return;
 
-            if (List.ContainsKey(currentIndex))
+            if (List.ContainsKey(CurrentIndex))
             {
-                if (List[currentIndex].Url == url) return;
+                if (List[CurrentIndex].Url == url) return;
             }
 
             var index = GetIndex();
 
-            if (index > currentIndex)
+            if (index > CurrentIndex)
             {
-                Remove(currentIndex, index);
+                Remove(CurrentIndex + 1, index);
 
-                index = currentIndex;
+                index = CurrentIndex;
             }
 
-            List.Add(index, new Address{Id = index, Url = url} );
+            CurrentIndex = index + 1;
+
+            List.Add(CurrentIndex, new Address { Id = CurrentIndex, Title = "", Url = url });
 
             WriteToFile();
+        }
 
-            currentIndex = index;
+        public void UpdateTitle(string title)
+        {
+            var currentAddress = List[CurrentIndex];
+
+            currentAddress.Title = title;
+
+            WriteToFile();
+        }
+
+        public Address GetCurrentAddress()
+        {
+            if (List.Count == 0) return null;
+
+            return List[CurrentIndex];
         }
 
         private void Remove(int fromIndex, int index)
@@ -78,27 +93,51 @@ namespace WHL.Browser
 
         public string Previous()
         {
-            if (List.ContainsKey(currentIndex - 1) == false) return string.Empty;
+            var address = Get(CurrentIndex - 1);
 
-            currentIndex = currentIndex - 1;
+            if (address == null)
+            {
+                return string.Empty;
+            }
 
-            return List[currentIndex].Url;
+            CurrentIndex = address.Id;
+
+            return address.Url;
+        }
+
+        private Address Get(int id)
+        {
+            Address address = null;
+
+            foreach (var value in List.Values.Where(value => value.Id == id)) { return value; }
+
+            return address;
         }
 
         public string Next()
         {
-            if (List.ContainsKey(currentIndex + 1) == false) return string.Empty;
+            var address = Get(CurrentIndex + 1);
 
-            currentIndex = currentIndex + 1;
+            if (address == null)
+            {
+                return string.Empty;
+            }
 
-            return List[currentIndex].Url;
+            CurrentIndex = address.Id;
+
+            return address.Url;
         }
 
         private int GetIndex()
         {
-            int index = List.Keys.Concat(new[] { 0 }).Max();
+            int index = 0;
 
-            return index + 1;
+            foreach (var address in List.Values)
+            {
+                if (address.Id > index) index = address.Id;
+            }
+
+            return index;
         }
 
         private void WriteToFile()
