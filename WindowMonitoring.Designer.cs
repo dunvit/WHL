@@ -49,6 +49,7 @@
             this.cmdLocation = new WHL.whlButton();
             this.cmdShowContainerBookmarks = new WHL.whlButton();
             this.cmdShowContainerPilots = new WHL.whlButton();
+            this.cmdShowContainerSolarSystem = new WHL.whlButton();
             this.TitleBar.SuspendLayout();
             this.VersionBar.SuspendLayout();
             this.SuspendLayout();
@@ -235,7 +236,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 17);
             this.label1.TabIndex = 46;
-            this.label1.Text = "EvaJima";
+            this.label1.Text = "EveJima";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cmdOpenWebBrowser
@@ -244,9 +245,9 @@
             this.cmdOpenWebBrowser.ForeColor = System.Drawing.Color.LightGray;
             this.cmdOpenWebBrowser.IsActive = true;
             this.cmdOpenWebBrowser.IsTabControlButton = false;
-            this.cmdOpenWebBrowser.Location = new System.Drawing.Point(305, 38);
+            this.cmdOpenWebBrowser.Location = new System.Drawing.Point(389, 38);
             this.cmdOpenWebBrowser.Name = "cmdOpenWebBrowser";
-            this.cmdOpenWebBrowser.Size = new System.Drawing.Size(108, 26);
+            this.cmdOpenWebBrowser.Size = new System.Drawing.Size(93, 26);
             this.cmdOpenWebBrowser.TabIndex = 54;
             this.cmdOpenWebBrowser.Value = "Web Browser";
             this.cmdOpenWebBrowser.Click += new System.EventHandler(this.Event_OpenBrowserContainer);
@@ -261,7 +262,7 @@
             this.cmdAuthirizationPanel.Name = "cmdAuthirizationPanel";
             this.cmdAuthirizationPanel.Size = new System.Drawing.Size(91, 26);
             this.cmdAuthirizationPanel.TabIndex = 53;
-            this.cmdAuthirizationPanel.Value = "Authirization";
+            this.cmdAuthirizationPanel.Value = "Authorization";
             this.cmdAuthirizationPanel.Click += new System.EventHandler(this.cmdAuthirizationPanel_Click);
             // 
             // cmdLocation
@@ -283,9 +284,9 @@
             this.cmdShowContainerBookmarks.ForeColor = System.Drawing.Color.LightGray;
             this.cmdShowContainerBookmarks.IsActive = true;
             this.cmdShowContainerBookmarks.IsTabControlButton = false;
-            this.cmdShowContainerBookmarks.Location = new System.Drawing.Point(214, 38);
+            this.cmdShowContainerBookmarks.Location = new System.Drawing.Point(305, 38);
             this.cmdShowContainerBookmarks.Name = "cmdShowContainerBookmarks";
-            this.cmdShowContainerBookmarks.Size = new System.Drawing.Size(92, 26);
+            this.cmdShowContainerBookmarks.Size = new System.Drawing.Size(85, 26);
             this.cmdShowContainerBookmarks.TabIndex = 51;
             this.cmdShowContainerBookmarks.Value = "Bookmarks";
             this.cmdShowContainerBookmarks.Click += new System.EventHandler(this.Event_ShowContainerCoordinates);
@@ -296,12 +297,25 @@
             this.cmdShowContainerPilots.ForeColor = System.Drawing.Color.LightGray;
             this.cmdShowContainerPilots.IsActive = true;
             this.cmdShowContainerPilots.IsTabControlButton = false;
-            this.cmdShowContainerPilots.Location = new System.Drawing.Point(166, 38);
+            this.cmdShowContainerPilots.Location = new System.Drawing.Point(257, 38);
             this.cmdShowContainerPilots.Name = "cmdShowContainerPilots";
             this.cmdShowContainerPilots.Size = new System.Drawing.Size(49, 26);
             this.cmdShowContainerPilots.TabIndex = 50;
             this.cmdShowContainerPilots.Value = "Pilots";
             this.cmdShowContainerPilots.Click += new System.EventHandler(this.Event_ShowContainerPilots);
+            // 
+            // cmdShowContainerSolarSystem
+            // 
+            this.cmdShowContainerSolarSystem.BackColor = System.Drawing.Color.Black;
+            this.cmdShowContainerSolarSystem.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdShowContainerSolarSystem.IsActive = true;
+            this.cmdShowContainerSolarSystem.IsTabControlButton = false;
+            this.cmdShowContainerSolarSystem.Location = new System.Drawing.Point(166, 38);
+            this.cmdShowContainerSolarSystem.Name = "cmdShowContainerSolarSystem";
+            this.cmdShowContainerSolarSystem.Size = new System.Drawing.Size(92, 26);
+            this.cmdShowContainerSolarSystem.TabIndex = 55;
+            this.cmdShowContainerSolarSystem.Value = "Solar System";
+            this.cmdShowContainerSolarSystem.Click += new System.EventHandler(this.Event_ShowContainerSolarSystem);
             // 
             // WindowMonitoring
             // 
@@ -309,6 +323,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.ClientSize = new System.Drawing.Size(1443, 1053);
+            this.Controls.Add(this.cmdShowContainerSolarSystem);
             this.Controls.Add(this.cmdOpenWebBrowser);
             this.Controls.Add(this.cmdAuthirizationPanel);
             this.Controls.Add(this.cmdLocation);
@@ -359,6 +374,7 @@
         private whlButton cmdAuthirizationPanel;
         private whlButton cmdOpenWebBrowser;
         private System.Windows.Forms.Label label1;
+        private whlButton cmdShowContainerSolarSystem;
 
 
 

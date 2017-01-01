@@ -1,6 +1,6 @@
 ﻿namespace WHL.WhlControls
 {
-    partial class whlSolarSystem
+    partial class whlSolarSystemOffline
     {
         /// <summary> 
         /// Required designer variable.
@@ -36,7 +36,6 @@
             this.txtSolarSystemStaticI = new System.Windows.Forms.Label();
             this.txtSolarSystemEffect = new System.Windows.Forms.Label();
             this.txtSolarSystemClass = new System.Windows.Forms.Label();
-            this.txtSolarSystemName = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -44,11 +43,14 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lnlSystemText = new System.Windows.Forms.Label();
-            this.cmdZkillboard = new WHL.whlButton();
-            this.cmdSuperpute = new WHL.whlButton();
-            this.cmdEllatha = new WHL.whlButton();
-            this.cmdDotlan = new WHL.whlButton();
+            this.txtSolarSystem = new System.Windows.Forms.TextBox();
+            this.cmdAnalizeSolarSystem = new System.Windows.Forms.PictureBox();
             this.cmdTripwire = new WHL.whlButton();
+            this.cmdDotlan = new WHL.whlButton();
+            this.cmdEllatha = new WHL.whlButton();
+            this.cmdSuperpute = new WHL.whlButton();
+            this.cmdZkillboard = new WHL.whlButton();
+            ((System.ComponentModel.ISupportInitialize)(this.cmdAnalizeSolarSystem)).BeginInit();
             this.SuspendLayout();
             // 
             // txtSolarSystemConstellation
@@ -59,7 +61,6 @@
             this.txtSolarSystemConstellation.Name = "txtSolarSystemConstellation";
             this.txtSolarSystemConstellation.Size = new System.Drawing.Size(100, 23);
             this.txtSolarSystemConstellation.TabIndex = 62;
-            this.txtSolarSystemConstellation.Text = "111111";
             this.txtSolarSystemConstellation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtSolarSystemRegion
@@ -70,7 +71,6 @@
             this.txtSolarSystemRegion.Name = "txtSolarSystemRegion";
             this.txtSolarSystemRegion.Size = new System.Drawing.Size(100, 23);
             this.txtSolarSystemRegion.TabIndex = 61;
-            this.txtSolarSystemRegion.Text = "111111";
             this.txtSolarSystemRegion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtSolarSystemStaticIIData
@@ -129,7 +129,6 @@
             this.txtSolarSystemEffect.Name = "txtSolarSystemEffect";
             this.txtSolarSystemEffect.Size = new System.Drawing.Size(100, 23);
             this.txtSolarSystemEffect.TabIndex = 56;
-            this.txtSolarSystemEffect.Text = "111111";
             this.txtSolarSystemEffect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtSolarSystemClass
@@ -140,19 +139,7 @@
             this.txtSolarSystemClass.Name = "txtSolarSystemClass";
             this.txtSolarSystemClass.Size = new System.Drawing.Size(100, 23);
             this.txtSolarSystemClass.TabIndex = 55;
-            this.txtSolarSystemClass.Text = "111111";
             this.txtSolarSystemClass.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtSolarSystemName
-            // 
-            this.txtSolarSystemName.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSolarSystemName.ForeColor = System.Drawing.Color.DarkOrange;
-            this.txtSolarSystemName.Location = new System.Drawing.Point(159, 18);
-            this.txtSolarSystemName.Name = "txtSolarSystemName";
-            this.txtSolarSystemName.Size = new System.Drawing.Size(100, 23);
-            this.txtSolarSystemName.TabIndex = 54;
-            this.txtSolarSystemName.Text = "111111";
-            this.txtSolarSystemName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1
             // 
@@ -224,57 +211,28 @@
             this.lnlSystemText.TabIndex = 47;
             this.lnlSystemText.Text = "Solar System";
             // 
-            // cmdZkillboard
+            // txtSolarSystem
             // 
-            this.cmdZkillboard.BackColor = System.Drawing.Color.Black;
-            this.cmdZkillboard.ForeColor = System.Drawing.Color.LightGray;
-            this.cmdZkillboard.IsActive = true;
-            this.cmdZkillboard.IsTabControlButton = false;
-            this.cmdZkillboard.Location = new System.Drawing.Point(377, 12);
-            this.cmdZkillboard.Name = "cmdZkillboard";
-            this.cmdZkillboard.Size = new System.Drawing.Size(148, 26);
-            this.cmdZkillboard.TabIndex = 67;
-            this.cmdZkillboard.Value = "Zkillboard";
-            this.cmdZkillboard.Click += new System.EventHandler(this.Event_ShowZkillboard);
+            this.txtSolarSystem.BackColor = System.Drawing.Color.Black;
+            this.txtSolarSystem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSolarSystem.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Bold);
+            this.txtSolarSystem.ForeColor = System.Drawing.Color.DarkOrange;
+            this.txtSolarSystem.Location = new System.Drawing.Point(162, 18);
+            this.txtSolarSystem.Name = "txtSolarSystem";
+            this.txtSolarSystem.Size = new System.Drawing.Size(100, 24);
+            this.txtSolarSystem.TabIndex = 72;
             // 
-            // cmdSuperpute
+            // cmdAnalizeSolarSystem
             // 
-            this.cmdSuperpute.BackColor = System.Drawing.Color.Black;
-            this.cmdSuperpute.ForeColor = System.Drawing.Color.LightGray;
-            this.cmdSuperpute.IsActive = true;
-            this.cmdSuperpute.IsTabControlButton = false;
-            this.cmdSuperpute.Location = new System.Drawing.Point(377, 41);
-            this.cmdSuperpute.Name = "cmdSuperpute";
-            this.cmdSuperpute.Size = new System.Drawing.Size(148, 26);
-            this.cmdSuperpute.TabIndex = 68;
-            this.cmdSuperpute.Value = "Superpute";
-            this.cmdSuperpute.Click += new System.EventHandler(this.Event_ShowSuperpute);
-            // 
-            // cmdEllatha
-            // 
-            this.cmdEllatha.BackColor = System.Drawing.Color.Black;
-            this.cmdEllatha.ForeColor = System.Drawing.Color.LightGray;
-            this.cmdEllatha.IsActive = true;
-            this.cmdEllatha.IsTabControlButton = false;
-            this.cmdEllatha.Location = new System.Drawing.Point(377, 70);
-            this.cmdEllatha.Name = "cmdEllatha";
-            this.cmdEllatha.Size = new System.Drawing.Size(148, 26);
-            this.cmdEllatha.TabIndex = 69;
-            this.cmdEllatha.Value = "Ellatha";
-            this.cmdEllatha.Click += new System.EventHandler(this.Event_ShowEllatha);
-            // 
-            // cmdDotlan
-            // 
-            this.cmdDotlan.BackColor = System.Drawing.Color.Black;
-            this.cmdDotlan.ForeColor = System.Drawing.Color.LightGray;
-            this.cmdDotlan.IsActive = true;
-            this.cmdDotlan.IsTabControlButton = false;
-            this.cmdDotlan.Location = new System.Drawing.Point(377, 99);
-            this.cmdDotlan.Name = "cmdDotlan";
-            this.cmdDotlan.Size = new System.Drawing.Size(148, 26);
-            this.cmdDotlan.TabIndex = 70;
-            this.cmdDotlan.Value = "Dotlan";
-            this.cmdDotlan.Click += new System.EventHandler(this.Event_ShowDotlan);
+            this.cmdAnalizeSolarSystem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmdAnalizeSolarSystem.Image = global::WHL.Properties.Resources.browser_refresh;
+            this.cmdAnalizeSolarSystem.Location = new System.Drawing.Point(268, 21);
+            this.cmdAnalizeSolarSystem.Name = "cmdAnalizeSolarSystem";
+            this.cmdAnalizeSolarSystem.Size = new System.Drawing.Size(16, 16);
+            this.cmdAnalizeSolarSystem.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.cmdAnalizeSolarSystem.TabIndex = 73;
+            this.cmdAnalizeSolarSystem.TabStop = false;
+            this.cmdAnalizeSolarSystem.Click += new System.EventHandler(this.Event_AnalizeSolarSystem);
             // 
             // cmdTripwire
             // 
@@ -289,12 +247,66 @@
             this.cmdTripwire.Value = "Tripwire";
             this.cmdTripwire.Click += new System.EventHandler(this.Event_TripwireShow);
             // 
-            // whlSolarSystem
+            // cmdDotlan
+            // 
+            this.cmdDotlan.BackColor = System.Drawing.Color.Black;
+            this.cmdDotlan.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdDotlan.IsActive = true;
+            this.cmdDotlan.IsTabControlButton = false;
+            this.cmdDotlan.Location = new System.Drawing.Point(377, 99);
+            this.cmdDotlan.Name = "cmdDotlan";
+            this.cmdDotlan.Size = new System.Drawing.Size(148, 26);
+            this.cmdDotlan.TabIndex = 70;
+            this.cmdDotlan.Value = "Dotlan";
+            this.cmdDotlan.Click += new System.EventHandler(this.Event_ShowDotlan);
+            // 
+            // cmdEllatha
+            // 
+            this.cmdEllatha.BackColor = System.Drawing.Color.Black;
+            this.cmdEllatha.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdEllatha.IsActive = true;
+            this.cmdEllatha.IsTabControlButton = false;
+            this.cmdEllatha.Location = new System.Drawing.Point(377, 70);
+            this.cmdEllatha.Name = "cmdEllatha";
+            this.cmdEllatha.Size = new System.Drawing.Size(148, 26);
+            this.cmdEllatha.TabIndex = 69;
+            this.cmdEllatha.Value = "Ellatha";
+            this.cmdEllatha.Click += new System.EventHandler(this.Event_ShowEllatha);
+            // 
+            // cmdSuperpute
+            // 
+            this.cmdSuperpute.BackColor = System.Drawing.Color.Black;
+            this.cmdSuperpute.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdSuperpute.IsActive = true;
+            this.cmdSuperpute.IsTabControlButton = false;
+            this.cmdSuperpute.Location = new System.Drawing.Point(377, 41);
+            this.cmdSuperpute.Name = "cmdSuperpute";
+            this.cmdSuperpute.Size = new System.Drawing.Size(148, 26);
+            this.cmdSuperpute.TabIndex = 68;
+            this.cmdSuperpute.Value = "Superpute";
+            this.cmdSuperpute.Click += new System.EventHandler(this.Event_ShowSuperpute);
+            // 
+            // cmdZkillboard
+            // 
+            this.cmdZkillboard.BackColor = System.Drawing.Color.Black;
+            this.cmdZkillboard.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdZkillboard.IsActive = true;
+            this.cmdZkillboard.IsTabControlButton = false;
+            this.cmdZkillboard.Location = new System.Drawing.Point(377, 12);
+            this.cmdZkillboard.Name = "cmdZkillboard";
+            this.cmdZkillboard.Size = new System.Drawing.Size(148, 26);
+            this.cmdZkillboard.TabIndex = 67;
+            this.cmdZkillboard.Value = "Zkillboard";
+            this.cmdZkillboard.Click += new System.EventHandler(this.Event_ShowZkillboard);
+            // 
+            // whlSolarSystemOffline
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.cmdAnalizeSolarSystem);
+            this.Controls.Add(this.txtSolarSystem);
             this.Controls.Add(this.cmdTripwire);
             this.Controls.Add(this.cmdDotlan);
             this.Controls.Add(this.cmdEllatha);
@@ -308,7 +320,6 @@
             this.Controls.Add(this.txtSolarSystemStaticI);
             this.Controls.Add(this.txtSolarSystemEffect);
             this.Controls.Add(this.txtSolarSystemClass);
-            this.Controls.Add(this.txtSolarSystemName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label4);
@@ -316,9 +327,11 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lnlSystemText);
-            this.Name = "whlSolarSystem";
+            this.Name = "whlSolarSystemOffline";
             this.Size = new System.Drawing.Size(538, 220);
+            ((System.ComponentModel.ISupportInitialize)(this.cmdAnalizeSolarSystem)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -332,7 +345,6 @@
         private System.Windows.Forms.Label txtSolarSystemStaticI;
         private System.Windows.Forms.Label txtSolarSystemEffect;
         private System.Windows.Forms.Label txtSolarSystemClass;
-        private System.Windows.Forms.Label txtSolarSystemName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label4;
@@ -345,5 +357,7 @@
         private whlButton cmdEllatha;
         private whlButton cmdDotlan;
         private whlButton cmdTripwire;
+        private System.Windows.Forms.TextBox txtSolarSystem;
+        private System.Windows.Forms.PictureBox cmdAnalizeSolarSystem;
     }
 }

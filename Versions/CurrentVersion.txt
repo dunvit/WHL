@@ -1,1 +1,4 @@
-﻿
+﻿1.25
+
++ Add navigate to Tripwire button (in "Location" tab) Open in default browser
+- Add new tab Solar System for offline analize 

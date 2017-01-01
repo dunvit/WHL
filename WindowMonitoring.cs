@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Net;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -42,7 +39,7 @@ namespace WHL
 
         public whlAuthorization ucContainreAuthorization;
 
-        
+        public whlSolarSystemOffline ucContainerlSolarSystemOffline;
 
         #region WinAPI
 
@@ -70,12 +67,11 @@ namespace WHL
 
         private void WindowMonitoring_Load(object sender, EventArgs e)
         {
-            lblVersionID.Text = @"1.24";
-            // EvaJima
-
-            //ucContainerPilotInfo = new whlPilotInfo();
+            lblVersionID.Text = @"1.25";
 
             ucContainreSolarSystem = new whlSolarSystem();
+
+            ucContainerlSolarSystemOffline = new whlSolarSystemOffline();
             
             ucContainerBookmarks = new whlBookmarks();
 
@@ -84,6 +80,7 @@ namespace WHL
             Controls.Add(ucContainerPilotInfo);
             Controls.Add(ucContainerBookmarks);
             Controls.Add(ucContainreSolarSystem);
+            Controls.Add(ucContainerlSolarSystemOffline);
             Controls.Add(ucContainreAuthorization);
 
             Global.Browser = new whlBrowser(OpenWebBrowserPanel);
@@ -92,14 +89,12 @@ namespace WHL
 
             Log.DebugFormat("[WindowMonitoring] Version: {0}", lblVersionID.Text);
 
-            
-
             Size = ContainerTabs.Active().Size;
             ResizeWindow();
             CreateTooltipsForStatics();
 
-            System.Security.Principal.WindowsIdentity identity = System.Security.Principal.WindowsIdentity.GetCurrent();
-            System.Security.Principal.WindowsPrincipal principal = new System.Security.Principal.WindowsPrincipal(identity);
+            var identity = System.Security.Principal.WindowsIdentity.GetCurrent();
+            var principal = new System.Security.Principal.WindowsPrincipal(identity);
 
             if (principal.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator))
             {
@@ -188,9 +183,6 @@ namespace WHL
 
         private void CreateTooltipsForStatics()
         {
-            
-
-
             var toolTipUrlButton = new ToolTip
             {
                 AutoPopDelay = 5000,
@@ -198,7 +190,6 @@ namespace WHL
                 ReshowDelay = 500,
                 ShowAlways = true
             };
-
 
             toolTipUrlButton.SetToolTip(btnOpenBrowserAndStartUrl, "Open WHL brouser and start url");
         }
@@ -350,6 +341,7 @@ namespace WHL
             ucContainerBookmarks.Visible = false;
             ucContainerPilotInfo.Visible = false;
             ucContainreSolarSystem.Visible = false;
+            ucContainerlSolarSystemOffline.Visible = false;
             ucContainreAuthorization.Visible = false;
 
             Global.Browser.Visible = false;
@@ -624,6 +616,25 @@ namespace WHL
         private void cmdAuthirizationPanel_Click(object sender, EventArgs e)
         {
             OpenAuthorizationPanel();
+        }
+
+        private void Event_ShowContainerSolarSystem(object sender, EventArgs e)
+        {
+            ContainerTabs.Activate("SolarSystem");
+
+            HideAllContainers();
+
+            ResizeWindow();
+
+            ucContainerlSolarSystemOffline.BackColor = Color.Black;
+            ucContainerlSolarSystemOffline.Location = new Point(pnlContainer.Location.X, pnlContainer.Location.Y);
+            ucContainerlSolarSystemOffline.BringToFront();
+
+            ucContainerlSolarSystemOffline.Visible = true;
+
+            cmdShowContainerBookmarks.IsTabControlButton = true;
+            cmdShowContainerBookmarks.BringToFront();
+            cmdShowContainerBookmarks.Refresh();
         }
     }
 }

@@ -17,6 +17,7 @@ namespace WHL.Ui
 
             List.Add("Authorization", new Tab() { Name = "Authorization" , Size = smallSize});
             List.Add("Location", new Tab() { Name = "Location", Size = smallSize });
+            List.Add("SolarSystem", new Tab() { Name = "SolarSystem", Size = smallSize });
             List.Add("Pilots", new Tab() { Name = "Pilots", Size = smallSize });
             List.Add("Bookmarks", new Tab() { Name = "Bookmarks", Size = smallSize });
             List.Add("Signatures", new Tab() { Name = "Signatures", Size = smallSize });

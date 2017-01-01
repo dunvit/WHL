@@ -132,6 +132,12 @@
     <Compile Include="WhlControls\whlPilotInfo.Designer.cs">
       <DependentUpon>whlPilotInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="WhlControls\whlSolarSystemOffline.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WhlControls\whlSolarSystemOffline.Designer.cs">
+      <DependentUpon>whlSolarSystemOffline.cs</DependentUpon>
+    </Compile>
     <Compile Include="WhlControls\whlSolarSystem.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WhlControls\whlPilotInfo.resx">
       <DependentUpon>whlPilotInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WhlControls\whlSolarSystemOffline.resx">
+      <DependentUpon>whlSolarSystemOffline.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WhlControls\whlSolarSystem.resx">
       <DependentUpon>whlSolarSystem.cs</DependentUpon>
