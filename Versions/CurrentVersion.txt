@@ -1,4 +1,12 @@
-﻿1.25
+﻿EveJima version 1.25
 
-+ Add navigate to Tripwire button (in "Location" tab) Open in default browser
-- Add new tab Solar System for offline analize 
++ Change Requirements Net Framework 4.5.2
+
++ Add new tab Solar System for offline analize 
++ Add navigate to Tripwire button (in "Location" and "Solar System" tabs) Open in default browser
++ Add navigate to WormholePvE button (in "Location" and "Solar System" tabs) Open in default browser
++ Add HTML5 configuration to WebBrowser. Now can see serials from http://seasonvar.ru/
+
++ Add new web browser engine on base CefSharp (https://github.com/cefsharp/CefSharp)
+
++ Fix select pilot from History in tab "Pilots"

@@ -49,6 +49,7 @@
             this.cmdEllatha = new WHL.whlButton();
             this.cmdDotlan = new WHL.whlButton();
             this.cmdTripwire = new WHL.whlButton();
+            this.cmdWormholePvE = new WHL.whlButton();
             this.SuspendLayout();
             // 
             // txtSolarSystemConstellation
@@ -289,12 +290,26 @@
             this.cmdTripwire.Value = "Tripwire";
             this.cmdTripwire.Click += new System.EventHandler(this.Event_TripwireShow);
             // 
+            // cmdWormholePvE
+            // 
+            this.cmdWormholePvE.BackColor = System.Drawing.Color.Black;
+            this.cmdWormholePvE.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdWormholePvE.IsActive = true;
+            this.cmdWormholePvE.IsTabControlButton = false;
+            this.cmdWormholePvE.Location = new System.Drawing.Point(377, 178);
+            this.cmdWormholePvE.Name = "cmdWormholePvE";
+            this.cmdWormholePvE.Size = new System.Drawing.Size(148, 26);
+            this.cmdWormholePvE.TabIndex = 72;
+            this.cmdWormholePvE.Value = "Wormhole PvE";
+            this.cmdWormholePvE.Click += new System.EventHandler(this.Event_ShowWormholePvE);
+            // 
             // whlSolarSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.cmdWormholePvE);
             this.Controls.Add(this.cmdTripwire);
             this.Controls.Add(this.cmdDotlan);
             this.Controls.Add(this.cmdEllatha);
@@ -345,5 +360,6 @@
         private whlButton cmdEllatha;
         private whlButton cmdDotlan;
         private whlButton cmdTripwire;
+        private whlButton cmdWormholePvE;
     }
 }

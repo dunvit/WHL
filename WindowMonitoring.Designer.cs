@@ -98,7 +98,7 @@
             this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label18.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.DarkGray;
-            this.label18.Location = new System.Drawing.Point(277, 0);
+            this.label18.Location = new System.Drawing.Point(276, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(100, 23);
             this.label18.TabIndex = 42;
@@ -110,7 +110,7 @@
             this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label19.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.Color.DarkOrange;
-            this.label19.Location = new System.Drawing.Point(383, 0);
+            this.label19.Location = new System.Drawing.Point(382, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(157, 23);
             this.label19.TabIndex = 43;

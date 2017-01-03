@@ -116,7 +116,12 @@ namespace WHL.WhlControls
         private void Event_TripwireShow(object sender, EventArgs e)
         {
             if (SolarSystem != null && SolarSystem.System != "unknown")
-                Process.Start("https://tripwire.eve-apps.com/?system=" + SolarSystem.System + "");
+                Global.Browser.BrowserUrlExecute("https://tripwire.eve-apps.com/?system=" + SolarSystem.System + "");
+        }
+
+        private void Event_ShowWormholePvE(object sender, EventArgs e)
+        {
+            Global.Browser.BrowserUrlExecute("https://docs.google.com/spreadsheets/d/17cNu8hxqJKqkkPnhDlIuJY-IT6ps7kTNCd3BEz0Bvqs/pubhtml#");
         }
     }
 }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.cmdBookmark = new System.Windows.Forms.Button();
             this.cmdBlank = new System.Windows.Forms.Button();
@@ -38,19 +37,9 @@
             this.BrowserCommandRefresh = new System.Windows.Forms.Button();
             this.BrowserCommandForward = new System.Windows.Forms.Button();
             this.BrowserCommandBack = new System.Windows.Forms.Button();
+            this.webBrowser1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.loadingGif)).BeginInit();
             this.SuspendLayout();
-            // 
-            // webBrowser1
-            // 
-            this.webBrowser1.Location = new System.Drawing.Point(12, 50);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(265, 94);
-            this.webBrowser1.TabIndex = 16;
-            this.webBrowser1.Visible = false;
-            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             // 
             // txtUrl
             // 
@@ -166,17 +155,24 @@
             this.BrowserCommandBack.UseVisualStyleBackColor = false;
             this.BrowserCommandBack.Click += new System.EventHandler(this.BrowserCommandBack_Click);
             // 
+            // webBrowser1
+            // 
+            this.webBrowser1.Location = new System.Drawing.Point(18, 52);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(200, 100);
+            this.webBrowser1.TabIndex = 60;
+            // 
             // whlBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.cmdBookmark);
             this.Controls.Add(this.cmdBlank);
             this.Controls.Add(this.cmdFavorits);
             this.Controls.Add(this.loadingGif);
-            this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.BrowserCommandExecute);
             this.Controls.Add(this.BrowserCommandRefresh);
             this.Controls.Add(this.BrowserCommandForward);
@@ -192,7 +188,6 @@
 
         #endregion
 
-        public System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.PictureBox loadingGif;
         private System.Windows.Forms.Button BrowserCommandExecute;
         private System.Windows.Forms.Button BrowserCommandRefresh;
@@ -202,5 +197,6 @@
         private System.Windows.Forms.Button cmdFavorits;
         private System.Windows.Forms.Button cmdBlank;
         private System.Windows.Forms.Button cmdBookmark;
+        private System.Windows.Forms.Panel webBrowser1;
     }
 }

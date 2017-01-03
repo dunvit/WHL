@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using log4net;
 using WHL.Browser;
+using CefSharp;
+using CefSharp.WinForms;
+using CefSharp.WinForms.Internals;
 
 namespace WHL.WhlControls
 {
@@ -32,6 +34,9 @@ namespace WHL.WhlControls
         {
             InitializeComponent();
 
+            // Start the browser after initialize global component
+            InitializeChromium();
+
             History = new History();
 
             Bookmarks = new Bookmarks();
@@ -48,6 +53,27 @@ namespace WHL.WhlControls
             #endregion
 
             cmdFavorits.ContextMenu = BuildContextMenuForFavorites();
+
+
+
+        }
+
+        public ChromiumWebBrowser chromeBrowser;
+
+        public void InitializeChromium()
+        {
+            CefSettings settings = new CefSettings();
+            // Initialize cef with the provided settings
+            Cef.Initialize(settings);
+            // Create a browser component
+            chromeBrowser = new ChromiumWebBrowser("about:blank");
+
+            chromeBrowser.LoadingStateChanged += OnBrowserLoadingStateChanged;
+            chromeBrowser.TitleChanged += OnBrowserTitleChanged;
+
+            // Add it to the form and fill it to the form window.
+            webBrowser1.Controls.Add(chromeBrowser);
+            chromeBrowser.Dock = DockStyle.Fill;
         }
 
         public void BrowserUrlExecute(string url)
@@ -66,28 +92,30 @@ namespace WHL.WhlControls
                 }
             }
 
-            
-
             if (url.Trim() == "http://") return;
 
-            webBrowser1.Visible = false;
+            Clipboard.SetText(url);
 
-            loadingGif.Visible = true;
-
-            webBrowser1.Url = new Uri(url);
+            chromeBrowser.Load(url);
+            
             
             txtUrl.Text = url;
 
             txtUrl.Focus();
         }
 
+        public void Dispose()
+        {
+            Cef.Shutdown();
+        }
+
         private void BrowserUrlRefresh(string url)
         {
             loadingGif.Visible = true;
 
-            if (webBrowser1.Url == null) return;
+            if (chromeBrowser.Address == null) return;
 
-            webBrowser1.Url = new Uri(url);
+            chromeBrowser.Load(url);
 
             webBrowser1.Visible = false;
             txtUrl.Text = url;
@@ -114,7 +142,7 @@ namespace WHL.WhlControls
         {
             loadingGif.Visible = false;
 
-            if (webBrowser1.Url == null)
+            if (chromeBrowser.Address == null)
             {
                 webBrowser1.Visible = false;
             }
@@ -130,9 +158,9 @@ namespace WHL.WhlControls
 
         public bool CheckIsNeedUpdateWebBrowser(string url)
         {
-            if (webBrowser1.Url == null) return true;
+            if (chromeBrowser.Address == null) return true;
 
-            if (url != webBrowser1.Url.AbsoluteUri) return true;
+            if (url != chromeBrowser.Address) return true;
 
             return false;
         }
@@ -151,7 +179,7 @@ namespace WHL.WhlControls
 
         private void BrowserCommandRefresh_Click(object sender, EventArgs e)
         {
-            if (webBrowser1.Url == null) return;
+            if (chromeBrowser.Address == null) return;
 
             if (txtUrl.Text.StartsWith("http"))
             {
@@ -196,23 +224,41 @@ namespace WHL.WhlControls
             }
         }
 
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        private void OnBrowserLoadingStateChanged(object sender, LoadingStateChangedEventArgs args)
         {
-            loadingGif.Visible = false;
-            webBrowser1.Visible = true;
+            try
+            {
+                var title = Regex.Match(chromeBrowser.Text, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
 
-            var title = Regex.Match(webBrowser1.DocumentText, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                History.Add(chromeBrowser.Address);
 
-            History.Add(webBrowser1.Url.AbsoluteUri);
+                this.InvokeOnUiThreadIfRequired(() => SetUrlAddress(!args.CanReload));
 
-            History.UpdateTitle(title);
+                this.InvokeOnUiThreadIfRequired(BuildContextMenuFromHistory);
+                this.InvokeOnUiThreadIfRequired(IsUrlInBookmarks);
+                BuildContextMenuFromHistory();
 
-            txtUrl.Text = webBrowser1.Url.AbsoluteUri;
+            }
+            catch (Exception ex)
+            {
+                var error = ex.Message;
+            }
 
-            BuildContextMenuFromHistory();
-
-            IsUrlInBookmarks();
         }
+
+        private void OnBrowserTitleChanged(object sender, TitleChangedEventArgs args)
+        {
+            this.InvokeOnUiThreadIfRequired(() =>
+            {
+                History.UpdateTitle(args.Title);
+            });
+        }
+
+        private void SetUrlAddress(bool b)
+        {
+            txtUrl.Text = chromeBrowser.Address;
+        }
+
 
         private void cmdFavorits_Click(object sender, EventArgs e)
         {
@@ -223,7 +269,7 @@ namespace WHL.WhlControls
 
         private void Event_NavigateToBlank(object sender, EventArgs e)
         {
-            webBrowser1.Navigate("about:blank");
+            chromeBrowser.Load("about:blank");
         }
 
         private ContextMenu BuildContextMenuForFavorites()
@@ -285,9 +331,9 @@ namespace WHL.WhlControls
 
         private void IsUrlInBookmarks()
         {
-            if (webBrowser1.Url == null) return;
+            if (chromeBrowser.Address == null) return;
 
-            if (Bookmarks.IsExist(webBrowser1.Url.AbsoluteUri) == false)
+            if (Bookmarks.IsExist(chromeBrowser.Address) == false)
             {
                 cmdBookmark.Image = Properties.Resources.not_bookmark;
                 _toolTipForBookmarkButton.SetToolTip(cmdBookmark, "Add to bookmarks");

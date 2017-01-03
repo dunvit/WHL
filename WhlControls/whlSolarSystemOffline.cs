@@ -86,40 +86,45 @@ namespace WHL.WhlControls
 
         private void Event_ShowZkillboard(object sender, EventArgs e)
         {
-            if (SolarSystem != null && SolarSystem.System != "unknown")
-                Global.Browser.BrowserUrlExecute("https://zkillboard.com/system/" + SolarSystem.Id.Replace("J", "") + "/");
+            if (string.IsNullOrEmpty(txtSolarSystem.Text)) return;
+
+            Global.Browser.BrowserUrlExecute("https://zkillboard.com/system/" + Global.Space.BasicSolarSystems[txtSolarSystem.Text.Trim()] + "/");
         }
 
         private void Event_ShowSuperpute(object sender, EventArgs e)
         {
-            if (SolarSystem != null && SolarSystem.System != "unknown")
-                Global.Browser.BrowserUrlExecute("http://superpute.com/system/" + SolarSystem.System + "");
+            if (string.IsNullOrEmpty(txtSolarSystem.Text)) return;
+
+             Global.Browser.BrowserUrlExecute("http://superpute.com/system/" + txtSolarSystem.Text.Trim() + "");
         }
 
         private void Event_ShowEllatha(object sender, EventArgs e)
         {
-            if (SolarSystem != null && SolarSystem.System != "unknown")
-            {
-                if (SolarSystem.System.Contains("J") == false)
-                {
-                    MessageBox.Show(@"Ellatha only for W-Space systems");
-                    return;
-                }
+            if (string.IsNullOrEmpty(txtSolarSystem.Text)) return;
 
-                Global.Browser.BrowserUrlExecute("http://www.ellatha.com/eve/WormholeSystemview.asp?key=" + SolarSystem.System.Replace("J", "") + "");
+            if (txtSolarSystem.Text.Trim().Contains("J") == false)
+            {
+                MessageBox.Show(@"Ellatha only for W-Space systems");
+                return;
             }
+
+            Global.Browser.BrowserUrlExecute("http://www.ellatha.com/eve/WormholeSystemview.asp?key=" + txtSolarSystem.Text.Trim().Replace("J", "") + "");
+            
         }
 
         private void Event_ShowDotlan(object sender, EventArgs e)
         {
-            if (SolarSystem != null && SolarSystem.System != "unknown" )
-                Global.Browser.BrowserUrlExecute("http://evemaps.dotlan.net/system/" + SolarSystem.System + "");
+            if (string.IsNullOrEmpty(txtSolarSystem.Text)) return;
+
+            Global.Browser.BrowserUrlExecute("http://evemaps.dotlan.net/system/" + txtSolarSystem.Text.Trim() + "");
         }
 
         private void Event_TripwireShow(object sender, EventArgs e)
         {
-            if (SolarSystem != null && SolarSystem.System != "unknown")
-                Process.Start("https://tripwire.eve-apps.com/?system=" + SolarSystem.System + "");
+            if (string.IsNullOrEmpty(txtSolarSystem.Text)) return;
+
+            //Process.Start("https://tripwire.eve-apps.com/?system=" + txtSolarSystem.Text.Trim() + "");
+            Global.Browser.BrowserUrlExecute("https://tripwire.eve-apps.com/?system=" + txtSolarSystem.Text + "");
         }
 
         private void Event_AnalizeSolarSystem(object sender, EventArgs e)
@@ -149,7 +154,7 @@ namespace WHL.WhlControls
 
                     if (SolarSystem != null)
                     {
-                        SolarSystem.Id = solarSystemName;
+                        SolarSystem.Id = Global.Space.BasicSolarSystems[solarSystemName];
                     }
                 }
                 else
@@ -161,7 +166,7 @@ namespace WHL.WhlControls
                     SolarSystem.Static2 = "";
                     SolarSystem.Static = "";
 
-                    SolarSystem.Id = solarSystemName;
+                    SolarSystem.Id = Global.Space.BasicSolarSystems[solarSystemName];
 
                     SolarSystem.System = solarSystemName;
 
@@ -176,6 +181,18 @@ namespace WHL.WhlControls
                     SolarSystem.System = "unknown";
                 }
             }
+        }
+
+        private void Event_SolarSystemNameLeave(object sender, EventArgs e)
+        {
+            LoadLocationInfo(txtSolarSystem.Text);
+
+            RefreshSolarSystem(SolarSystem);
+        }
+
+        private void Event_ShowWormholePvE(object sender, EventArgs e)
+        {
+            Global.Browser.BrowserUrlExecute("https://docs.google.com/spreadsheets/d/17cNu8hxqJKqkkPnhDlIuJY-IT6ps7kTNCd3BEz0Bvqs/pubhtml#");
         }
     }
 }

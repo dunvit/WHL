@@ -89,6 +89,7 @@ namespace WHL.WhlControls
             this.crlPilotsHistory.Name = "crlPilotsHistory";
             this.crlPilotsHistory.Size = new System.Drawing.Size(242, 106);
             this.crlPilotsHistory.TabIndex = 59;
+            this.crlPilotsHistory.Click += new System.EventHandler(this.Event_PilotsHistoryClick);
             // 
             // txtSelectedPilotName
             // 
@@ -121,6 +122,7 @@ namespace WHL.WhlControls
             this.cmdCopyPilotsFromClipboard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cmdCopyPilotsFromClipboard.ForeColor = System.Drawing.Color.LightGray;
             this.cmdCopyPilotsFromClipboard.IsActive = true;
+            this.cmdCopyPilotsFromClipboard.IsTabControlButton = false;
             this.cmdCopyPilotsFromClipboard.Location = new System.Drawing.Point(62, 173);
             this.cmdCopyPilotsFromClipboard.Name = "cmdCopyPilotsFromClipboard";
             this.cmdCopyPilotsFromClipboard.Size = new System.Drawing.Size(146, 25);
@@ -134,6 +136,7 @@ namespace WHL.WhlControls
             this.cmdClearHistory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cmdClearHistory.ForeColor = System.Drawing.Color.LightGray;
             this.cmdClearHistory.IsActive = true;
+            this.cmdClearHistory.IsTabControlButton = false;
             this.cmdClearHistory.Location = new System.Drawing.Point(316, 173);
             this.cmdClearHistory.Name = "cmdClearHistory";
             this.cmdClearHistory.Size = new System.Drawing.Size(146, 25);
@@ -147,6 +150,7 @@ namespace WHL.WhlControls
             this.cmdShowEveHunt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cmdShowEveHunt.ForeColor = System.Drawing.Color.LightGray;
             this.cmdShowEveHunt.IsActive = false;
+            this.cmdShowEveHunt.IsTabControlButton = false;
             this.cmdShowEveHunt.Location = new System.Drawing.Point(393, 17);
             this.cmdShowEveHunt.Name = "cmdShowEveHunt";
             this.cmdShowEveHunt.Size = new System.Drawing.Size(120, 25);
@@ -160,6 +164,7 @@ namespace WHL.WhlControls
             this.cmdShowZkillboard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cmdShowZkillboard.ForeColor = System.Drawing.Color.LightGray;
             this.cmdShowZkillboard.IsActive = false;
+            this.cmdShowZkillboard.IsTabControlButton = false;
             this.cmdShowZkillboard.Location = new System.Drawing.Point(268, 17);
             this.cmdShowZkillboard.Name = "cmdShowZkillboard";
             this.cmdShowZkillboard.Size = new System.Drawing.Size(119, 25);

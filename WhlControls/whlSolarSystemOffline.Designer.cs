@@ -50,6 +50,7 @@
             this.cmdEllatha = new WHL.whlButton();
             this.cmdSuperpute = new WHL.whlButton();
             this.cmdZkillboard = new WHL.whlButton();
+            this.cmdWormholePvE = new WHL.whlButton();
             ((System.ComponentModel.ISupportInitialize)(this.cmdAnalizeSolarSystem)).BeginInit();
             this.SuspendLayout();
             // 
@@ -221,6 +222,7 @@
             this.txtSolarSystem.Name = "txtSolarSystem";
             this.txtSolarSystem.Size = new System.Drawing.Size(100, 24);
             this.txtSolarSystem.TabIndex = 72;
+            this.txtSolarSystem.Leave += new System.EventHandler(this.Event_SolarSystemNameLeave);
             // 
             // cmdAnalizeSolarSystem
             // 
@@ -299,12 +301,26 @@
             this.cmdZkillboard.Value = "Zkillboard";
             this.cmdZkillboard.Click += new System.EventHandler(this.Event_ShowZkillboard);
             // 
+            // cmdWormholePvE
+            // 
+            this.cmdWormholePvE.BackColor = System.Drawing.Color.Black;
+            this.cmdWormholePvE.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdWormholePvE.IsActive = true;
+            this.cmdWormholePvE.IsTabControlButton = false;
+            this.cmdWormholePvE.Location = new System.Drawing.Point(377, 180);
+            this.cmdWormholePvE.Name = "cmdWormholePvE";
+            this.cmdWormholePvE.Size = new System.Drawing.Size(148, 26);
+            this.cmdWormholePvE.TabIndex = 74;
+            this.cmdWormholePvE.Value = "Wormhole PvE";
+            this.cmdWormholePvE.Click += new System.EventHandler(this.Event_ShowWormholePvE);
+            // 
             // whlSolarSystemOffline
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.cmdWormholePvE);
             this.Controls.Add(this.cmdAnalizeSolarSystem);
             this.Controls.Add(this.txtSolarSystem);
             this.Controls.Add(this.cmdTripwire);
@@ -359,5 +375,6 @@
         private whlButton cmdTripwire;
         private System.Windows.Forms.TextBox txtSolarSystem;
         private System.Windows.Forms.PictureBox cmdAnalizeSolarSystem;
+        private whlButton cmdWormholePvE;
     }
 }

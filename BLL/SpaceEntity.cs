@@ -13,11 +13,30 @@ namespace WHL.BLL
 
         public readonly Dictionary<string, StarSystemEntity> SolarSystems = new Dictionary<string, StarSystemEntity>();
 
+        public readonly Dictionary<string, string> BasicSolarSystems = new Dictionary<string, string>();
+
         public SpaceEntity()
         {
             LoadWormholes();
 
             LoadStarSystems();
+
+            LoadBasicSolarSystems();
+        }
+
+        private void LoadBasicSolarSystems()
+        {
+            using (var sr = new StreamReader(@"Data/WSpaceSystemInfo - Basic Solar Systems.csv"))
+            {
+                var records = new CsvReader(sr).GetRecords<BasicSolarSystem>();
+
+                foreach (var record in records)
+                {
+                    Log.DebugFormat("[SpaceEntity.LoadBasicSolarSystems] Read csv row. {0} {1}", record.Name, record.Id);
+
+                    BasicSolarSystems.Add(record.Name.Trim(), record.Id.Trim());
+                }
+            }
         }
 
         private void LoadWormholes()

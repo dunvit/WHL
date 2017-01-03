@@ -96,5 +96,13 @@ namespace WHL.WhlControls
         {
             crlPilotsHistory.Items.Clear();
         }
+
+        private void Event_PilotsHistoryClick(object sender, EventArgs e)
+        {
+            if (crlPilotsHistory.SelectedItem.ToString() != String.Empty)
+            {
+                txtSelectedPilotName.Text = crlPilotsHistory.SelectedItem.ToString();
+            }
+        }
     }
 }
