@@ -1,1 +1,1 @@
-﻿1.26
+﻿<EveJimaVersionNumber>1.26<EveJimaVersionNumber>
