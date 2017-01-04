@@ -285,6 +285,7 @@
     <None Include="Resources\not_bookmark.png" />
     <None Include="Resources\bookmark.png" />
     <Content Include="Versions\CurrentVersion.txt" />
+    <Content Include="Versions\Version.txt" />
     <Content Include="Versions\History.txt" />
     <None Include="Resources\url.png" />
     <None Include="Resources\unpin.png" />
