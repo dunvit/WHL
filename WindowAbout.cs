@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WHL
@@ -34,36 +29,10 @@ namespace WHL
 
         private void WindowAbout_Load(object sender, EventArgs e)
         {
-            //this.BackColor = System.Drawing.Color.Black;
-            //this.StartPosition = FormStartPosition.CenterScreen;
-
-            this.ControlBox = false;
-            this.Text = String.Empty;
+            ControlBox = false;
+            Text = String.Empty;
             FormBorderStyle = FormBorderStyle.FixedSingle;
         }
-
-        //protected override void WndProc(ref Message m)
-        //{
-        //    const UInt32 WM_NCHITTEST = 0x0084;
-        //    const UInt32 HTBOTTOMRIGHT = 17;
-        //    const int RESIZE_HANDLE_SIZE = 40;
-        //    bool handled = false;
-        //    if (m.Msg == WM_NCHITTEST)
-        //    {
-        //        Size formSize = this.Size;
-        //        Point screenPoint = new Point(m.LParam.ToInt32());
-        //        Point clientPoint = this.PointToClient(screenPoint);
-        //        Rectangle hitBox = new Rectangle(formSize.Width - RESIZE_HANDLE_SIZE, formSize.Height - RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE);
-        //        if (hitBox.Contains(clientPoint))
-        //        {
-        //            m.Result = (IntPtr)HTBOTTOMRIGHT;
-        //            handled = true;
-        //        }
-        //    }
-
-        //    if (!handled)
-        //        base.WndProc(ref m);
-        //}
 
         protected override void WndProc(ref Message m)
         {
@@ -114,11 +83,6 @@ namespace WHL
                         break;
                     }
                 }
-
-                //base.WndProc(ref m);
-                //if ((int)m.Result == 0x1)
-                //    m.Result = (IntPtr)0x2;
-                //return;
             }
 
             if (!handled)

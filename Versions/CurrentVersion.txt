@@ -1,12 +1,34 @@
-﻿EveJima version 1.25
+﻿EveJima version 1.26
 
-+ Change Requirements Net Framework 4.5.2
+----------------------------------------------------------------------------------------------------
 
-+ Add new tab Solar System for offline analize 
-+ Add navigate to Tripwire button (in "Location" and "Solar System" tabs) Open in default browser
-+ Add navigate to WormholePvE button (in "Location" and "Solar System" tabs) Open in default browser
-+ Add HTML5 configuration to WebBrowser. Now can see serials from http://seasonvar.ru/
+Список изменений в обновлении 1.26
 
-+ Add new web browser engine on base CefSharp (https://github.com/cefsharp/CefSharp)
+Дополнения и изменения:
 
-+ Fix select pilot from History in tab "Pilots"
++ Добавлено автоматическое оповещение о выходе новых версий
+
+Браузер
++ Возможность добавлять и удалять новые вкладки
+
+Исправленные ошибки:
+
+Вкладки "Location" & "Solar System"
+	+ Исправлен баг при котором однажды открыв сервис (ZKillboard or Superpute)  из вкладки Location второй раз для той же самой звездной системы браузер не открывался.
+
+
+----------------------------------------------------------------------------------------------------
+
+Patch notes for 1.26 Release
+
+Features & Changes:
+
++ Added automatic notification of new releases
+
+Browser
+
+Defect Fixes:
++  Add multytabs system to browser
+
+Tabs "Location" & "Solar System"
++ Fix bug for re-open service (ZKillboard or Superpute) 

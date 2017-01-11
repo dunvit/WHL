@@ -17,9 +17,9 @@
     <NuGetPackageImportStamp>28fceb98</NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
-    <PublishUrl>\\localhost\EveJima\publish\</PublishUrl>
+    <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Unc</InstallFrom>
+    <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Background</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -27,7 +27,6 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>\\localhost\deploy\</InstallUrl>
     <UpdateUrl>http://localhost/EvaJima/</UpdateUrl>
     <ProductName>EveJima</ProductName>
     <PublisherName>Vitaly Sushilov</PublisherName>
@@ -284,6 +283,7 @@
     <None Include="Resources\book-with-bookmark.png" />
     <None Include="Resources\not_bookmark.png" />
     <None Include="Resources\bookmark.png" />
+    <Content Include="Versions\1.25.txt" />
     <Content Include="Versions\CurrentVersion.txt" />
     <Content Include="Versions\Version.txt" />
     <Content Include="Versions\History.txt" />

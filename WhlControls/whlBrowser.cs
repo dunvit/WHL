@@ -58,50 +58,116 @@ namespace WHL.WhlControls
 
         }
 
-        public ChromiumWebBrowser chromeBrowser;
+        //public ChromiumWebBrowser chromeBrowser;
 
         public void InitializeChromium()
         {
             CefSettings settings = new CefSettings();
             // Initialize cef with the provided settings
             Cef.Initialize(settings);
-            // Create a browser component
-            chromeBrowser = new ChromiumWebBrowser("about:blank");
 
-            chromeBrowser.LoadingStateChanged += OnBrowserLoadingStateChanged;
-            chromeBrowser.TitleChanged += OnBrowserTitleChanged;
-
-            // Add it to the form and fill it to the form window.
-            webBrowser1.Controls.Add(chromeBrowser);
-            chromeBrowser.Dock = DockStyle.Fill;
+            AddTab("about:blank");
         }
 
         public void BrowserUrlExecute(string url)
         {
-            if (!CheckIsNeedUpdateWebBrowser(url)) return;
-
-            if (_runOpenWebBrowser != null)
+            try
             {
-                try
+                if (_runOpenWebBrowser != null)
                 {
-                    _runOpenWebBrowser();
+                    try
+                    {
+                        _runOpenWebBrowser();
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error("[Browser.History.History] Critical error in load history. Exception = " + ex);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Log.Error("[Browser.History.History] Critical error in load history. Exception = " + ex);
-                }
+
+                if (!CheckIsNeedUpdateWebBrowser(url)) return;
+
+                if (url.Trim() == "http://") return;
+
+                //chromeBrowser.Visible = false;
+
+                txtUrl.Text = url;
+
+                txtUrl.Refresh();
+
+                Clipboard.SetText(url);
+
+                LoadUrl(url);
+
+                txtUrl.Focus();
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("[whlBrowser.BrowserUrlExecute] Critical error. Exception {0}", ex);
             }
 
-            if (url.Trim() == "http://") return;
-
-            Clipboard.SetText(url);
-
-            chromeBrowser.Load(url);
             
-            
-            txtUrl.Text = url;
+        }
 
-            txtUrl.Focus();
+        private void LoadUrl(string url)
+        {
+            try
+            {
+                ((ChromiumWebBrowser)(tabControl1.SelectedTab.Controls[0])).Load(url);
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("[whlBrowser.LoadUrl] Critical error. Exception {0}", ex);
+            }
+        }
+
+        private void AddTab(string url, int? insertIndex = null)
+        {
+            try
+            {
+                browserTabControl.SuspendLayout();
+
+                var browser = new ChromiumWebBrowser("about:blank");
+
+                browser.LoadingStateChanged += OnBrowserLoadingStateChanged;
+                browser.TitleChanged += OnBrowserTitleChanged;
+
+                // Add it to the form and fill it to the form window.
+                browser.Dock = DockStyle.Fill;
+
+                var tabPage = new TabPage(url)
+                {
+                    Dock = DockStyle.Fill
+                };
+
+                //This call isn't required for the sample to work. 
+                //It's sole purpose is to demonstrate that #553 has been resolved.
+                browser.CreateControl();
+
+                browser.Tag = tabPage;
+
+                tabPage.Controls.Add(browser);
+
+                if (insertIndex == null)
+                {
+                    tabControl1.TabPages.Add(tabPage);
+                }
+                else
+                {
+                    tabControl1.TabPages.Insert(insertIndex.Value, tabPage);
+                }
+
+                //Make newly created tab active
+                tabControl1.SelectedTab = tabPage;
+
+                browserTabControl.ResumeLayout(true);
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("[whlBrowser.AddTab] Critical error. Exception {0}", ex);
+            }
+
+            
         }
 
         public void Dispose()
@@ -111,16 +177,24 @@ namespace WHL.WhlControls
 
         private void BrowserUrlRefresh(string url)
         {
-            loadingGif.Visible = true;
+            try
+            {
+                loadingGif.Visible = true;
 
-            if (chromeBrowser.Address == null) return;
+                if (((ChromiumWebBrowser)(tabControl1.SelectedTab.Controls[0])).Address == null) return;
 
-            chromeBrowser.Load(url);
+                LoadUrl(url);
 
-            webBrowser1.Visible = false;
-            txtUrl.Text = url;
+                browserTabControl.Visible = false;
+                txtUrl.Text = url;
 
-            txtUrl.Focus();
+                txtUrl.Focus();
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("[whlBrowser.BrowserUrlRefresh] Critical error. Exception {0}", ex);
+            }
+  
         }
 
         public void ResizeWebBrowser(int width, int height)
@@ -129,38 +203,55 @@ namespace WHL.WhlControls
 
             Height = height - 110;
             
-            webBrowser1.Width = Width - 24;
+            browserTabControl.Width = Width - 24;
             
-            webBrowser1.Height = Height - 62;
+            browserTabControl.Height = Height - 62;
 
             txtUrl.Width = Width - 8 - txtUrl.Location.X;
 
             loadingGif.Location = new Point((Width - 24) / 2 - loadingGif.Width / 2, (Height-62) / 2 - loadingGif.Height / 2);
+
+            tabControl1.Size = new Size(browserTabControl.Width, browserTabControl.Height);
         }
 
         public void BrowserOpen()
         {
-            loadingGif.Visible = false;
-
-            if (chromeBrowser.Address == null)
+            try
             {
-                webBrowser1.Visible = false;
+                loadingGif.Visible = false;
+
+                if (((ChromiumWebBrowser)(tabControl1.SelectedTab.Controls[0])).Address == null)
+                {
+                    browserTabControl.Visible = false;
+                }
+                else
+                {
+                    browserTabControl.Visible = true;
+                }
+
+                BuildContextMenuFromHistory();
+
+                txtUrl.Focus();
             }
-            else
+            catch (Exception ex)
             {
-                webBrowser1.Visible = true;
+                Log.ErrorFormat("[whlBrowser.BrowserOpen] Critical error. Exception {0}", ex);
             }
-
-            BuildContextMenuFromHistory();
-
-            txtUrl.Focus();
+            
         }
 
         public bool CheckIsNeedUpdateWebBrowser(string url)
         {
-            if (chromeBrowser.Address == null) return true;
+            try
+            {
+                if (((ChromiumWebBrowser)(tabControl1.SelectedTab.Controls[0])).Address == null) return true;
 
-            if (url != chromeBrowser.Address) return true;
+                if (url != ((ChromiumWebBrowser)(tabControl1.SelectedTab.Controls[0])).Address) return true;
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("[whlBrowser.CheckIsNeedUpdateWebBrowser] Critical error. Url {1} Exception {0}", ex, url);
+            }
 
             return false;
         }
@@ -179,16 +270,24 @@ namespace WHL.WhlControls
 
         private void BrowserCommandRefresh_Click(object sender, EventArgs e)
         {
-            if (chromeBrowser.Address == null) return;
+            try
+            {
+                if (((ChromiumWebBrowser)(tabControl1.SelectedTab.Controls[0])).Address == null) return;
 
-            if (txtUrl.Text.StartsWith("http"))
-            {
-                BrowserUrlRefresh(txtUrl.Text);
+                if (txtUrl.Text.StartsWith("http"))
+                {
+                    BrowserUrlRefresh(txtUrl.Text);
+                }
+                else
+                {
+                    BrowserUrlRefresh("http://" + txtUrl.Text);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                BrowserUrlRefresh("http://" + txtUrl.Text);
+                Log.ErrorFormat("[whlBrowser.BrowserCommandRefresh_Click] Critical error. Exception {0}", ex);
             }
+
         }
 
         private void BrowserCommandForward_Click(object sender, EventArgs e)
@@ -228,11 +327,7 @@ namespace WHL.WhlControls
         {
             try
             {
-                var title = Regex.Match(chromeBrowser.Text, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-
-                History.Add(chromeBrowser.Address);
-
-                this.InvokeOnUiThreadIfRequired(() => SetUrlAddress(!args.CanReload));
+                this.InvokeOnUiThreadIfRequired(() => SetchromeBrowserVisible(!args.CanReload));
 
                 this.InvokeOnUiThreadIfRequired(BuildContextMenuFromHistory);
                 this.InvokeOnUiThreadIfRequired(IsUrlInBookmarks);
@@ -241,22 +336,50 @@ namespace WHL.WhlControls
             }
             catch (Exception ex)
             {
-                var error = ex.Message;
+                Log.ErrorFormat("[whlBrowser.OnBrowserLoadingStateChanged] Critical error. Exception {0}", ex);
             }
 
         }
 
         private void OnBrowserTitleChanged(object sender, TitleChangedEventArgs args)
         {
-            this.InvokeOnUiThreadIfRequired(() =>
+            if (InvokeRequired)
             {
+                Invoke(new Action(() => OnBrowserTitleChanged(sender, args)));
+                return;
+            }
+
+            try
+            {
+                var tab = (TabPage)((ChromiumWebBrowser)sender).Tag;
+
+                tab.Text = args.Title;
+
+
+
                 History.UpdateTitle(args.Title);
-            });
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("[whlBrowser.InvokeOnUiThreadIfRequired] Critical error. Exception {0}", ex);
+            }
         }
 
-        private void SetUrlAddress(bool b)
+        private void SetchromeBrowserVisible(bool b)
         {
-            txtUrl.Text = chromeBrowser.Address;
+            try
+            {
+                History.Add(((ChromiumWebBrowser)(tabControl1.SelectedTab.Controls[0])).Address);
+
+                ((ChromiumWebBrowser)(tabControl1.SelectedTab.Controls[0])).Visible = true;
+
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("[whlBrowser.SetchromeBrowserVisible] Critical error. Exception {0}", ex);
+            }
+
+            
         }
 
 
@@ -269,18 +392,25 @@ namespace WHL.WhlControls
 
         private void Event_NavigateToBlank(object sender, EventArgs e)
         {
-            chromeBrowser.Load("about:blank");
+            LoadUrl("about:blank");
         }
 
         private ContextMenu BuildContextMenuForFavorites()
         {
             var cmFavorits = new ContextMenu();
 
-            foreach (var address in Bookmarks.List.Values.ToList().OrderByDescending(k => k.Id).ToList())
+            try
             {
-                var menuItem = new MenuItem(address.Title, (sender, args) => BrowserUrlExecute(address.Url));
+                foreach (var address in Bookmarks.List.Values.ToList().OrderByDescending(k => k.Id).ToList())
+                {
+                    var menuItem = new MenuItem(address.Title, (sender, args) => BrowserUrlExecute(address.Url));
 
-                cmFavorits.MenuItems.Add(menuItem);
+                    cmFavorits.MenuItems.Add(menuItem);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("[whlBrowser.BuildContextMenuForFavorites] Critical error. Exception {0}", ex);
             }
 
             return cmFavorits;
@@ -288,63 +418,77 @@ namespace WHL.WhlControls
 
         private void BuildContextMenuFromHistory()
         {
-            var cmHistoryBack = new ContextMenu();
-
-            for (var i = 1; i <= 10; i++)
+            try
             {
-                var index = History.CurrentIndex - i;
+                var cmHistoryBack = new ContextMenu();
 
-                if (History.List.ContainsKey(index))
+                for (var i = 1; i <= 10; i++)
                 {
-                    var address = History.List[index];
+                    var index = History.CurrentIndex - i;
 
-                    var menuItem = new MenuItem(address.Title, (sender, args) => BrowserUrlExecute(address.Url));
+                    if (History.List.ContainsKey(index))
+                    {
+                        var address = History.List[index];
 
-                    cmHistoryBack.MenuItems.Add(menuItem);
+                        var menuItem = new MenuItem(address.Title, (sender, args) => BrowserUrlExecute(address.Url));
+
+                        cmHistoryBack.MenuItems.Add(menuItem);
+                    }
                 }
+
+                BrowserCommandBack.ContextMenu = cmHistoryBack;
+
+                var cmHistoryForvard = new ContextMenu();
+
+                for (var i = 1; i <= 10; i++)
+                {
+                    var index = History.CurrentIndex + i;
+
+                    if (History.List.ContainsKey(index))
+                    {
+                        var address = History.List[index];
+
+                        var menuItem = new MenuItem(address.Title, (sender, args) => BrowserUrlExecute(address.Url));
+
+                        cmHistoryForvard.MenuItems.Add(menuItem);
+                    }
+                }
+
+                BrowserCommandForward.ContextMenu = cmHistoryForvard;
             }
-
-            BrowserCommandBack.ContextMenu = cmHistoryBack;
-
-            var cmHistoryForvard = new ContextMenu();
-
-            for (var i = 1; i <= 10; i++)
+            catch (Exception ex)
             {
-                var index = History.CurrentIndex + i;
-
-                if (History.List.ContainsKey(index))
-                {
-                    var address = History.List[index];
-
-                    var menuItem = new MenuItem(address.Title, (sender, args) => BrowserUrlExecute(address.Url));
-
-                    cmHistoryForvard.MenuItems.Add(menuItem);
-                }
+                Log.ErrorFormat("[whlBrowser.BuildContextMenuFromHistory] Critical error. Exception {0}", ex);
             }
-
-            BrowserCommandForward.ContextMenu = cmHistoryForvard;
-
-
-            
+           
         }
 
 
         private void IsUrlInBookmarks()
         {
-            if (chromeBrowser.Address == null) return;
-
-            if (Bookmarks.IsExist(chromeBrowser.Address) == false)
+            try
             {
-                cmdBookmark.Image = Properties.Resources.not_bookmark;
-                _toolTipForBookmarkButton.SetToolTip(cmdBookmark, "Add to bookmarks");
+                if (((ChromiumWebBrowser)(tabControl1.SelectedTab.Controls[0])).Address == null) return;
+
+                if (Bookmarks.IsExist(((ChromiumWebBrowser)(tabControl1.SelectedTab.Controls[0])).Address) == false)
+                {
+                    cmdBookmark.Image = Properties.Resources.not_bookmark;
+                    _toolTipForBookmarkButton.SetToolTip(cmdBookmark, "Add to bookmarks");
+                }
+                else
+                {
+                    cmdBookmark.Image = Properties.Resources.bookmark;
+                    _toolTipForBookmarkButton.SetToolTip(cmdBookmark, "Remove from bookmarks");
+                }
+
+                cmdFavorits.ContextMenu = BuildContextMenuForFavorites();
             }
-            else
+            catch (Exception ex)
             {
-                cmdBookmark.Image = Properties.Resources.bookmark;
-                _toolTipForBookmarkButton.SetToolTip(cmdBookmark, "Remove from bookmarks");
+                Log.ErrorFormat("[whlBrowser.IsUrlInBookmarks] Critical error. Exception {0}", ex);
             }
 
-            cmdFavorits.ContextMenu = BuildContextMenuForFavorites();
+            
         }
 
         private void Event_ClickBookmarkButton(object sender, EventArgs e)
@@ -363,6 +507,69 @@ namespace WHL.WhlControls
             }
 
             IsUrlInBookmarks();
+        }
+
+        private void Event_AddNewTab(object sender, EventArgs e)
+        {
+            AddTab("about:blank");
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                txtUrl.Text = ((ChromiumWebBrowser)(tabControl1.SelectedTab.Controls[0])).Address;
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("[whlBrowser.tabControl1_SelectedIndexChanged] Critical error. Exception {0}", ex);
+            }
+            
+        }
+
+        private void Event_CloseTab(object sender, EventArgs e)
+        {
+            if (tabControl1.Controls.Count == 0)
+            {
+                return;
+            }
+
+            try
+            {
+                var currentIndex = tabControl1.SelectedIndex;
+
+                var tabPage = tabControl1.Controls[currentIndex];
+
+                tabControl1.Controls.Remove(tabPage);
+
+                tabControl1.SelectedIndex = currentIndex - 1;
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("[whlBrowser.Event_CloseTab] Critical error. Exception {0}", ex);
+            }
+
+            
+
+
+        }
+
+        private void tabControl1_MouseClick(object sender, MouseEventArgs e)
+        {
+            var tabControl = sender as TabControl;
+            var tabs = tabControl.TabPages;
+
+            if (tabControl.Controls.Count == 0)
+            {
+                return;
+            }
+
+            if (e.Button == MouseButtons.Middle)
+            {
+                tabs.Remove(tabs.Cast<TabPage>()
+                        .Where((t, i) => tabControl.GetTabRect(i).Contains(e.Location))
+                        .First());
+            }
         }
     }
 }

@@ -37,19 +37,23 @@
             this.BrowserCommandRefresh = new System.Windows.Forms.Button();
             this.BrowserCommandForward = new System.Windows.Forms.Button();
             this.BrowserCommandBack = new System.Windows.Forms.Button();
-            this.webBrowser1 = new System.Windows.Forms.Panel();
+            this.browserTabControl = new System.Windows.Forms.Panel();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.cmdAddTabb = new System.Windows.Forms.Button();
+            this.cmdCloseTab = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.loadingGif)).BeginInit();
+            this.browserTabControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtUrl
             // 
             this.txtUrl.BackColor = System.Drawing.Color.DimGray;
             this.txtUrl.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtUrl.Font = new System.Drawing.Font("Verdana", 14F);
+            this.txtUrl.Font = new System.Drawing.Font("Verdana", 12F);
             this.txtUrl.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.txtUrl.Location = new System.Drawing.Point(187, 11);
+            this.txtUrl.Location = new System.Drawing.Point(247, 14);
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(701, 23);
+            this.txtUrl.Size = new System.Drawing.Size(629, 20);
             this.txtUrl.TabIndex = 52;
             this.txtUrl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUrl_KeyDown);
             // 
@@ -109,7 +113,7 @@
             this.BrowserCommandExecute.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BrowserCommandExecute.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BrowserCommandExecute.Image = global::WHL.Properties.Resources.browser_execute;
-            this.BrowserCommandExecute.Location = new System.Drawing.Point(158, 12);
+            this.BrowserCommandExecute.Location = new System.Drawing.Point(219, 12);
             this.BrowserCommandExecute.Name = "BrowserCommandExecute";
             this.BrowserCommandExecute.Size = new System.Drawing.Size(22, 22);
             this.BrowserCommandExecute.TabIndex = 54;
@@ -155,12 +159,45 @@
             this.BrowserCommandBack.UseVisualStyleBackColor = false;
             this.BrowserCommandBack.Click += new System.EventHandler(this.BrowserCommandBack_Click);
             // 
-            // webBrowser1
+            // browserTabControl
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(18, 52);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(200, 100);
-            this.webBrowser1.TabIndex = 60;
+            this.browserTabControl.Controls.Add(this.tabControl1);
+            this.browserTabControl.Location = new System.Drawing.Point(18, 52);
+            this.browserTabControl.Name = "browserTabControl";
+            this.browserTabControl.Size = new System.Drawing.Size(858, 569);
+            this.browserTabControl.TabIndex = 60;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Location = new System.Drawing.Point(3, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(450, 295);
+            this.tabControl1.TabIndex = 0;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            this.tabControl1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseClick);
+            // 
+            // cmdAddTabb
+            // 
+            this.cmdAddTabb.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmdAddTabb.Location = new System.Drawing.Point(155, 14);
+            this.cmdAddTabb.Name = "cmdAddTabb";
+            this.cmdAddTabb.Size = new System.Drawing.Size(20, 20);
+            this.cmdAddTabb.TabIndex = 61;
+            this.cmdAddTabb.Text = "+";
+            this.cmdAddTabb.UseVisualStyleBackColor = true;
+            this.cmdAddTabb.Click += new System.EventHandler(this.Event_AddNewTab);
+            // 
+            // cmdCloseTab
+            // 
+            this.cmdCloseTab.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmdCloseTab.Location = new System.Drawing.Point(181, 14);
+            this.cmdCloseTab.Name = "cmdCloseTab";
+            this.cmdCloseTab.Size = new System.Drawing.Size(20, 20);
+            this.cmdCloseTab.TabIndex = 62;
+            this.cmdCloseTab.Text = "-";
+            this.cmdCloseTab.UseVisualStyleBackColor = true;
+            this.cmdCloseTab.Click += new System.EventHandler(this.Event_CloseTab);
             // 
             // whlBrowser
             // 
@@ -168,7 +205,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.webBrowser1);
+            this.Controls.Add(this.cmdCloseTab);
+            this.Controls.Add(this.cmdAddTabb);
+            this.Controls.Add(this.browserTabControl);
             this.Controls.Add(this.cmdBookmark);
             this.Controls.Add(this.cmdBlank);
             this.Controls.Add(this.cmdFavorits);
@@ -181,6 +220,7 @@
             this.Name = "whlBrowser";
             this.Size = new System.Drawing.Size(896, 640);
             ((System.ComponentModel.ISupportInitialize)(this.loadingGif)).EndInit();
+            this.browserTabControl.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,6 +237,9 @@
         private System.Windows.Forms.Button cmdFavorits;
         private System.Windows.Forms.Button cmdBlank;
         private System.Windows.Forms.Button cmdBookmark;
-        private System.Windows.Forms.Panel webBrowser1;
+        private System.Windows.Forms.Panel browserTabControl;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.Button cmdAddTabb;
+        private System.Windows.Forms.Button cmdCloseTab;
     }
 }

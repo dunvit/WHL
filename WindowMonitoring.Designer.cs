@@ -336,7 +336,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "WindowMonitoring";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WHL";
+            this.Text = "EveJima";
             this.Load += new System.EventHandler(this.WindowMonitoring_Load);
             this.ResizeBegin += new System.EventHandler(this.Event_WindowResizeBegin);
             this.ResizeEnd += new System.EventHandler(this.Event_WindowResizeEnd);
