@@ -1,0 +1,34 @@
+﻿EveJima version 1.26
+
+----------------------------------------------------------------------------------------------------
+
+Список изменений в обновлении 1.26
+
+Дополнения и изменения:
+
++ Добавлено автоматическое оповещение о выходе новых версий
+
+Браузер
++ Возможность добавлять и удалять новые вкладки
+
+Исправленные ошибки:
+
+Вкладки "Location" & "Solar System"
+	+ Исправлен баг при котором однажды открыв сервис (ZKillboard or Superpute)  из вкладки Location второй раз для той же самой звездной системы браузер не открывался.
+
+
+----------------------------------------------------------------------------------------------------
+
+Patch notes for 1.26 Release
+
+Features & Changes:
+
++ Added automatic notification of new releases
+
+Browser
+
+Defect Fixes:
++  Add multytabs system to browser
+
+Tabs "Location" & "Solar System"
++ Fix bug for re-open service (ZKillboard or Superpute) 

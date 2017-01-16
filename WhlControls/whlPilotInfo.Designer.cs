@@ -40,6 +40,7 @@ namespace WHL.WhlControls
             this.cmdClearHistory = new WHL.whlButton();
             this.cmdShowEveHunt = new WHL.whlButton();
             this.cmdShowZkillboard = new WHL.whlButton();
+            this.cmdEverate = new WHL.whlButton();
             this.SuspendLayout();
             // 
             // label17
@@ -151,11 +152,11 @@ namespace WHL.WhlControls
             this.cmdShowEveHunt.ForeColor = System.Drawing.Color.LightGray;
             this.cmdShowEveHunt.IsActive = false;
             this.cmdShowEveHunt.IsTabControlButton = false;
-            this.cmdShowEveHunt.Location = new System.Drawing.Point(393, 17);
+            this.cmdShowEveHunt.Location = new System.Drawing.Point(356, 17);
             this.cmdShowEveHunt.Name = "cmdShowEveHunt";
-            this.cmdShowEveHunt.Size = new System.Drawing.Size(120, 25);
+            this.cmdShowEveHunt.Size = new System.Drawing.Size(80, 25);
             this.cmdShowEveHunt.TabIndex = 65;
-            this.cmdShowEveHunt.Value = "Show Eve Hunt";
+            this.cmdShowEveHunt.Value = "Eve Hunt";
             this.cmdShowEveHunt.Click += new System.EventHandler(this.cmdShowEveHunt_Click);
             // 
             // cmdShowZkillboard
@@ -167,10 +168,24 @@ namespace WHL.WhlControls
             this.cmdShowZkillboard.IsTabControlButton = false;
             this.cmdShowZkillboard.Location = new System.Drawing.Point(268, 17);
             this.cmdShowZkillboard.Name = "cmdShowZkillboard";
-            this.cmdShowZkillboard.Size = new System.Drawing.Size(119, 25);
+            this.cmdShowZkillboard.Size = new System.Drawing.Size(82, 25);
             this.cmdShowZkillboard.TabIndex = 64;
-            this.cmdShowZkillboard.Value = "Show Zkillboard";
+            this.cmdShowZkillboard.Value = "Zkillboard";
             this.cmdShowZkillboard.Click += new System.EventHandler(this.cmdShowZkillboard_Click);
+            // 
+            // cmdEverate
+            // 
+            this.cmdEverate.BackColor = System.Drawing.Color.Black;
+            this.cmdEverate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cmdEverate.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdEverate.IsActive = false;
+            this.cmdEverate.IsTabControlButton = false;
+            this.cmdEverate.Location = new System.Drawing.Point(442, 17);
+            this.cmdEverate.Name = "cmdEverate";
+            this.cmdEverate.Size = new System.Drawing.Size(80, 25);
+            this.cmdEverate.TabIndex = 68;
+            this.cmdEverate.Value = "Everate";
+            this.cmdEverate.Click += new System.EventHandler(this.Event_ShowEverate);
             // 
             // whlPilotInfo
             // 
@@ -178,6 +193,7 @@ namespace WHL.WhlControls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.cmdEverate);
             this.Controls.Add(this.cmdCopyPilotsFromClipboard);
             this.Controls.Add(this.cmdClearHistory);
             this.Controls.Add(this.cmdShowEveHunt);
@@ -209,5 +225,6 @@ namespace WHL.WhlControls
         private whlButton cmdShowEveHunt;
         private whlButton cmdClearHistory;
         private whlButton cmdCopyPilotsFromClipboard;
+        private whlButton cmdEverate;
     }
 }

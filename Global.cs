@@ -5,7 +5,7 @@ namespace WHL
 {
     public static class Global
     {
-        public static string Version = "1.26";
+        public static Settings Settings = new Settings();
 
         public static PilotsEntity Pilots = new PilotsEntity();
 

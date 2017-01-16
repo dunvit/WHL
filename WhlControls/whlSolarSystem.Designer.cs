@@ -44,19 +44,19 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lnlSystemText = new System.Windows.Forms.Label();
-            this.cmdZkillboard = new WHL.whlButton();
-            this.cmdSuperpute = new WHL.whlButton();
-            this.cmdEllatha = new WHL.whlButton();
-            this.cmdDotlan = new WHL.whlButton();
+            this.cmdTravelHistory = new WHL.whlButton();
             this.cmdTripwire = new WHL.whlButton();
-            this.cmdWormholePvE = new WHL.whlButton();
+            this.cmdDotlan = new WHL.whlButton();
+            this.cmdEllatha = new WHL.whlButton();
+            this.cmdSuperpute = new WHL.whlButton();
+            this.cmdZkillboard = new WHL.whlButton();
             this.SuspendLayout();
             // 
             // txtSolarSystemConstellation
             // 
             this.txtSolarSystemConstellation.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSolarSystemConstellation.ForeColor = System.Drawing.Color.DarkGray;
-            this.txtSolarSystemConstellation.Location = new System.Drawing.Point(159, 64);
+            this.txtSolarSystemConstellation.Location = new System.Drawing.Point(140, 52);
             this.txtSolarSystemConstellation.Name = "txtSolarSystemConstellation";
             this.txtSolarSystemConstellation.Size = new System.Drawing.Size(100, 23);
             this.txtSolarSystemConstellation.TabIndex = 62;
@@ -67,7 +67,7 @@
             // 
             this.txtSolarSystemRegion.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSolarSystemRegion.ForeColor = System.Drawing.Color.DarkGray;
-            this.txtSolarSystemRegion.Location = new System.Drawing.Point(159, 41);
+            this.txtSolarSystemRegion.Location = new System.Drawing.Point(140, 29);
             this.txtSolarSystemRegion.Name = "txtSolarSystemRegion";
             this.txtSolarSystemRegion.Size = new System.Drawing.Size(100, 23);
             this.txtSolarSystemRegion.TabIndex = 61;
@@ -78,7 +78,7 @@
             // 
             this.txtSolarSystemStaticIIData.Font = new System.Drawing.Font("Verdana", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSolarSystemStaticIIData.ForeColor = System.Drawing.Color.DarkGray;
-            this.txtSolarSystemStaticIIData.Location = new System.Drawing.Point(229, 160);
+            this.txtSolarSystemStaticIIData.Location = new System.Drawing.Point(210, 148);
             this.txtSolarSystemStaticIIData.Name = "txtSolarSystemStaticIIData";
             this.txtSolarSystemStaticIIData.Size = new System.Drawing.Size(130, 23);
             this.txtSolarSystemStaticIIData.TabIndex = 60;
@@ -90,7 +90,7 @@
             // 
             this.txtSolarSystemStaticIData.Font = new System.Drawing.Font("Verdana", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSolarSystemStaticIData.ForeColor = System.Drawing.Color.DarkGray;
-            this.txtSolarSystemStaticIData.Location = new System.Drawing.Point(229, 137);
+            this.txtSolarSystemStaticIData.Location = new System.Drawing.Point(210, 125);
             this.txtSolarSystemStaticIData.Name = "txtSolarSystemStaticIData";
             this.txtSolarSystemStaticIData.Size = new System.Drawing.Size(130, 23);
             this.txtSolarSystemStaticIData.TabIndex = 59;
@@ -102,7 +102,7 @@
             // 
             this.txtSolarSystemStaticII.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSolarSystemStaticII.ForeColor = System.Drawing.Color.Goldenrod;
-            this.txtSolarSystemStaticII.Location = new System.Drawing.Point(159, 159);
+            this.txtSolarSystemStaticII.Location = new System.Drawing.Point(140, 147);
             this.txtSolarSystemStaticII.Name = "txtSolarSystemStaticII";
             this.txtSolarSystemStaticII.Size = new System.Drawing.Size(64, 23);
             this.txtSolarSystemStaticII.TabIndex = 58;
@@ -114,7 +114,7 @@
             // 
             this.txtSolarSystemStaticI.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSolarSystemStaticI.ForeColor = System.Drawing.Color.Goldenrod;
-            this.txtSolarSystemStaticI.Location = new System.Drawing.Point(159, 136);
+            this.txtSolarSystemStaticI.Location = new System.Drawing.Point(140, 124);
             this.txtSolarSystemStaticI.Name = "txtSolarSystemStaticI";
             this.txtSolarSystemStaticI.Size = new System.Drawing.Size(64, 23);
             this.txtSolarSystemStaticI.TabIndex = 57;
@@ -126,7 +126,7 @@
             // 
             this.txtSolarSystemEffect.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSolarSystemEffect.ForeColor = System.Drawing.Color.DarkGray;
-            this.txtSolarSystemEffect.Location = new System.Drawing.Point(159, 110);
+            this.txtSolarSystemEffect.Location = new System.Drawing.Point(140, 98);
             this.txtSolarSystemEffect.Name = "txtSolarSystemEffect";
             this.txtSolarSystemEffect.Size = new System.Drawing.Size(100, 23);
             this.txtSolarSystemEffect.TabIndex = 56;
@@ -137,7 +137,7 @@
             // 
             this.txtSolarSystemClass.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSolarSystemClass.ForeColor = System.Drawing.Color.DarkGray;
-            this.txtSolarSystemClass.Location = new System.Drawing.Point(159, 87);
+            this.txtSolarSystemClass.Location = new System.Drawing.Point(140, 75);
             this.txtSolarSystemClass.Name = "txtSolarSystemClass";
             this.txtSolarSystemClass.Size = new System.Drawing.Size(100, 23);
             this.txtSolarSystemClass.TabIndex = 55;
@@ -148,7 +148,7 @@
             // 
             this.txtSolarSystemName.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSolarSystemName.ForeColor = System.Drawing.Color.DarkOrange;
-            this.txtSolarSystemName.Location = new System.Drawing.Point(159, 18);
+            this.txtSolarSystemName.Location = new System.Drawing.Point(140, 6);
             this.txtSolarSystemName.Name = "txtSolarSystemName";
             this.txtSolarSystemName.Size = new System.Drawing.Size(100, 23);
             this.txtSolarSystemName.TabIndex = 54;
@@ -159,7 +159,7 @@
             // 
             this.label1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(29, 159);
+            this.label1.Location = new System.Drawing.Point(10, 147);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 23);
             this.label1.TabIndex = 53;
@@ -169,7 +169,7 @@
             // 
             this.label8.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(29, 67);
+            this.label8.Location = new System.Drawing.Point(10, 55);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(109, 23);
             this.label8.TabIndex = 52;
@@ -179,7 +179,7 @@
             // 
             this.label4.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(29, 44);
+            this.label4.Location = new System.Drawing.Point(10, 32);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 23);
             this.label4.TabIndex = 51;
@@ -189,7 +189,7 @@
             // 
             this.label7.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(29, 136);
+            this.label7.Location = new System.Drawing.Point(10, 124);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(100, 23);
             this.label7.TabIndex = 50;
@@ -199,7 +199,7 @@
             // 
             this.label6.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(29, 113);
+            this.label6.Location = new System.Drawing.Point(10, 101);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 23);
             this.label6.TabIndex = 49;
@@ -209,7 +209,7 @@
             // 
             this.label5.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(29, 90);
+            this.label5.Location = new System.Drawing.Point(10, 78);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 23);
             this.label5.TabIndex = 48;
@@ -219,63 +219,24 @@
             // 
             this.lnlSystemText.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnlSystemText.ForeColor = System.Drawing.Color.White;
-            this.lnlSystemText.Location = new System.Drawing.Point(29, 21);
+            this.lnlSystemText.Location = new System.Drawing.Point(10, 9);
             this.lnlSystemText.Name = "lnlSystemText";
             this.lnlSystemText.Size = new System.Drawing.Size(100, 23);
             this.lnlSystemText.TabIndex = 47;
             this.lnlSystemText.Text = "Solar System";
             // 
-            // cmdZkillboard
+            // cmdTravelHistory
             // 
-            this.cmdZkillboard.BackColor = System.Drawing.Color.Black;
-            this.cmdZkillboard.ForeColor = System.Drawing.Color.LightGray;
-            this.cmdZkillboard.IsActive = true;
-            this.cmdZkillboard.IsTabControlButton = false;
-            this.cmdZkillboard.Location = new System.Drawing.Point(377, 12);
-            this.cmdZkillboard.Name = "cmdZkillboard";
-            this.cmdZkillboard.Size = new System.Drawing.Size(148, 26);
-            this.cmdZkillboard.TabIndex = 67;
-            this.cmdZkillboard.Value = "Zkillboard";
-            this.cmdZkillboard.Click += new System.EventHandler(this.Event_ShowZkillboard);
-            // 
-            // cmdSuperpute
-            // 
-            this.cmdSuperpute.BackColor = System.Drawing.Color.Black;
-            this.cmdSuperpute.ForeColor = System.Drawing.Color.LightGray;
-            this.cmdSuperpute.IsActive = true;
-            this.cmdSuperpute.IsTabControlButton = false;
-            this.cmdSuperpute.Location = new System.Drawing.Point(377, 41);
-            this.cmdSuperpute.Name = "cmdSuperpute";
-            this.cmdSuperpute.Size = new System.Drawing.Size(148, 26);
-            this.cmdSuperpute.TabIndex = 68;
-            this.cmdSuperpute.Value = "Superpute";
-            this.cmdSuperpute.Click += new System.EventHandler(this.Event_ShowSuperpute);
-            // 
-            // cmdEllatha
-            // 
-            this.cmdEllatha.BackColor = System.Drawing.Color.Black;
-            this.cmdEllatha.ForeColor = System.Drawing.Color.LightGray;
-            this.cmdEllatha.IsActive = true;
-            this.cmdEllatha.IsTabControlButton = false;
-            this.cmdEllatha.Location = new System.Drawing.Point(377, 70);
-            this.cmdEllatha.Name = "cmdEllatha";
-            this.cmdEllatha.Size = new System.Drawing.Size(148, 26);
-            this.cmdEllatha.TabIndex = 69;
-            this.cmdEllatha.Value = "Ellatha";
-            this.cmdEllatha.Click += new System.EventHandler(this.Event_ShowEllatha);
-            // 
-            // cmdDotlan
-            // 
-            this.cmdDotlan.BackColor = System.Drawing.Color.Black;
-            this.cmdDotlan.ForeColor = System.Drawing.Color.LightGray;
-            this.cmdDotlan.IsActive = true;
-            this.cmdDotlan.IsTabControlButton = false;
-            this.cmdDotlan.Location = new System.Drawing.Point(377, 99);
-            this.cmdDotlan.Name = "cmdDotlan";
-            this.cmdDotlan.Size = new System.Drawing.Size(148, 26);
-            this.cmdDotlan.TabIndex = 70;
-            this.cmdDotlan.Value = "Dotlan";
-            this.cmdDotlan.Click += new System.EventHandler(this.Event_ShowDotlan);
+            this.cmdTravelHistory.BackColor = System.Drawing.Color.Black;
+            this.cmdTravelHistory.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdTravelHistory.IsActive = true;
+            this.cmdTravelHistory.IsTabControlButton = false;
+            this.cmdTravelHistory.Location = new System.Drawing.Point(13, 182);
+            this.cmdTravelHistory.Name = "cmdTravelHistory";
+            this.cmdTravelHistory.Size = new System.Drawing.Size(148, 26);
+            this.cmdTravelHistory.TabIndex = 73;
+            this.cmdTravelHistory.Value = "Travel History";
+            this.cmdTravelHistory.Click += new System.EventHandler(this.Event_ShowTravelHistory);
             // 
             // cmdTripwire
             // 
@@ -283,25 +244,64 @@
             this.cmdTripwire.ForeColor = System.Drawing.Color.LightGray;
             this.cmdTripwire.IsActive = true;
             this.cmdTripwire.IsTabControlButton = false;
-            this.cmdTripwire.Location = new System.Drawing.Point(377, 128);
+            this.cmdTripwire.Location = new System.Drawing.Point(377, 125);
             this.cmdTripwire.Name = "cmdTripwire";
             this.cmdTripwire.Size = new System.Drawing.Size(148, 26);
             this.cmdTripwire.TabIndex = 71;
             this.cmdTripwire.Value = "Tripwire";
             this.cmdTripwire.Click += new System.EventHandler(this.Event_TripwireShow);
             // 
-            // cmdWormholePvE
+            // cmdDotlan
             // 
-            this.cmdWormholePvE.BackColor = System.Drawing.Color.Black;
-            this.cmdWormholePvE.ForeColor = System.Drawing.Color.LightGray;
-            this.cmdWormholePvE.IsActive = true;
-            this.cmdWormholePvE.IsTabControlButton = false;
-            this.cmdWormholePvE.Location = new System.Drawing.Point(377, 178);
-            this.cmdWormholePvE.Name = "cmdWormholePvE";
-            this.cmdWormholePvE.Size = new System.Drawing.Size(148, 26);
-            this.cmdWormholePvE.TabIndex = 72;
-            this.cmdWormholePvE.Value = "Wormhole PvE";
-            this.cmdWormholePvE.Click += new System.EventHandler(this.Event_ShowWormholePvE);
+            this.cmdDotlan.BackColor = System.Drawing.Color.Black;
+            this.cmdDotlan.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdDotlan.IsActive = true;
+            this.cmdDotlan.IsTabControlButton = false;
+            this.cmdDotlan.Location = new System.Drawing.Point(377, 96);
+            this.cmdDotlan.Name = "cmdDotlan";
+            this.cmdDotlan.Size = new System.Drawing.Size(148, 26);
+            this.cmdDotlan.TabIndex = 70;
+            this.cmdDotlan.Value = "Dotlan";
+            this.cmdDotlan.Click += new System.EventHandler(this.Event_ShowDotlan);
+            // 
+            // cmdEllatha
+            // 
+            this.cmdEllatha.BackColor = System.Drawing.Color.Black;
+            this.cmdEllatha.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdEllatha.IsActive = true;
+            this.cmdEllatha.IsTabControlButton = false;
+            this.cmdEllatha.Location = new System.Drawing.Point(377, 67);
+            this.cmdEllatha.Name = "cmdEllatha";
+            this.cmdEllatha.Size = new System.Drawing.Size(148, 26);
+            this.cmdEllatha.TabIndex = 69;
+            this.cmdEllatha.Value = "Ellatha";
+            this.cmdEllatha.Click += new System.EventHandler(this.Event_ShowEllatha);
+            // 
+            // cmdSuperpute
+            // 
+            this.cmdSuperpute.BackColor = System.Drawing.Color.Black;
+            this.cmdSuperpute.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdSuperpute.IsActive = true;
+            this.cmdSuperpute.IsTabControlButton = false;
+            this.cmdSuperpute.Location = new System.Drawing.Point(377, 38);
+            this.cmdSuperpute.Name = "cmdSuperpute";
+            this.cmdSuperpute.Size = new System.Drawing.Size(148, 26);
+            this.cmdSuperpute.TabIndex = 68;
+            this.cmdSuperpute.Value = "Superpute";
+            this.cmdSuperpute.Click += new System.EventHandler(this.Event_ShowSuperpute);
+            // 
+            // cmdZkillboard
+            // 
+            this.cmdZkillboard.BackColor = System.Drawing.Color.Black;
+            this.cmdZkillboard.ForeColor = System.Drawing.Color.LightGray;
+            this.cmdZkillboard.IsActive = true;
+            this.cmdZkillboard.IsTabControlButton = false;
+            this.cmdZkillboard.Location = new System.Drawing.Point(377, 9);
+            this.cmdZkillboard.Name = "cmdZkillboard";
+            this.cmdZkillboard.Size = new System.Drawing.Size(148, 26);
+            this.cmdZkillboard.TabIndex = 67;
+            this.cmdZkillboard.Value = "Zkillboard";
+            this.cmdZkillboard.Click += new System.EventHandler(this.Event_ShowZkillboard);
             // 
             // whlSolarSystem
             // 
@@ -309,7 +309,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.cmdWormholePvE);
+            this.Controls.Add(this.cmdTravelHistory);
             this.Controls.Add(this.cmdTripwire);
             this.Controls.Add(this.cmdDotlan);
             this.Controls.Add(this.cmdEllatha);
@@ -360,6 +360,6 @@
         private whlButton cmdEllatha;
         private whlButton cmdDotlan;
         private whlButton cmdTripwire;
-        private whlButton cmdWormholePvE;
+        private whlButton cmdTravelHistory;
     }
 }

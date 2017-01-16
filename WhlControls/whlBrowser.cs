@@ -63,6 +63,8 @@ namespace WHL.WhlControls
         public void InitializeChromium()
         {
             CefSettings settings = new CefSettings();
+
+            
             // Initialize cef with the provided settings
             Cef.Initialize(settings);
 
@@ -89,13 +91,9 @@ namespace WHL.WhlControls
 
                 if (url.Trim() == "http://") return;
 
-                //chromeBrowser.Visible = false;
-
                 txtUrl.Text = url;
 
                 txtUrl.Refresh();
-
-                Clipboard.SetText(url);
 
                 LoadUrl(url);
 
@@ -353,11 +351,12 @@ namespace WHL.WhlControls
             {
                 var tab = (TabPage)((ChromiumWebBrowser)sender).Tag;
 
-                tab.Text = args.Title;
+                var title = args.Title.Substring(0, 20);
 
-
+                tab.Text = title;
 
                 History.UpdateTitle(args.Title);
+               
             }
             catch (Exception ex)
             {

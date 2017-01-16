@@ -97,6 +97,7 @@
             this.Controls.Add(this.btnLogInWithEveOnline);
             this.Name = "whlAuthorization";
             this.Size = new System.Drawing.Size(540, 222);
+            this.Load += new System.EventHandler(this.Event_FormLoad);
             ((System.ComponentModel.ISupportInitialize)(this.crlPilotPortrait)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnLogInWithEveOnline)).EndInit();
             this.ResumeLayout(false);

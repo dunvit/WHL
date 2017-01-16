@@ -29,11 +29,13 @@ namespace WHL.WhlControls
             {
                 cmdShowEveHunt.IsActive = false;
                 cmdShowZkillboard.IsActive = false;
+                cmdEverate.IsActive = false;
             }
              else
             {
                 cmdShowEveHunt.IsActive = true;
                 cmdShowZkillboard.IsActive = true;
+                cmdEverate.IsActive = true;
             }
         }
 
@@ -99,10 +101,22 @@ namespace WHL.WhlControls
 
         private void Event_PilotsHistoryClick(object sender, EventArgs e)
         {
+            if (crlPilotsHistory.SelectedItem == null) return;
+
             if (crlPilotsHistory.SelectedItem.ToString() != String.Empty)
             {
                 txtSelectedPilotName.Text = crlPilotsHistory.SelectedItem.ToString();
             }
+        }
+
+        private void Event_ShowEverate(object sender, EventArgs e)
+        {
+            if (crlPilotsHistory.Items.Contains(txtSelectedPilotName.Text.Trim()) == false)
+            {
+                crlPilotsHistory.Items.Add(txtSelectedPilotName.Text.Trim());
+            }
+
+            Global.Browser.BrowserUrlExecute("http://everate.ru/userinfo.php?name=" + txtSelectedPilotName.Text.Trim().Replace(" ", "+") + "");
         }
     }
 }
