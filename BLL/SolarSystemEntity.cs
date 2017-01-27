@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WHL.BLL
 {
@@ -38,11 +39,5 @@ namespace WHL.BLL
     {
         public string Name { get; set; }
         public string Id { get; set; }
-    }
-
-    public class BasicCosmicSignature
-    {
-        public string Key { get; set; }
-        public string Value { get; set; }
     }
 }

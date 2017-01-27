@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
-using log4net;
 using WHL.BLL;
 using WHL.UiTools;
 
@@ -8,17 +8,12 @@ namespace WHL.WhlControls
 {
     public partial class whlSolarSystem : UserControl
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(whlSolarSystem));
-
         public StarSystemEntity SolarSystem { get; set; }
 
         private ToolTip toolTip1 = new ToolTip();
         private ToolTip toolTip2 = new ToolTip();
 
-        private DelegateShowTravelHistory _showTravelHistory;
-        private DelegateChangeSolarSystemInfo _changeSolarSystemInfo;
-
-        public whlSolarSystem(DelegateShowTravelHistory showTravelHistory, DelegateChangeSolarSystemInfo changeSolarSystemInfo)
+        public whlSolarSystem()
         {
             InitializeComponent();
 
@@ -31,9 +26,6 @@ namespace WHL.WhlControls
             toolTip2.InitialDelay = 1000;
             toolTip2.ReshowDelay = 500;
             toolTip2.ShowAlways = true;
-
-            _showTravelHistory = showTravelHistory;
-            _changeSolarSystemInfo = changeSolarSystemInfo;
         }
 
         public void RefreshSolarSystem(StarSystemEntity location)
@@ -57,13 +49,6 @@ namespace WHL.WhlControls
             txtSolarSystemStaticIData.Visible = false;
             txtSolarSystemStaticIIData.Visible = false;
 
-            var title = Global.Pilots.Selected.Location.System + "";
-
-            if (string.IsNullOrEmpty(Global.Pilots.Selected.Location.Class) == false)
-            {
-                title = title + "[C" + Global.Pilots.Selected.Location.Class + "]";
-            }
-
             if (string.IsNullOrEmpty(Global.Pilots.Selected.Location.Static) == false)
             {
                 var wormholeI = Global.Space.Wormholes[Global.Pilots.Selected.Location.Static.Trim()];
@@ -76,7 +61,6 @@ namespace WHL.WhlControls
 
                 toolTip1.SetToolTip(txtSolarSystemStaticI, "Max Stable Mass=" + wormholeI.TotalMass + "\r\nMax Jump  Mass=" + wormholeI.SingleMass);
 
-                title = title + " " + wormholeI.Name + "[" + wormholeI.LeadsTo + "]";
             }
 
             if (string.IsNullOrEmpty(Global.Pilots.Selected.Location.Static2) == false)
@@ -91,19 +75,6 @@ namespace WHL.WhlControls
                 txtSolarSystemStaticIIData.Visible = true;
 
                 toolTip2.SetToolTip(txtSolarSystemStaticII, "Max Stable Mass=" + wormholeII.TotalMass + "\r\nMax Jump  Mass=" + wormholeII.SingleMass);
-
-                title = title + " " + wormholeII.Name + "[" + wormholeII.LeadsTo + "]";
-            }
-
-            if (_changeSolarSystemInfo == null) return;
-
-            try
-            {
-                _changeSolarSystemInfo(title);
-            }
-            catch (Exception ex)
-            {
-                Log.ErrorFormat("[whlSolarSystem.RefreshSolarSystem] Critical error = {0}", ex);
             }
         }
 
@@ -151,11 +122,6 @@ namespace WHL.WhlControls
         private void Event_ShowWormholePvE(object sender, EventArgs e)
         {
             Global.Browser.BrowserUrlExecute("https://docs.google.com/spreadsheets/d/17cNu8hxqJKqkkPnhDlIuJY-IT6ps7kTNCd3BEz0Bvqs/pubhtml#");
-        }
-
-        private void Event_ShowTravelHistory(object sender, EventArgs e)
-        {
-            _showTravelHistory();
         }
     }
 }

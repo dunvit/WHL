@@ -12,7 +12,8 @@ namespace WHL
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(CrestAuthorization));
 
-        
+        private const string CLIENT_ID = "8f1e2ac9d4aa467c88b12674926dc5e6";
+        private const string CLIENT_SECRET = "GZyvG71OxmfHzcDrTMreHw6CV7sDUwiBMiPSpbPn";
 
         public string AccessToken { get; set; }
 
@@ -41,7 +42,7 @@ namespace WHL
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "POST";
 
-            var encoded = Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(Global.Settings.CCPSSO_AUTH_CLIENT_ID + ":" + Global.Settings.CCPSSO_AUTH_CLIENT_SECRET));
+            var encoded = Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(CLIENT_ID + ":" + CLIENT_SECRET));
 
             Log.DebugFormat("[CrestAuthorization.VerifyAuthorizationCode] encoded is {0}", encoded);
 
@@ -93,7 +94,7 @@ namespace WHL
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "POST";
 
-                var encoded = Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(Global.Settings.CCPSSO_AUTH_CLIENT_ID + ":" + Global.Settings.CCPSSO_AUTH_CLIENT_SECRET));
+                var encoded = Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(CLIENT_ID + ":" + CLIENT_SECRET));
                 httpWebRequest.Headers.Add("Authorization", "Basic " + encoded);
                 httpWebRequest.Host = "login.eveonline.com";
 

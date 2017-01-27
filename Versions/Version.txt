@@ -1,1 +1,1 @@
-﻿<EveJimaVersionNumber>1.27<EveJimaVersionNumber>
+﻿<EveJimaVersionNumber>1.26<EveJimaVersionNumber>

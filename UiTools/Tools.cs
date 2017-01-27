@@ -56,6 +56,5 @@ namespace WHL.UiTools
 
             return Color.Bisque;
         }
-
     }
 }

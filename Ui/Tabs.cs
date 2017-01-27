@@ -62,7 +62,7 @@ namespace WHL.Ui
 
         public Size Size { get; set; }
 
-        public Size CompactSize = new Size(300, 29);
+        public Size CompactSize = new Size(160, 29);
 
         public bool IsMinimized { get; set; }
 

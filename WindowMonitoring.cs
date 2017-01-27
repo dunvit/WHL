@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
@@ -8,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using log4net;
+using Microsoft.Win32;
 using WHL.BLL;
 using WHL.Properties;
 using WHL.Ui;
@@ -15,9 +17,13 @@ using WHL.WhlControls;
 
 namespace WHL
 {
-    
+    public delegate void OpenWebBrowser();
+
     public partial class WindowMonitoring : Form
     {
+        //TODO: webBrowser1.Url = new Uri("http://www.ellatha.com/eve/wormholelist.asp");
+
+
         #region private variables
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(CrestApiListener));
@@ -33,8 +39,6 @@ namespace WHL
         public whlBookmarks ucContainerBookmarks;
 
         public whlSolarSystem ucContainreSolarSystem;
-
-        public whlTravelHistory ucTravelHistory;
 
         public whlAuthorization ucContainreAuthorization;
 
@@ -60,19 +64,17 @@ namespace WHL
             ContainerTabs = new Tabs();
 
             Size = ContainerTabs.Active().Size;
+
+            //Infrastructure.GetSolarSystems();
+
+
         }
 
         private void WindowMonitoring_Load(object sender, EventArgs e)
         {
-            lblVersionID.Text = Global.Settings.Version;
+            lblVersionID.Text = Global.Version;
 
-            DelegateShowTravelHistory showTravelHistory = ShowContainer_TravelHistory;
-            DelegateShowLocation showLocation = ShowContainer_Location;
-            DelegateChangeSolarSystemInfo changeSolarSystemInfo = ChangeSolarSystemInfo;
-
-            ucContainreSolarSystem = new whlSolarSystem(showTravelHistory, changeSolarSystemInfo);
-
-            ucTravelHistory = new whlTravelHistory(showLocation);
+            ucContainreSolarSystem = new whlSolarSystem();
 
             ucContainerlSolarSystemOffline = new whlSolarSystemOffline();
             
@@ -83,7 +85,6 @@ namespace WHL
             Controls.Add(ucContainerPilotInfo);
             Controls.Add(ucContainerBookmarks);
             Controls.Add(ucContainreSolarSystem);
-            Controls.Add(ucTravelHistory);
             Controls.Add(ucContainerlSolarSystemOffline);
             Controls.Add(ucContainreAuthorization);
 
@@ -106,7 +107,6 @@ namespace WHL
             }
 
             DelegateStartProcess startProcessFunction = StartPilotAuthorizeFlow;
-            
 
             new Thread(() => new CrestApiListener().ListenLocalhost(startProcessFunction)) { IsBackground = true }.Start();
 
@@ -117,78 +117,18 @@ namespace WHL
             OpenAuthorizationPanel();
 
             CheckVersion();
-
-            ucContainreAuthorization.RefreshAuthorizationStatus();
-        }
-
-        private void ChangeSolarSystemInfo(string info)
-        {
-            lblSolarSystemName.Text = info;
-        }
-
-
-        private void ShowContainer_TravelHistory()
-        {
-            if (Global.Pilots.Count() == 0 || Global.Pilots.Selected == null || Global.Pilots.Selected.Location == null || Global.Pilots.Selected.Location.System == "unknown") return;
-
-            HideAllContainers();
-            
-
-            ContainerTabs.Activate("Location");
-
-
-            pnlContainer.BringToFront();
-
-            ResizeWindow();
-
-            ucTravelHistory.BackColor = Color.Black;
-            ucTravelHistory.Location = new Point(pnlContainer.Location.X, pnlContainer.Location.Y);
-            ucTravelHistory.BringToFront();
-
-            ucTravelHistory.Visible = true;
-
-            cmdLocation.IsTabControlButton = true;
-            cmdLocation.BringToFront();
-            cmdLocation.Refresh();
-        }
-
-
-        private void ShowContainer_Location()
-        {
-            if (Global.Pilots.Count() == 0 || Global.Pilots.Selected == null || Global.Pilots.Selected.Location == null || Global.Pilots.Selected.Location.System == "unknown") return;
-
-            HideAllContainers();
-            
-
-            ContainerTabs.Activate("Location");
-
-
-            pnlContainer.BringToFront();
-
-            ResizeWindow();
-
-            ucContainreSolarSystem.BackColor = Color.Black;
-            ucContainreSolarSystem.Location = new Point(pnlContainer.Location.X, pnlContainer.Location.Y);
-            ucContainreSolarSystem.BringToFront();
-
-            ucContainreSolarSystem.Visible = true;
-
-            cmdLocation.IsTabControlButton = true;
-            cmdLocation.BringToFront();
-            cmdLocation.Refresh();
         }
 
         private void CheckVersion()
         {
             var client = new WebClient();
-            
+
+            var result = client.DownloadString("https://github.com/dunvit/WHL/blob/master/Versions/Version.txt");
             try
             {
-                var result = client.DownloadString("https://github.com/dunvit/WHL/blob/master/Versions/Version.txt");
-
                 var version = result.Split(new[] { "&lt;EveJimaVersionNumber&gt;" }, StringSplitOptions.None)[1];
 
-                if (version != Global.Settings.Version)
+                if (version != Global.Version)
                 {
                     MessageBox.Show("New version " + version + " ready for download.");
 
@@ -267,6 +207,11 @@ namespace WHL
                 cmdLocation.IsActive = true;
                 cmdLocation.Refresh();
             }
+
+            lblPilotName.Text = @"Log in as " + pilot.Name;
+            lblPilotName.Visible = true;
+
+            lblSolarSystemName.Text = pilot.Location.System;
         }
 
         private void CreateTooltipsForStatics()
@@ -348,7 +293,7 @@ namespace WHL
             ContainerTabs.Activate("Authorization");
 
             HideAllContainers();
-            
+            ucContainreAuthorization.Visible = true;
 
             pnlContainer.BringToFront();
 
@@ -364,8 +309,6 @@ namespace WHL
             ucContainreAuthorization.BackColor = Color.Black;
             ucContainreAuthorization.Location = new Point(pnlContainer.Location.X, pnlContainer.Location.Y);
             ucContainreAuthorization.BringToFront();
-
-            ucContainreAuthorization.Visible = true;
 
             cmdAuthirizationPanel.IsTabControlButton = true;
             cmdAuthirizationPanel.BringToFront();
@@ -431,7 +374,6 @@ namespace WHL
             ucContainerBookmarks.Visible = false;
             ucContainerPilotInfo.Visible = false;
             ucContainreSolarSystem.Visible = false;
-            ucTravelHistory.Visible = false;
             ucContainerlSolarSystemOffline.Visible = false;
             ucContainreAuthorization.Visible = false;
 
@@ -489,12 +431,16 @@ namespace WHL
             {
                 _windowIsMinimaze = false;
                 cmdMinimazeRestore.Image = Resources.minimize;
+                lblSolarSystemName.Visible = true;
+                lblPilotName.Visible = true;
                 Size = ContainerTabs.Active().Size;
             }
             else
             {
                 _windowIsMinimaze = true;
                 cmdMinimazeRestore.Image = Resources.restore;
+                lblSolarSystemName.Visible = true;
+                lblPilotName.Visible = false;
                 Size = ContainerTabs.Active().CompactSize;
             }
 
@@ -520,8 +466,15 @@ namespace WHL
                 {
                     Task.Run(() =>
                     {
+                        var locationId = pilot.Location.System;
+
                         Log.DebugFormat("[WindowMonitoring.RefreshTokenTimer_Tick] starting get location info for pilot = {0}", pilot.Name);
                         pilot.RefreshInfo();
+
+                        if (locationId != pilot.Location.System && pilot.Id == Global.Pilots.Selected.Id)
+                        {
+                                
+                        }
                     });
                 }
 
@@ -529,6 +482,8 @@ namespace WHL
                 {
                     RefreshSolarSystemInformation(Global.Pilots.Selected.Location);
                 }
+
+                lblSolarSystemName.Text = Global.Pilots.Selected.Location.System;
             }
         }
 
@@ -555,12 +510,16 @@ namespace WHL
             {
                 _windowIsMinimaze = false;
                 cmdMinimazeRestore.Image = Resources.minimize;
+                lblSolarSystemName.Visible = true;
+                lblPilotName.Visible = true;
                 Size = new Size(ContainerTabs.Active().Size.Width, ContainerTabs.Active().Size.Height);
             }
             else
             {
                 _windowIsMinimaze = true;
                 cmdMinimazeRestore.Image = Resources.restore;
+                lblSolarSystemName.Visible = true;
+                lblPilotName.Visible = false;
                 Size = new Size( ContainerTabs.Active().CompactSize.Width, ContainerTabs.Active().CompactSize.Height);
             }
 
@@ -588,12 +547,16 @@ namespace WHL
             {
                 _windowIsMinimaze = false;
                 cmdMinimazeRestore.Image = Resources.minimize;
+                lblSolarSystemName.Visible = true;
+                lblPilotName.Visible = true;
                 Size = ContainerTabs.Active().Size;
             }
             else
             {
                 _windowIsMinimaze = true;
                 cmdMinimazeRestore.Image = Resources.restore;
+                lblSolarSystemName.Visible = true;
+                lblPilotName.Visible = false;
                 Size = ContainerTabs.Active().CompactSize;
             }
 
@@ -615,15 +578,13 @@ namespace WHL
 
             HideAllContainers();
 
-            
+            ucContainerPilotInfo.Visible = true;
 
             ResizeWindow();
 
             ucContainerPilotInfo.BackColor = Color.Black;
             ucContainerPilotInfo.Location = new Point(pnlContainer.Location.X, pnlContainer.Location.Y);
             ucContainerPilotInfo.BringToFront();
-
-            ucContainerPilotInfo.Visible = true;
 
             cmdShowContainerPilots.IsTabControlButton = true;
             cmdShowContainerPilots.BringToFront();
@@ -636,15 +597,13 @@ namespace WHL
 
             HideAllContainers();
 
-            
+            ucContainerBookmarks.Visible = true;
 
             ResizeWindow();
 
             ucContainerBookmarks.BackColor = Color.Black;
             ucContainerBookmarks.Location = new Point(pnlContainer.Location.X, pnlContainer.Location.Y);
             ucContainerBookmarks.BringToFront();
-
-            ucContainerBookmarks.Visible = true;
 
             cmdShowContainerBookmarks.IsTabControlButton = true;
             cmdShowContainerBookmarks.BringToFront();
@@ -661,13 +620,30 @@ namespace WHL
             if (Global.Pilots.Count() > 0)
             {
                 ucContainreSolarSystem.RefreshSolarSystem(location);
-                ucTravelHistory.RefreshSolarSystem(location);
             }
         }
 
         private void Event_ShowContainerSolarSystemInfo(object sender, EventArgs e)
         {
-            ShowContainer_Location();
+            if (Global.Pilots.Count() == 0 || Global.Pilots.Selected == null || Global.Pilots.Selected.Location == null || Global.Pilots.Selected.Location.System == "unknown") return;
+
+            HideAllContainers();
+            ucContainreSolarSystem.Visible = true;
+
+            ContainerTabs.Activate("Location");
+
+
+            pnlContainer.BringToFront();
+
+            ResizeWindow();
+
+            ucContainreSolarSystem.BackColor = Color.Black;
+            ucContainreSolarSystem.Location = new Point(pnlContainer.Location.X, pnlContainer.Location.Y);
+            ucContainreSolarSystem.BringToFront();
+
+            cmdLocation.IsTabControlButton = true;
+            cmdLocation.BringToFront();
+            cmdLocation.Refresh();
         }
 
         private void cmdAuthirizationPanel_Click(object sender, EventArgs e)
@@ -683,13 +659,13 @@ namespace WHL
 
             ResizeWindow();
 
-            
+            ucContainerlSolarSystemOffline.Visible = true;
 
             ucContainerlSolarSystemOffline.BackColor = Color.Black;
             ucContainerlSolarSystemOffline.Location = new Point(pnlContainer.Location.X, pnlContainer.Location.Y);
             ucContainerlSolarSystemOffline.BringToFront();
 
-            ucContainerlSolarSystemOffline.Visible = true;
+
 
             cmdShowContainerSolarSystem.IsTabControlButton = true;
             cmdShowContainerSolarSystem.BringToFront();

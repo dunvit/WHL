@@ -15,22 +15,20 @@ namespace WHL.WhlControls
             "To login you will need to press the button and go to the  CCP SSO (single sign-on) site. All your private data will remain on the CCP's website.";
 
         private const string TextAfterAuthorizationInfo =
-            "You have successfully logged into the system and the EveJima can now keep track of your current position. You can log in again with another character.";
-
-        private const string TextErrorAuthorizationInfo = "It has failed to create a local server. Log in CCP SSO (single sign-on) site is not possible.";
+            "You have successfully logged into the system and the WHL (WormHoleLocator) can now keep track of your current position. You can log in again with another character.";
 
         public whlAuthorization()
         {
             InitializeComponent();
 
-            
+            lblAuthorizationInfo.Text = TextAuthorizationInfo;
         }
 
         private void Event_GoToCCPSSO(object sender, EventArgs e)
         {
-            var data = WebUtility.UrlEncode(@"http://localhost:" + Global.Settings.CCPSSO_AUTH_PORT + "/WormholeLocator");
+            var data = WebUtility.UrlEncode(@"http://localhost:8080/WormholeLocator");
             Process.Start("https://login.eveonline.com/oauth/authorize?response_type=code&redirect_uri=" + data +
-                          "&client_id=" + Global.Settings.CCPSSO_AUTH_CLIENT_ID + "&scope=" + Global.Settings.CCPSSO_AUTH_SCOPES + "&state=" + Global.Settings.CCPSSO_AUTH_CLIENT_STATE + "");
+                          "&client_id=8f1e2ac9d4aa467c88b12674926dc5e6&scope=characterLocationRead&state=75c68f04aec80589a157fd13");
         }
 
         public void PilotAuthorizeFlow(string code)
@@ -72,24 +70,6 @@ namespace WHL.WhlControls
             Global.Pilots.Activate(cmbPilots.Text);
 
             RefreshPilotInfo();
-        }
-
-        private void Event_FormLoad(object sender, EventArgs e)
-        {
-            
-        }
-
-        public void RefreshAuthorizationStatus()
-        {
-            if (Global.Settings.IsAuthorizationEnabled)
-            {
-                lblAuthorizationInfo.Text = TextAuthorizationInfo;
-            }
-            else
-            {
-                lblAuthorizationInfo.Text = TextErrorAuthorizationInfo;
-                btnLogInWithEveOnline.Visible = false;
-            }
         }
 
 

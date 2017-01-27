@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -15,54 +14,49 @@ namespace WHL
 
         public void ListenLocalhost(DelegateStartProcess StartPilotAuthorizeFlow)
         {
-            try
+            var web = new HttpListener();
+
+            const string url = "http://localhost";
+            const string port = "8080";
+            var prefix = string.Format("{0}:{1}/", url, port);
+
+            web.Prefixes.Add(prefix);
+
+            Log.DebugFormat("Listening new ..");
+
+            web.Start();
+
+            while (true)
             {
-                var web = new HttpListener();
-                const string url = "http://localhost";
-                string port = Global.Settings.CCPSSO_AUTH_PORT;
-                var prefix = string.Format("{0}:{1}/", url, port);
+                var context = web.GetContext();
 
-                web.Prefixes.Add(prefix);
-
-                Log.DebugFormat("Listening new ..");
-
-                web.Start();
-
-                while (true)
+                Task.Run(() =>
                 {
-                    var context = web.GetContext();
+                    var code = "";
 
-                    Task.Run(() =>
+                    Log.DebugFormat("Get new request.");
+
+                    foreach (var key in context.Request.QueryString.Keys.Cast<object>().Where(key => key.ToString() == "code"))
                     {
-                        var code = "";
+                        code = context.Request.QueryString[key.ToString()];
+                    }
 
-                        Log.DebugFormat("Get new request.");
+                    using (var writer = new StreamWriter(context.Response.OutputStream))
+                    {
+                        writer.WriteLine("Wormhole Locator authorize complete. Close this tab and return to application.");
+                    }
+                    context.Response.OutputStream.Close();
 
-                        foreach (var key in context.Request.QueryString.Keys.Cast<object>().Where(key => key.ToString() == "code"))
-                        {
-                            code = context.Request.QueryString[key.ToString()];
-                        }
+                    if (string.IsNullOrEmpty(code) == false)
+                    {
+                        StartPilotAuthorizeFlow(code);
+                    }
 
-                        using (var writer = new StreamWriter(context.Response.OutputStream))
-                        {
-                            writer.WriteLine("Wormhole Locator authorize complete. Close this tab and return to application.");
-                        }
-                        context.Response.OutputStream.Close();
+                });
 
-                        if (string.IsNullOrEmpty(code) == false)
-                        {
-                            StartPilotAuthorizeFlow(code);
-                        }
-                    });
-                }
+
+
             }
-            catch (Exception ex)
-            {
-                Global.Settings.IsAuthorizationEnabled = false;
-                Log.ErrorFormat("[CrestApiListener.ListenLocalhost] IsAuthorizationEnabled set FALSE Critical error = {0}", ex);
-            }
-
-            
 
         }
     }
